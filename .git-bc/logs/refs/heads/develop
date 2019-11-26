@@ -1,0 +1,76 @@
+0000000000000000000000000000000000000000 a85f8c7f419d11b8ebc204a6a4fd9fa93bb29582 Ivo Stoyanov <stoyanov@braincorporation.com> 1570556511 -0700	branch: Created from refs/remotes/origin/develop
+a85f8c7f419d11b8ebc204a6a4fd9fa93bb29582 b603fdee49bd53d48b59ebd7d2cfc2fba36e38f1 Ivo Stoyanov <stoyanov@braincorporation.com> 1570556544 -0700	commit: wip
+b603fdee49bd53d48b59ebd7d2cfc2fba36e38f1 e06ce9643d3340dcd567aba3f72af018ecb15b0b Ivo Stoyanov <stoyanov@braincorporation.com> 1570557341 -0700	commit: wip
+e06ce9643d3340dcd567aba3f72af018ecb15b0b a144a7b0ddc13498f42122a46270f2439a3c7c74 Ivo Stoyanov <stoyanov@braincorporation.com> 1570559462 -0700	commit: wip
+a144a7b0ddc13498f42122a46270f2439a3c7c74 e6e68ef857ff32b57179fcb0c445731539cf4818 Ivo Stoyanov <stoyanov@braincorporation.com> 1570559658 -0700	commit: wip
+e6e68ef857ff32b57179fcb0c445731539cf4818 72638b6461fee4491da969b9548a4855c4949b96 Ivo Stoyanov <stoyanov@braincorporation.com> 1570565324 -0700	commit: linter
+72638b6461fee4491da969b9548a4855c4949b96 97d0181851f480ea56d2a7b108877738a4ff8ef7 Ivo Stoyanov <stoyanov@braincorporation.com> 1570570318 -0700	commit: wip
+97d0181851f480ea56d2a7b108877738a4ff8ef7 0c7eb721f36176bd3b9dda5b8429076ad5a5483c Ivo Stoyanov <stoyanov@braincorporation.com> 1570572636 -0700	commit: wip
+0c7eb721f36176bd3b9dda5b8429076ad5a5483c c1c303030dfea0d2b2b2fff43620c71a84974277 Ivo Stoyanov <stoyanov@braincorporation.com> 1570572717 -0700	rebase -i (finish): refs/heads/develop onto f5bee7d64892b2c2e91da0a2d0654341324170d7
+c1c303030dfea0d2b2b2fff43620c71a84974277 20a546bc7dd2c8260e3b3eee0f7a828ca0ae6353 Ivo Stoyanov <stoyanov@braincorporation.com> 1570572816 -0700	rebase -i (finish): refs/heads/develop onto dcc418a5b8038681ab739a8a9cec4af3023301c8
+20a546bc7dd2c8260e3b3eee0f7a828ca0ae6353 59c8d0208a17fc2867b657d68329f168653f71ac Ivo Stoyanov <stoyanov@braincorporation.com> 1570573103 -0700	rebase -i (finish): refs/heads/develop onto 2a081446de59d24a4954c84fd9d039c0c6b44b1f
+59c8d0208a17fc2867b657d68329f168653f71ac b86c64b1d741dad40edd636b77e0c1004d21ff05 Ivo Stoyanov <stoyanov@braincorporation.com> 1570573292 -0700	commit: test
+b86c64b1d741dad40edd636b77e0c1004d21ff05 a2e8c41e7b7d5c19d2abaafea0280a653e2aea95 Ivo Stoyanov <stoyanov@braincorporation.com> 1570584332 -0700	commit: visitor
+a2e8c41e7b7d5c19d2abaafea0280a653e2aea95 602d02b6832deb8fa8b6dfbcc69813e813695b52 Ivo Stoyanov <stoyanov@braincorporation.com> 1570584620 -0700	rebase -i (finish): refs/heads/develop onto 2a081446de59d24a4954c84fd9d039c0c6b44b1f
+602d02b6832deb8fa8b6dfbcc69813e813695b52 b8a9b6955b59f5f9af7922c4fcd59cf262bb07ee Ivo Stoyanov <stoyanov@braincorporation.com> 1570635501 -0700	commit: regex
+b8a9b6955b59f5f9af7922c4fcd59cf262bb07ee 15bf209245f804d23867cf6ca419ef9c20bce71d Ivo Stoyanov <stoyanov@braincorporation.com> 1570638294 -0700	commit: rename
+15bf209245f804d23867cf6ca419ef9c20bce71d 0797f33c95837cd673f7a52e813c63e6cf96ccaf Ivo Stoyanov <stoyanov@braincorporation.com> 1570645778 -0700	commit: check
+0797f33c95837cd673f7a52e813c63e6cf96ccaf 2c2c7631cb9681ded47e6eca996ece69a1897490 Ivo Stoyanov <stoyanov@braincorporation.com> 1570647318 -0700	commit: config
+2c2c7631cb9681ded47e6eca996ece69a1897490 602d02b6832deb8fa8b6dfbcc69813e813695b52 Ivo Stoyanov <stoyanov@braincorporation.com> 1570647337 -0700	reset: moving to HEAD~4
+602d02b6832deb8fa8b6dfbcc69813e813695b52 71ad91f1338954fcd10851ef6e6826d72e736bcb Ivo Stoyanov <stoyanov@braincorporation.com> 1570647354 -0700	commit: config
+71ad91f1338954fcd10851ef6e6826d72e736bcb 495f6a2b2c679fb96a1a7148f3c2dc77a6e767ca Ivo Stoyanov <stoyanov@braincorporation.com> 1570655944 -0700	commit: run
+495f6a2b2c679fb96a1a7148f3c2dc77a6e767ca 40682cb497e44d8441c1fa169af4317285dbae5f Ivo Stoyanov <stoyanov@braincorporation.com> 1570658818 -0700	commit: writing
+40682cb497e44d8441c1fa169af4317285dbae5f c5cc951f32bd2e18ff969df32592d3ec53f1703e Ivo Stoyanov <stoyanov@braincorporation.com> 1570659259 -0700	commit: done
+c5cc951f32bd2e18ff969df32592d3ec53f1703e 401040ab74cde56459f838c2c70942b05edc38ad Ivo Stoyanov <stoyanov@braincorporation.com> 1570714952 -0700	commit: wip
+401040ab74cde56459f838c2c70942b05edc38ad 64f11ec1c489447e51bcbe26e16baa0844be211e Ivo Stoyanov <stoyanov@braincorporation.com> 1570714967 -0700	commit: wip
+64f11ec1c489447e51bcbe26e16baa0844be211e 59ef469f1fe4fb91fe3e01b0952bf0e1a99d3593 Ivo Stoyanov <stoyanov@braincorporation.com> 1570783312 -0700	commit: try envdecode - look good
+59ef469f1fe4fb91fe3e01b0952bf0e1a99d3593 bbf97c681418a98a7d397c63f4713cc555a52577 Ivo Stoyanov <stoyanov@braincorporation.com> 1571443448 -0700	commit: wip
+bbf97c681418a98a7d397c63f4713cc555a52577 2ff8450f6ea7336b5794e5820be6819b66abfe50 Ivo Stoyanov <stoyanov@braincorporation.com> 1571805144 -0700	commit: wip
+2ff8450f6ea7336b5794e5820be6819b66abfe50 ec099efddb0226667faf43b2d189d3b1bcdb5301 Ivo Stoyanov <stoyanov@braincorporation.com> 1572723676 -0700	commit: wip
+ec099efddb0226667faf43b2d189d3b1bcdb5301 fb6c60d5543d1cb5c4ade5de1cb34f986b12b3e8 Ivo Stoyanov <stoyanov@braincorporation.com> 1572729538 -0700	commit: HR
+fb6c60d5543d1cb5c4ade5de1cb34f986b12b3e8 a882c4158ebb370a8203a98243e412cf1bdca089 Ivo Stoyanov <stoyanov@braincorporation.com> 1572968523 -0800	commit: ring
+a882c4158ebb370a8203a98243e412cf1bdca089 3aa11cadd7b3115aa39ca0f1e9eff478b967751d Ivo Stoyanov <stoyanov@braincorporation.com> 1572993946 -0800	commit: hello whiz
+3aa11cadd7b3115aa39ca0f1e9eff478b967751d aed8815ff89d3d575469e1595b976246174204e6 Ivo Stoyanov <stoyanov@braincorporation.com> 1573334080 -0800	commit: dapr
+aed8815ff89d3d575469e1595b976246174204e6 fda0923d515355d6ddbc9c59cfc5f453aa998991 Ivo Stoyanov <stoyanov@braincorporation.com> 1573337284 -0800	commit: robot-shop
+fda0923d515355d6ddbc9c59cfc5f453aa998991 aeb31f9e500aacff271463215ca88d70d2ef497b Ivo Stoyanov <stoyanov@braincorporation.com> 1573379745 -0800	commit: giving up on big file
+aeb31f9e500aacff271463215ca88d70d2ef497b e434283dd80e0edb45905d2d9918bf01ffd5cfcb Ivo Stoyanov <stoyanov@braincorporation.com> 1573424562 -0800	commit: sliding window
+e434283dd80e0edb45905d2d9918bf01ffd5cfcb 4e243d08c00bef823b32b9c55ccc7b25ac110189 Ivo Stoyanov <stoyanov@braincorporation.com> 1573445620 -0800	commit: stocks
+4e243d08c00bef823b32b9c55ccc7b25ac110189 c0da55a9d877beb207d650f3641e4ea2ad88a97f Ivo Stoyanov <stoyanov@braincorporation.com> 1573485264 -0800	commit: rename
+c0da55a9d877beb207d650f3641e4ea2ad88a97f 985c4d0c7b47aefb7c63672ccfbe7b149afefde3 Ivo Stoyanov <stoyanov@braincorporation.com> 1573486303 -0800	commit: module
+985c4d0c7b47aefb7c63672ccfbe7b149afefde3 a1196d206c81b7b385a37513dbf777e1f062fa0e Ivo Stoyanov <stoyanov@braincorporation.com> 1573487254 -0800	commit: dsa
+a1196d206c81b7b385a37513dbf777e1f062fa0e 5122d5a6eb5da88285cba86a3f83ff98f8d5bf9b Ivo Stoyanov <stoyanov@braincorporation.com> 1573517919 -0800	commit: graph
+5122d5a6eb5da88285cba86a3f83ff98f8d5bf9b bbe6a4937fdbfb841bca86ce23073f724e0be163 Ivo Stoyanov <stoyanov@braincorporation.com> 1573526680 -0800	commit: wip
+bbe6a4937fdbfb841bca86ce23073f724e0be163 00e8f9c9b8e40f442fd29d79cd46df96d5e0f7ea Ivo Stoyanov <stoyanov@braincorporation.com> 1573610980 -0800	commit: wip
+00e8f9c9b8e40f442fd29d79cd46df96d5e0f7ea dc924156ab74d02ede6cadac48f82d76eb290d70 Ivo Stoyanov <stoyanov@braincorporation.com> 1573753196 -0800	commit: errors
+dc924156ab74d02ede6cadac48f82d76eb290d70 0c68a9bba9e7336443003556083a385c09e87616 Ivo Stoyanov <stoyanov@braincorporation.com> 1574084256 -0800	commit: wip
+0c68a9bba9e7336443003556083a385c09e87616 a7501cf6a8f379c737b063a8e649303b9d584a82 Ivo Stoyanov <stoyanov@braincorporation.com> 1574089079 -0800	commit: wip
+a7501cf6a8f379c737b063a8e649303b9d584a82 e60d382b91627d5bfa4085a6807dec6070b74bfd Ivo Stoyanov <stoyanov@braincorporation.com> 1574178064 -0800	commit: wip
+e60d382b91627d5bfa4085a6807dec6070b74bfd dbb7b87496b81f4507cee6310a535a7d3dcbabd1 Ivo Stoyanov <stoyanov@braincorporation.com> 1574178104 -0800	commit: wip
+dbb7b87496b81f4507cee6310a535a7d3dcbabd1 ab679d18ffd5c84cafaefe6aa2e901d9f6b84138 Ivo Stoyanov <stoyanov@braincorporation.com> 1574374635 -0800	commit: wip
+ab679d18ffd5c84cafaefe6aa2e901d9f6b84138 1599228437e73d96703dab32afadc93bcc103b73 Ivo Stoyanov <stoyanov@braincorporation.com> 1574374638 -0800	pull: Merge made by the 'recursive' strategy.
+1599228437e73d96703dab32afadc93bcc103b73 b31b1788c1eaaa2960b37da3e216bf9157194f03 Ivo Stoyanov <stoyanov@braincorporation.com> 1574374898 -0800	commit: wip
+b31b1788c1eaaa2960b37da3e216bf9157194f03 cea1675db94d23d78a9b853a03af182b78fdbbfb Ivo Stoyanov <stoyanov@braincorporation.com> 1574375302 -0800	commit: wip
+cea1675db94d23d78a9b853a03af182b78fdbbfb 368c1f6bfb67bd60b6bd3536a52a453b3b22a9d4 Ivo Stoyanov <stoyanov@braincorporation.com> 1574382280 -0800	pull: Fast-forward
+368c1f6bfb67bd60b6bd3536a52a453b3b22a9d4 4615d3521836aef400344534b7e4258a59939752 Ivo Stoyanov <stoyanov@braincorporation.com> 1574428335 -0800	commit: wip
+4615d3521836aef400344534b7e4258a59939752 afa967ec9f76c59ab56a04b127e5b307e81fbfc8 Ivo Stoyanov <stoyanov@braincorporation.com> 1574548153 -0800	commit: wip
+afa967ec9f76c59ab56a04b127e5b307e81fbfc8 e7c3efc0964be142a4b7cf4cb23345b6c339fcb5 Ivo Stoyanov <stoyanov@braincorporation.com> 1574548408 -0800	commit: grpc
+e7c3efc0964be142a4b7cf4cb23345b6c339fcb5 fb820d2f27d9f076f3ba46535236525c0c97a50c Ivo Stoyanov <stoyanov@braincorporation.com> 1574548769 -0800	commit: gogo
+fb820d2f27d9f076f3ba46535236525c0c97a50c 899878cf81f08f6a7c958a58ab26211d511fffaa Ivo Stoyanov <stoyanov@braincorporation.com> 1574552088 -0800	commit: grpc
+899878cf81f08f6a7c958a58ab26211d511fffaa 32da66e4ea7a4c38278dfacb8a220582c359bbd4 Ivo Stoyanov <stoyanov@braincorporation.com> 1574553563 -0800	commit: wip
+32da66e4ea7a4c38278dfacb8a220582c359bbd4 7d3863eb0920f455b6d1afe198ecea82c8dcca77 Ivo Stoyanov <stoyanov@braincorporation.com> 1574553719 -0800	commit: wip
+7d3863eb0920f455b6d1afe198ecea82c8dcca77 4d66d7981362d45eec6a76befefb5fe544a457ce Ivo Stoyanov <stoyanov@braincorporation.com> 1574553779 -0800	commit: wip
+4d66d7981362d45eec6a76befefb5fe544a457ce 887249871848be7d1271282e4715ebdb1e0c7e65 Ivo Stoyanov <stoyanov@braincorporation.com> 1574554333 -0800	commit: wip
+887249871848be7d1271282e4715ebdb1e0c7e65 1de2745fcfa2428960ba5ce29896178c173f781b Ivo Stoyanov <stoyanov@braincorporation.com> 1574554902 -0800	commit: wip
+1de2745fcfa2428960ba5ce29896178c173f781b e589db63217d0282bbb03c6cc16ca0dd54ab22b1 Ivo Stoyanov <stoyanov@braincorporation.com> 1574555629 -0800	commit: wip
+e589db63217d0282bbb03c6cc16ca0dd54ab22b1 6d5e2bee5e888d3d211187a99e0c67717d7c7dc8 Ivo Stoyanov <stoyanov@braincorporation.com> 1574556504 -0800	commit: wip
+6d5e2bee5e888d3d211187a99e0c67717d7c7dc8 aca8c1e1ba680482dd2fb1604906176e01840830 Ivo Stoyanov <stoyanov@braincorporation.com> 1574556812 -0800	commit: wip
+aca8c1e1ba680482dd2fb1604906176e01840830 552c5c795f9bd3d8fb7b8e19adc1bf61ae0689cb Ivo Stoyanov <stoyanov@braincorporation.com> 1574556953 -0800	commit: wip
+552c5c795f9bd3d8fb7b8e19adc1bf61ae0689cb 7add49036fce671ea302e3110839c622a26d6157 Ivo Stoyanov <stoyanov@braincorporation.com> 1574557011 -0800	commit: wip
+7add49036fce671ea302e3110839c622a26d6157 97b370d22d6ddf714c97facf76498d468bc93ca1 Ivo Stoyanov <stoyanov@braincorporation.com> 1574557441 -0800	commit: wip
+97b370d22d6ddf714c97facf76498d468bc93ca1 e0100468439b7e242655b681f4846fea639fa7f1 Ivo Stoyanov <stoyanov@braincorporation.com> 1574559237 -0800	commit: works
+e0100468439b7e242655b681f4846fea639fa7f1 59f8c6bf434bd75a8437cf9db7332f76943964c1 Ivo Stoyanov <stoyanov@braincorporation.com> 1574562592 -0800	commit: server stream
+59f8c6bf434bd75a8437cf9db7332f76943964c1 e8eabc0b5e7a78f94acdb6964885f65469259892 Ivo Stoyanov <stoyanov@braincorporation.com> 1574564033 -0800	commit: wip
+e8eabc0b5e7a78f94acdb6964885f65469259892 3d9d04276d4c145c4b9f181106afd5d39a27c540 Ivo Stoyanov <stoyanov@braincorporation.com> 1574641651 -0800	commit: client streaming
+3d9d04276d4c145c4b9f181106afd5d39a27c540 705fa93e35b77100e50d07ccc9d41af29edcadbb Ivo Stoyanov <stoyanov@braincorporation.com> 1574647529 -0800	commit: bi-directional streaming
+705fa93e35b77100e50d07ccc9d41af29edcadbb a2b3e90ecc5e379bd6c36a2fd016644cacadbf1b Ivo Stoyanov <stoyanov@braincorporation.com> 1574697858 -0800	commit: config
+a2b3e90ecc5e379bd6c36a2fd016644cacadbf1b fea12e118579cecd20f6b808c25eb9d7ee21916a Ivo Stoyanov <stoyanov@braincorporation.com> 1574704241 -0800	commit: tls ok

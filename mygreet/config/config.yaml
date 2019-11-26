@@ -1,0 +1,9 @@
+# grpc config
+
+endpoint: "0.0.0.0:1234"
+
+# secure 0=no TLS, 1=server, 2=mTLS
+secure: 0
+
+keyFile: "../ssl/server.pem"
+certFile: "../ssl/server.crt"

@@ -1,0 +1,6 @@
+# grpc config
+
+endpoint: "localhost:52052"
+
+# secure 0=no TLS, 1=server, 2=mTLS
+secure: 1

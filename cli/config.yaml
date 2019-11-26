@@ -1,0 +1,15 @@
+# This file contains all available configuration options
+# with their default values.
+run:
+  skip-files:
+    - "*.tmp"
+    - ".gitconfig"
+
+  # default concurrency = num of CPU cores
+  concurrency: 2
+
+# input configuration options
+input:
+
+# output configuration options
+output:

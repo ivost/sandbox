@@ -1,0 +1,5 @@
+
+This file should be skipped (files: *.go)
+
+Should not get header
+

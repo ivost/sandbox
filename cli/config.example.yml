@@ -1,0 +1,14 @@
+# This file contains all available configuration options
+# with their default values.
+
+run:
+
+  # default concurrency = num of CPU cores
+  concurrency: 4
+
+# input configuration options
+input:
+
+# output configuration options
+output:
+

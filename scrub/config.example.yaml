@@ -1,0 +1,39 @@
+################################
+# scrub configuration parameters
+################################
+
+# This file contains all available configuration options
+# with their default values.
+
+run:
+  # default concurrency = num of CPU cores
+  concurrency: 4
+
+# input configuration options
+input:
+  root: test/testdata
+  # directory with header file - if missing root will be used
+  header-dir:
+  # header file name
+  header: header.txt
+
+  # skip directories (regex, . is auto-escaped)
+  # no need to specify: .git, vendor, testdata, third-party...
+  skip-dirs:
+    - "subdir"
+
+  # skip files (regex, * is auto-escaped)
+  skip-files:
+    - "*_gen.go"
+
+  # patterns to check in the beginning of file
+  # only 2X size of the header is searched
+  # strings are converted to lowercase - so the patterns below are not case-sensitive
+  # .* is regex for 0 or more characters
+  skip:
+    - ".*Brain Corp.*"
+    - ".*copyright.*"
+
+# output configuration options
+output:
+

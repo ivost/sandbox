@@ -1,0 +1,9 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+images:
+- name: 930325689781.dkr.ecr.us-west-2.amazonaws.com/cloud-shield
+resources:
+  - ../../base
+patchesStrategicMerge:
+  - deployment.yaml
+  - ingress.yaml

@@ -1,0 +1,12 @@
+apiVersion: skaffold/v1
+kind: Config
+metadata:
+  name: qotm-py
+build:
+  artifacts:
+  - image: ivostoy/qotm
+deploy:
+  kubectl:
+    manifests:
+    - kubernetes/qotm-deployment.yaml
+    - kubernetes/qotm-service.yaml

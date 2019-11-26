@@ -1,0 +1,8 @@
+telepresence.log
+*cache*
+venv
+target
+.classpath
+.project
+.settings
+node_modules

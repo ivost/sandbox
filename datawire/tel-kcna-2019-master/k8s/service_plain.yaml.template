@@ -1,0 +1,45 @@
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: __NAME__
+  labels:
+    app: __NAME__
+spec:
+  selector:
+    app: __NAME__
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 8000
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: __NAME__
+  labels:
+    app: __NAME__
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: __NAME__
+  template:
+    metadata:
+      labels:
+        app: __NAME__
+    spec:
+      containers:
+      - name: __NAME__
+        image: {{image "../services/__NAME__/Dockerfile"}}
+        ports:
+          - containerPort: 8000
+---
+apiVersion: getambassador.io/v1
+kind: Mapping
+metadata:
+  name: __NAME__
+spec:
+  prefix: /__NAME__/
+  service: __NAME__
+  timeout_ms: 300000

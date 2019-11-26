@@ -1,0 +1,26 @@
+sudo: false
+dist: trusty
+language: python
+
+addons:
+  apt:
+    packages:
+    - python3
+
+python:
+- '3.6'
+
+install:
+- pip install -r requirements.txt
+
+services:
+- docker
+
+env:
+  global:
+  - DOCKER_REGISTRY=-
+  - COMMIT=${TRAVIS_COMMIT::8}
+  - secure: ik2Hra4hI2ONILXjSDkxs8g1mY9TfH+3X6blkqmqolj0ufEh/Jdz8C4kvmUTqFw9IThlqKfg9Le0l68Zy77xw7gFGf5uk3nj9mcpAeIn3nVPfHzqgPs5/x/acyK3aQrBUrezkqg8BHVW/5KvU1dR/2fDpCIn0V2+1zVK32uULd5hnaZBeNSI3p+17M3fTubeM8tbmx7PkUBo9R0PqjODLvIlDgEuDUZYjaxwqFxru75h5+616tcc0fac3rGRf53cWLiuDF30hmrJSdkiAdRCqk2MKk5Kk7/N1/QqLXrUFzdHY2wjWJQVib+TvSvh1CxQ5lshHTYg1Nf0WGhwCkxB/t6vPyMd9x2WfkeSDecNolYemEEJwS5H/YBiWkEz08LCGNbeKeoZC2dRAmNW9EE3J+Nm0txkZTPs0m0NkqYB/vQCnvZYYbythf6jss+8iqM29AFfYi4JbKXv8CboU8KhHcpKPwR5ac/OgXCW4UlYu1lN6fkwRDdMIQk3VBLRLjjDSOY75miIB44VQ7bP6CQoZZVrrEgA0t8Fd+rU2DJXrVI/6Uv8+URhgSKM7b5d03TwQlu+5eoZKa/cfgIjaKS4UnkL+Nat+ZOA6GkXAhjyTCWYtMekzlgV8hF9M6niFLJtv4wwSsesE3bPWZHJaE4nPSKCeaI4omRitqSQ/a3FoDI=
+
+script:
+- bash travis-build.sh

@@ -1,0 +1,37 @@
+kind: Deployment
+apiVersion: apps/v1
+metadata:
+  name: boss-shield-deploy
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: boss-shield-service
+  template:
+    metadata:
+      labels:
+        app: boss-shield-service
+      annotations:
+        iam.amazonaws.com/role: boss-shield-test2
+    spec:
+      containers:
+      - name: boss-shield-service
+        env:
+          - name: VAULT_ADDR
+            value: https://vault.dev.security.braintld.com:8200
+          - name: AWS_ROLE
+            value: boss-shield-test2
+          - name: SUBCA
+            value: shield-test2-subca1
+          - name: VAULT_ROLE
+            value: shield-test2-subca1
+          - name: ROCS_URL
+            value: https://api.test2.roc.braintld.com
+          - name: ROCS_APP_ID
+            value: 01DRFMPJTXMDNSXR75VMRMSPZE
+          - name: ROCS_APP_SECRET
+            value: tJNItrkf0IJNV2hVGtzPoup3LW3vSNFuJ6Uovf0EMgZ6fV53al5TXID4fGBNyTzc
+          - name: SUBCA_EXP
+            value: 43800h
+          - name: CERT_EXP
+            value: 4380h

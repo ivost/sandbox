@@ -1,14 +1,18 @@
 package main
 
 import (
-	"github.com/ivostoyanov-bc/sandbox/mygreet/client"
-	"github.com/ivostoyanov-bc/sandbox/mygreet/config"
+	"log"
+
+	"github.com/ivost/sandbox/mygreet/client"
+	"github.com/ivost/sandbox/mygreet/config"
 )
 
 func main() {
 	cf := config.DefaultConfigFile
 	conf := config.New(cf)
 	c := client.New(conf)
+
+	log.Printf("grpc client endpoint:  %v, secure: %v", conf.Endpoint, conf.Secure)
 	c.DoUnary()
 
 	// c.DoServerStream()

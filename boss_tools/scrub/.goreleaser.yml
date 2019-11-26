@@ -1,0 +1,21 @@
+builds:
+- main: ./cmd/main.go
+  env:
+      - CGO_ENABLED=0
+  binary: scrub
+  goos:
+    - linux
+    - darwin
+  goarch:
+    - amd64
+before:
+  hooks:
+    - go mod tidy
+archives:
+  - format: tar.gz
+    files:
+      - header.txt
+      - config.example.yaml
+      - README.md
+      - LICENSE
+

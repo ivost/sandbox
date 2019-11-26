@@ -15,22 +15,18 @@ import (
 	"github.com/improbable-eng/grpc-web/go/grpcweb"
 	"github.com/ktr0731/dept/logger"
 	"github.com/ktr0731/grpc-test/api"
+	_ "github.com/ktr0731/grpc-test/statik"
 	"github.com/rakyll/statik/fs"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/credentials"
 	"google.golang.org/grpc/reflection"
-
-	_ "github.com/ktr0731/grpc-test/statik"
 )
 
 type Server struct {
 	logger *log.Logger
-
-	s *grpc.Server
-
-	ws *http.Server
-
-	opts *opt
+	s      *grpc.Server
+	ws     *http.Server
+	opts   *opt
 }
 
 func New(opts ...Option) *Server {

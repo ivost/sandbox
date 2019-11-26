@@ -4,7 +4,7 @@
 #set -e
 
 #echo 🔥 ✋ 🛑  💣
-### echo v.1.10.11.0
+### echo v.1.11.27.0
 #echo 🔥 ✋ 🛑  💣
 
 
@@ -19,6 +19,8 @@ export HISTIGNORE="rm *:h:a"
 #MYIP=$(ifconfig | grep 'inet addr:'| grep -v '127.0.0.1' | tail -1 | cut -d: -f2 | awk '{ print $1}')
 #export PS1=$MYIP" \W $"
 
+#echo 🔥
+
 alias a='alias'
 alias e='echo'
 alias h='history'
@@ -28,6 +30,7 @@ alias t=tree
 alias gr=egrep
 alias del='rm'
 alias subl='/Applications/Sublime\ Text.app/Contents/SharedSupport/Bin/subl'
+alias m=multipass
 #alias ep='subl ~/.profile; source ~/.profile'
 #alias ep='subl ~/.bash_profile; source ~/.bash_profile'
 #alias erc='subl ~/.bashrc; source ~/.bashrc'
@@ -40,6 +43,7 @@ alias ....="cd ../../.."
 alias .....="cd ../../../.."
 alias ~="cd ~" # `cd` is probably faster to type though
 alias -- -="cd -"
+alias cex='chmod +x'
 
 # Shortcuts
 alias dl="cd ~/Downloads"
@@ -191,7 +195,7 @@ alias npmi='npm install'
 
 alias d=docker
 
-alias dclr='docker rm `docker ps --no-trunc -q` '
+alias dclr='docker rm $(docker ps -a -f status=exited -q)'
 alias dim='docker images'
 alias dk='docker kill'
 alias dps='docker ps -a'
@@ -291,8 +295,8 @@ function LEN() {
 #[[   -f $CF ]] && source $CF
 
 #kubectl run nginx --image=nginx
-export PATH=$HOME/Library/Python/2.7/bin:$PATH
-export ROC=$GOPATH/src/github.com/braincorp/roc_services
+#export PATH=$HOME/Library/Python/2.7/bin:$PATH
+#export ROC=$GOPATH/src/github.com/braincorp/roc_services
 
 #a rocs='go run cmd/rocs/main.go'
 
@@ -406,11 +410,10 @@ if [[ "$OSTYPE" =~ ^darwin ]]; then
 	function iterm2_print_user_vars() {
 	   iterm2_set_user_var gitBranch "$( (git branch 2> /dev/null) | grep '\*' | cut -c3-)"
 	}
-  x=$(brew --prefix)/etc/bash_completion
+	#x=$(brew --prefix)/etc/bash_completion
 	# shellcheck disable=SC1090
-	[[ -f "$x" ]] && source "$x"
+	#[[ -f "$x" ]] && source "$x"
 fi
-
 
 a sh-kong='ssh -i ~/.ssh/aws-ec2-bc-ivo.pem ubuntu@52.38.228.77'
 
@@ -426,8 +429,6 @@ a git-w='git checkout feature/roc-2219-caching'
 #curl -i -X POST -H "$A" $URL  -d '{"value": "'$L'"}'
 #curl -i -X POST -H "$A" $URL2  -d '{"value": "'$L'"}'
 
-a v=vault
-
 # colorizer
 [[ -s "/usr/local/etc/grc.bashrc" ]] && source /usr/local/etc/grc.bashrc
 
@@ -440,7 +441,6 @@ alias sshv='ssh -vvv -o LogLevel=DEBUG3'
 alias mode="stat -f '%A %a %N' "
 
 export CFH=http://localhost:8888
-#export VAULT_ADDR='http://127.0.0.1:8200'
 
 export PATH=$PATH:~/tools/platform-tools/:~/Library/Python/3.7/bin
 
@@ -463,6 +463,7 @@ a git-w='git checkout feature/roc-2219-caching'
 #curl -i -X POST -H "$A" $URL2  -d '{"value": "'$L'"}'
 
 a v=vault
+
 
 # colorizer
 [[ -s "/usr/local/etc/grc.bashrc" ]] && source /usr/local/etc/grc.bashrc
@@ -505,15 +506,11 @@ alias sk=skaffold
 
 #minikube start --kubernetes-version v1.16.0 --vm-driver=none/virtualbox
 
-
 a ac='asciinema'
 # exit / ctrl/D
 # asciinema auth
 # asciinema play $1
 #asciinema rec -t "My git tutorial"
-
-
-
 
 export VAULT_ADDR=https://vault.dev.security.braintld.com:8200
 a vlogin='vault login -method=okta username=ivo.stoyanov@braincorp.com'
@@ -526,7 +523,6 @@ a vlogin='vault login -method=okta username=ivo.stoyanov@braincorp.com'
 # export VAULT_API_ADDR='http://127.0.0.1:8200'
 # export VAULT_DEV_ROOT_TOKEN_ID=root
 # export VAULT_TOKEN=root
-
 
 alias ecr-login='$(aws ecr get-login --region ${region} --no-include-email)'
 alias tf=terraform
@@ -734,8 +730,12 @@ a da='direnv allow'
 ###  🔥 K8S 🔥  ###
 ####################
 
+# https://kubernetes.io/docs/reference/kubectl/cheatsheet/#scaling-resources
+
 alias k='kubectl'
 alias kc='kubectl create'
+alias kd='kubectl describe'
+alias kg='kubectl get'
 alias kl='kubectl logs'
 alias kp='kube-prompt'
 alias ki='kubectl cluster-info'
@@ -750,8 +750,12 @@ alias kcud='kubectl config use-context docker-desktop'
 alias kgn='kubectl get nodes -o wide'
 alias kdn='kubectl describe  node'
 alias kgns='kubectl get namespaces'
-alias kgp='kubectl get pods -o wide'
+alias kgp='kubectl get pods '
+alias kgpw='kubectl get pods -o wide'
 alias kdp='kubectl describe pod'
+alias kd-p='kubectl delete pod'
+alias kd-s='kubectl delete service'
+alias kd-d='kubectl delete deployment'
 
 alias kgpa='kubectl get pods --all-namespaces -o wide'
 alias kgs='kubectl get services -o wide'
@@ -760,7 +764,12 @@ alias kgd='kubectl get deployments -o wide'
 alias kdd='kubectl describe deployment'
 
 alias kaf='kubectl apply -f'
+alias kdf='kubectl delete -f'
 alias kex='kubectl exec -it $1 -- sh'
+
+alias ksd1='kubectl scale --replicas 1 deployment'
+alias ksd2='kubectl scale --replicas 2 deployment'
+alias ksd3='kubectl scale --replicas 3 deployment'
 
 #alias kgpa='kubectl get pod -l app=$1 -o jsonpath='{.items[0].metadata.name}''
 
@@ -778,11 +787,13 @@ alias sh-uu='kubectl exec -it ubuntu-util -- /bin/bash'
 #kubectl exec -it $(kubectl get pod -l app=ratings -o jsonpath='{.items[0].metadata.name}') -c ratings -- curl productpage:9080/productpage | grep -o "<title>.*</title>"
 
 # for shield
-export CONFIG_PATH="$HOME/src/boss_shield/test_data"
-export DATA_PATH="/root/dev2-state"
-export GITHUB_TOKEN=3f649a9e416d71c889d0488d26c3eb347191afd0
+#export CONFIG_PATH="$HOME/src/boss_shield/test_data"
+#export DATA_PATH="/root/dev2-state"
+#export GITHUB_TOKEN=3f649a9e416d71c889d0488d26c3eb347191afd0
 
-eval "$(direnv hook bash)"
+#eval "$(direnv hook bash)"
+
+
 
 export PATH="${KREW_ROOT:-$HOME/.krew}/bin:$PATH"
 export PATH=$PATH:/usr/local/Cellar/minikube/1.5.2/bin
@@ -799,15 +810,29 @@ alias vcheck='vault status && vault secrets list && cp ~/.vault-token /root/.vau
 
 # comment unless using kind
 #export KUBECONFIG="$(kind get kubeconfig-path --name="kind")"
-export PATH="$PATH:/$HOME/istio/istio-1.4.0/bin"
+#export PATH="$PATH:/$HOME/istio/istio-1.4.0/bin"
 a i='istioctl --remote=false'
+
+a dex='docker exec -it'
+
+a mks='minikube start  --kubernetes-version=1.15.6 --memory='10000mb' --cpus=4'
+
+# when local/port forward
+export VAULT_ADDR='http://127.0.0.1:8200'
 
 # KUBECONFIG=$(kind get kubeconfig-path) kubectl config view | grep server
 #export KUBECONFIG=/Users/ivostoyanov/.wks/weavek8sops/example/kubeconfig
 
-export APISERVER=$(kubectl config view | grep server | cut -f 2- -d ":" | tr -d " ")
-export TOKEN=$(kubectl get secret --field-selector type=kubernetes.io/service-account-token -o name | grep default-token- | head -n 1 | xargs kubectl get -o 'jsonpath={.data.token}' | base64 --decode)
-alias ksvcs='curl $APISERVER/api/v1/namespaces/default/services -H "Authorization: Bearer $TOKEN" --insecure'
-alias kapi='open https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.16'
+## export APISERVER=$(kubectl config view | grep server | cut -f 2- -d ":" | tr -d " ")
+## export TOKEN=$(kubectl get secret --field-selector type=kubernetes.io/service-account-token -o name | grep default-token- | head -n 1 | xargs kubectl get -o 'jsonpath={.data.token}' | base64 --decode)
+
+#alias ksvcs='curl $APISERVER/api/v1/namespaces/default/services -H "Authorization: Bearer $TOKEN" --insecure'
+#alias kapi='open https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.16'
+
+#alias aws=aws2
+
+# docker run -d --name=logtest alpine /bin/sh -c "while true; do sleep 5; echo working...; done"
+
+#echo 🔥🔥🔥🔥
 
 ##############

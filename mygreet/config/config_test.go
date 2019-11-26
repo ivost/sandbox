@@ -3,7 +3,7 @@ package config_test
 import (
 	"testing"
 
-	"github.com/ivostoyanov-bc/sandbox/mygreet/config"
+	"github.com/ivost/sandbox/mygreet/config"
 	"github.com/stretchr/testify/require"
 )
 

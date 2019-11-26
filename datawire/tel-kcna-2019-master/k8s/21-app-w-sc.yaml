@@ -1,0 +1,58 @@
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: app-w-sc
+  labels:
+    app: app-w-sc
+spec:
+  selector:
+    app: app-w-sc
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 8080
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: app-w-sc
+  labels:
+    app: app-w-sc
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: app-w-sc
+  template:
+    metadata:
+      labels:
+        app: app-w-sc
+    spec:
+      containers:
+      - name: app
+        image: openshift/hello-openshift:latest
+        ports:
+          - containerPort: 8080
+        env:
+          - name: POSTGRES_ENV_POSTGRES_USER
+            value: postgres
+          - name: POSTGRES_ENV_POSTGRES_PASSWORD
+            value: ""
+          - name: POSTGRES_PORT_5432_TCP_ADDR
+            value: localhost
+          - name: POSTGRES_PORT_5432_TCP_PORT
+            value: "5432"
+          - name: TINI_SUBREAPER
+            value: "true"
+      - name: database
+        image: postgres:9.6-alpine
+---
+apiVersion: getambassador.io/v1
+kind: Mapping
+metadata:
+  name: app-w-sc
+spec:
+  prefix: /app-w-sc/
+  service: app-w-sc
+  timeout_ms: 300000

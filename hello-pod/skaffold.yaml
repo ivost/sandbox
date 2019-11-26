@@ -1,0 +1,12 @@
+apiVersion: skaffold/v1
+kind: Config
+metadata:
+  name: hello
+build:
+  artifacts:
+  - image: ivostoy/hello
+deploy:
+  kubectl:
+    manifests:
+    - kustomize/base/deployment.yaml
+    - kustomize/base/service.yaml

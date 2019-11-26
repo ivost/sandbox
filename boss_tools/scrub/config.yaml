@@ -1,0 +1,46 @@
+################################
+# scrub configuration parameters
+################################
+
+# input configuration options
+input:
+  # root of source code tree
+  #root: test/testdata
+  root: ../../roc_services/
+  # directory with header file - if missing the root will be used
+  header-dir: .
+  # header file name
+  header: header.txt
+
+  files:
+    - "*.go"
+
+  # skip directories (regex, . is auto-escaped)
+  # no need to specify: .git, vendor, testdata, third-party
+  skip-dirs:
+    - web
+    - migration
+    - migrations
+    - ".git"
+    - ".gitattributes"
+    - vendor
+
+  # skip files (regex, * is auto-escaped)
+  skip-files:
+    - "*_gen.go"
+    - "*.pb.go"
+    - ".gitkeep"
+    - ".gitignore"
+
+  # patterns to check in the beginning of file
+  # only 2X size of the header is searched
+  # strings are converted to lowercase - so the patterns below are not case-sensitive
+  # .* is regex for 0 or more characters
+  skip:
+    - ".*Brain Corp.*"
+    - ".*copyright.*"
+  # estimated number of  dirs + files (for the progress bar)
+  estimated-size: 2200
+
+# output configuration options
+output:

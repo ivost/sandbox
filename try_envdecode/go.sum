@@ -1,2 +1,4 @@
+github.com/dgrijalva/jwt-go v3.2.0+incompatible h1:7qlOGliEKZXTDg6OTjfoBKDXWrumCAMpl/TFQ4/5kLM=
+github.com/dgrijalva/jwt-go v3.2.0+incompatible/go.mod h1:E3ru+11k8xSBh+hMPgOLZmtrrCbhqsmaPHjLKYnJCaQ=
 github.com/joeshaw/envdecode v0.0.0-20190604014844-d6d9849fcc2c h1:Z7RM1P7EAxnD1w40nHzHiW0uSpQmhAaUwyoUB6jqn+A=
 github.com/joeshaw/envdecode v0.0.0-20190604014844-d6d9849fcc2c/go.mod h1:MEQrHur0g8VplbLOv5vXmDzacSaH9Z7XhcgsSh1xciU=

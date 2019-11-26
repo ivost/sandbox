@@ -4,16 +4,15 @@ import (
 	"context"
 	"log"
 
+	"github.com/ivost/sandbox/mygreet/config"
+	v1 "github.com/ivost/sandbox/mygreet/greet"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/credentials"
-
-	"github.com/ivostoyanov-bc/sandbox/mygreet/config"
-	"github.com/ivostoyanov-bc/sandbox/mygreet/protos"
 )
 
 type Client struct {
 	conf   *config.Config
-	client protos.GreetServiceClient
+	client v1.GreetServiceClient
 }
 
 func New(conf *config.Config) *Client {
@@ -23,7 +22,7 @@ func New(conf *config.Config) *Client {
 		if err != nil {
 			panic(err)
 		}
-		c.client = protos.NewGreetServiceClient(conn)
+		c.client = v1.NewGreetServiceClient(conn)
 		return c
 	}
 	creds, err := credentials.NewClientTLSFromFile(conf.CertFile, "")
@@ -34,20 +33,26 @@ func New(conf *config.Config) *Client {
 	if err != nil {
 		panic(err)
 	}
-	c.client = protos.NewGreetServiceClient(conn)
+	c.client = v1.NewGreetServiceClient(conn)
 	return c
 }
 
 func (c *Client) DoUnary() error {
-	req := &protos.GreetRequest{
-		Greeting: &protos.Greeting{
+	req := &v1.GreetRequest{
+		Greeting: &v1.Greeting{
 			FirstName: "Ivo",
 			LastName:  "Stoyanov",
 		},
 	}
 	ctx := context.Background()
 	// unary
-	resp, err := c.client.Greet(ctx, req)
-	log.Printf("resp %+v, err %v", resp, err)
-	return err
+	for i := 0; i < 5; i++ {
+		resp, err := c.client.Greet(ctx, req)
+		if err != nil {
+			log.Printf("*** error: %+v", err)
+			continue
+		}
+		log.Printf("response: %+v", resp)
+	}
+	return nil
 }

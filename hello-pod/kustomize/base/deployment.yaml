@@ -1,0 +1,44 @@
+kind: Deployment
+apiVersion: apps/v1
+
+metadata:
+  name: hello
+
+spec:
+  replicas: 2
+  minReadySeconds: 5
+  revisionHistoryLimit: 5
+  progressDeadlineSeconds: 60
+  strategy:
+    rollingUpdate:
+      maxUnavailable: 0
+    type: RollingUpdate
+  selector:
+    matchLabels:
+      app: hello
+  template:
+    metadata:
+      labels:
+        app: hello
+      annotations:
+        prometheus.io/scrape: "false"
+
+    spec:
+      containers:
+      - name: hello
+        image: ivostoy/hello:0.11.29.0
+        imagePullPolicy: Always
+        env:
+          - name: MY_PORT
+            value: "8080"
+        ports:
+        - containerPort: 8080
+          name: http
+          protocol: TCP
+        resources:
+          limits:
+            cpu: 100m
+            memory: 64Mi
+          requests:
+            cpu: 100m
+            memory: 64Mi

@@ -1,0 +1,14 @@
+#!/bin/bash -eu
+
+recent_days=$(for i in {0..14}; do gdate +%Y-%m-%d -d "$i day ago"; done)
+
+ENV="$1"
+echo "$ENV"
+for d in $recent_days;
+    do echo -ne "$d\t";
+    aws cloudwatch get-metric-statistics --metric-name IncomingBytes \
+        --start-time "$d"T00:00:00Z --end-time "$d"T23:59:59Z \
+        --period 86400 --namespace AWS/Logs --statistics Sum \
+        --region us-west-2 --dimensions Name=LogGroupName,Value=$ENV \
+        | jq .Datapoints[0].Sum | awk '{ total = $1 / 1000000 ; print total " MB" }'
+done;

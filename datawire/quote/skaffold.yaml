@@ -1,0 +1,11 @@
+apiVersion: skaffold/v1
+kind: Config
+metadata:
+  name: quote
+build:
+  artifacts:
+  - image: ivostoy/quote
+deploy:
+  kubectl:
+    manifests:
+    - kubernetes/quote.yaml

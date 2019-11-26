@@ -52,7 +52,7 @@ func New(yamlFile string) *Config {
 		flags,
 	)
 	if err != nil {
-		panic(err)
+		//panic(err)
 	}
 	err = mconfig.Scan(conf)
 	if err != nil {

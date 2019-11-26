@@ -5,9 +5,8 @@ import (
 )
 
 type opt struct {
-	protocol Protocol
-	addr     string
-
+	protocol      Protocol
+	addr          string
 	tls           bool
 	cert, certKey string
 	rootCACert    string
@@ -19,7 +18,7 @@ type opt struct {
 type Option func(*opt)
 
 var defaultOption = opt{
-	addr: ":50051",
+	addr: ":50551",
 }
 
 type Protocol int

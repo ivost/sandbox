@@ -1,0 +1,12 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: boss-shield-ingress
+  annotations:
+    alb.ingress.kubernetes.io/security-groups: sg-08726e22ca6de083d
+    alb.ingress.kubernetes.io/certificate-arn: arn:aws:acm:us-west-2:930325689781:certificate/d300bef5-6e07-419e-a197-8572ff1e8171
+
+spec:
+  tls:
+    - hosts:
+      - shield.test2.roc.braintld.com

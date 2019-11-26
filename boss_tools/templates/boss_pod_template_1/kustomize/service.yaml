@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: boss_pod_template
+  labels:
+    app: boss_pod_template
+spec:
+  type: ClusterIP
+  selector:
+    app: boss_pod_template
+  ports:
+    - name: http
+      port: 8080
+      protocol: TCP
+      targetPort: http

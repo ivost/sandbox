@@ -1,7 +1,7 @@
 module github.com/ktr0731/grpc-test
 
 require (
-	github.com/golang/protobuf v1.2.0
+	github.com/golang/protobuf v1.3.2
 	github.com/gorilla/websocket v1.4.0 // indirect
 	github.com/improbable-eng/grpc-web v0.9.1
 	github.com/ktr0731/dept v0.1.1

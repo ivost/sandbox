@@ -1,0 +1,282 @@
+# @TEMPLATE@
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: base
+  labels:
+    app: base
+spec:
+  selector:
+    app: base
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 8000
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: base
+  labels:
+    app: base
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: base
+  template:
+    metadata:
+      labels:
+        app: base
+    spec:
+      containers:
+      - name: base
+        image: {{image "../services/base/Dockerfile"}}
+        ports:
+          - containerPort: 8000
+---
+apiVersion: getambassador.io/v1
+kind: Mapping
+metadata:
+  name: base
+spec:
+  prefix: /base/
+  service: base
+  timeout_ms: 300000
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: python
+  labels:
+    app: python
+spec:
+  selector:
+    app: python
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 9900
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: python
+  labels:
+    app: python
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: python
+  template:
+    metadata:
+      labels:
+        app: python
+    spec:
+      containers:
+      - name: python
+        image: {{image "../services/python/Dockerfile"}}
+        ports:
+          - containerPort: 8000
+      - name: agent
+        image: quay.io/datawire/ambassador-pro:app-sidecar-0.1.1-rc1
+        ports:
+          - containerPort: 9900
+        env:
+          - name: APPNAME
+            value: python
+          - name: APPPORT
+            value: "8000"
+          - name: AMBASSADOR_LICENSE_KEY
+            value: {{env "AMBASSADOR_LICENSE_KEY"}}
+---
+apiVersion: getambassador.io/v1
+kind: Mapping
+metadata:
+  name: python
+spec:
+  prefix: /python/
+  service: python
+  timeout_ms: 300000
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: go
+  labels:
+    app: go
+spec:
+  selector:
+    app: go
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 8000
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: go
+  labels:
+    app: go
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: go
+  template:
+    metadata:
+      labels:
+        app: go
+    spec:
+      containers:
+      - name: go
+        image: {{image "../services/go/Dockerfile"}}
+        ports:
+          - containerPort: 8000
+---
+apiVersion: getambassador.io/v1
+kind: Mapping
+metadata:
+  name: go
+spec:
+  prefix: /go/
+  service: go
+  timeout_ms: 300000
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: java
+  labels:
+    app: java
+spec:
+  selector:
+    app: java
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 8000
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: java
+  labels:
+    app: java
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: java
+  template:
+    metadata:
+      labels:
+        app: java
+    spec:
+      containers:
+      - name: java
+        image: {{image "../services/java/Dockerfile"}}
+        ports:
+          - containerPort: 8000
+---
+apiVersion: getambassador.io/v1
+kind: Mapping
+metadata:
+  name: java
+spec:
+  prefix: /java/
+  service: java
+  timeout_ms: 300000
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: node
+  labels:
+    app: node
+spec:
+  selector:
+    app: node
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 8000
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: node
+  labels:
+    app: node
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: node
+  template:
+    metadata:
+      labels:
+        app: node
+    spec:
+      containers:
+      - name: node
+        image: {{image "../services/node/Dockerfile"}}
+        ports:
+          - containerPort: 8000
+---
+apiVersion: getambassador.io/v1
+kind: Mapping
+metadata:
+  name: node
+spec:
+  prefix: /node/
+  service: node
+  timeout_ms: 300000
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: rust
+  labels:
+    app: rust
+spec:
+  selector:
+    app: rust
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 8000
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: rust
+  labels:
+    app: rust
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: rust
+  template:
+    metadata:
+      labels:
+        app: rust
+    spec:
+      containers:
+      - name: rust
+        image: {{image "../services/rust/Dockerfile"}}
+        ports:
+          - containerPort: 8000
+---
+apiVersion: getambassador.io/v1
+kind: Mapping
+metadata:
+  name: rust
+spec:
+  prefix: /rust/
+  service: rust
+  timeout_ms: 300000

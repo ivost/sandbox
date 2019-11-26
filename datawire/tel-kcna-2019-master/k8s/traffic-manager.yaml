@@ -1,0 +1,44 @@
+# @TEMPLATE@
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: telepresence-proxy
+spec:
+  type: ClusterIP
+  clusterIP: None
+  selector:
+    app: telepresence-proxy
+  ports:
+  - name: sshd
+    protocol: TCP
+    port: 8022
+  - name: api
+    protocol: TCP
+    port: 8081
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: telepresence-proxy
+  labels:
+    app: telepresence-proxy
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: telepresence-proxy
+  template:
+    metadata:
+      labels:
+        app: telepresence-proxy
+    spec:
+      containers:
+      - name: telepresence-proxy
+        image: quay.io/datawire/ambassador-pro:traffic-proxy-0.1.1-rc1
+        ports:
+        - name: sshd
+          containerPort: 8022
+        env:
+        - name: AMBASSADOR_LICENSE_KEY
+          value: {{env "AMBASSADOR_LICENSE_KEY"}}

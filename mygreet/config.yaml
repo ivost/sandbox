@@ -1,6 +1,7 @@
 # grpc config
 
+# generated cert is for localhost
 endpoint: "localhost:52052"
 
 # secure 0=no TLS, 1=server, 2=mTLS
-secure: 1
+secure: 0

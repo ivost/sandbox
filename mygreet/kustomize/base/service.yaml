@@ -9,7 +9,11 @@ spec:
   selector:
     app: hello
   ports:
-    - name: http
-      port: 52052
+    - name: grpc
+      port: 80
       protocol: TCP
-      targetPort: http
+      targetPort: grpc-api
+    - name: rest
+      port: 8080
+      protocol: TCP
+      targetPort: 8080

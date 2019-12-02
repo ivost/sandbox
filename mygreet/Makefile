@@ -7,7 +7,7 @@ NAME := mygreet
 # dockerhub
 DOCKER_REPO=ivostoy
 DAEMON=
-VERSION=0.12.01.2
+VERSION=0.12.2.1
 
 # Make does not offer a recursive wildcard function, so here's one:
 rwildcard=$(wildcard $1$2) $(foreach d,$(wildcard $1*),$(call rwildcard,$d/,$2))
@@ -34,6 +34,13 @@ IMG_BLD=${DOCKER_REPO}/${NAME}:${IMG_BLD_TAG}
 
 BASE=./kustomize/base
 OVERLAYS=./kustomize/overlays
+POD:=$(shell kubectl get pod -l app=hello -o  jsonpath='{.items[*].metadata.name}') > /dev/nul
+
+# kubectl get pods -l app=hello -o=jsonpath="{range .items[*]}{.metadata.name}{"\n"}{end}"
+
+# kubectl get pods -l app=hello -o jsonpath="{.items[*]['metadata.name']}"
+
+# kubectl get pods -l app=ambassador -o jsonpath="{.items[*]['metadata.name']}"
 
 #include common.mk
 
@@ -46,17 +53,20 @@ define msgc
 	@printf "\n"
 endef
 
-.DEFAULT_GOAL := drun
+#.PHONY: all
+.DEFAULT_GOAL := all
+all: dbuild dpush kundeploy kdeploy		## docker dbuild / dpush / kdeploy 
 
 .PHONY: list
 list: ## List all make targets
 	@$(MAKE) -pRrn : -f $(MAKEFILE_LIST) 2>/dev/null | awk -v RS= -F: '/^# File/,/^# Finished Make data base/ {if ($$2 !~ "^[#.]") {print $$2}}' | egrep -v -e '^[^[:alnum:]]' -e '^$@$$' | sort
 
 .PHONY: help
-.DEFAULT_GOAL := help
+### .DEFAULT_GOAL := help
 help: ## Show help message
 	$(call msgc,"usage: make [target]")
 	@grep -E '^[a-zA-Z_-]+:.*?## .*$$' $(MAKEFILE_LIST) | sort | awk 'BEGIN {FS = ":*?## "}; {printf "\033[36m%-20s\033[0m %s\n", $$1, $$2}'
+
 
 .PHONY: run
 run: build		## Build and run server (local)
@@ -72,18 +82,16 @@ build:  ## Build binary for the current OS
 .PHONY: build.linux
 build-linux:  ## Build binary for linux (2phase build is very slow)
 	GOOS=linux go $(BUILD_TARGET) $(BUILDFLAGS) -o lbuild/server cmd/server/server.go
-	GOOS=linux go $(BUILD_TARGET) $(BUILDFLAGS) -o lbuild/client cmd/client/client.go
-	chmod +x lbuild/server
-	chmod +x lbuild/client
-
-#CGO_ENABLED=0 go $(BUILD_TARGET) $(BUILDFLAGS) -o build/server cmd/server/server.go
+	#GOOS=linux go $(BUILD_TARGET) $(BUILDFLAGS) -o lbuild/client cmd/client/client.go
+	#chmod +x lbuild/server
+	#chmod +x lbuild/client
 
 ##########
 # Docker #
 ##########
 
 .PHONY: dbuild
-dbuild:	build.linux ## - Build local - copy to docker image
+dbuild:	build-linux ## - Build local - copy to docker image
 	$(call msgc,"Building docker image $(IMG) ...")
 	docker build --tag $(IMG) .
 	#docker push $(IMG)
@@ -108,7 +116,6 @@ dbuild.multi:	## - Build docker image in CI
 		   --cache-from=$(IMG_BLD) \
 		   --cache-from=$(IMG) \
 		   --tag $(IMG) .
-
 	# Push the new versions:
 	docker push $(IMG_BLD)
 	docker push $(IMG)
@@ -129,7 +136,7 @@ drun: dbuild ## - Run docker container
 	@echo when running in minikube - check you DOCKER_HOST minikube docker-env
 	@echo i.e. http://192.168.99.100:8080
 	@echo ---
-	@docker run --rm $(DAEMON) --name $(NAME) -p 52052:52052 $(IMG)
+	@docker run --rm $(DAEMON) --name $(NAME) -p 8080:8080 -p 52052:52052 $(IMG)
 
 .PHONY: dkill
 dkill: ## - Kill running docker container
@@ -169,3 +176,11 @@ kundeploy: ## Undeploy from k8s
 	#kustomize build $(OVERLAYS)/test2 | kubectl delete -f -
 	@set -e
 	sleep 1
+
+.PHONY: kpf
+kpf: ## port forwarding
+	kubectl port-forward $(POD) 52052:52052 8080:8080
+
+.PHONY: kcall
+kcall: ## call into k8s via ambassador
+	build/client -config=client-config.yaml

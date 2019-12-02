@@ -26,14 +26,19 @@ spec:
     spec:
       containers:
       - name: hello
-        image: ivostoy/mygreet:0.12.01.1
+        image: ivostoy/mygreet:0.12.2.0
         imagePullPolicy: Always
         env:
           - name: GRPC_PORT
             value: "52052"
+          - name: REST_PORT
+            value: "8080"
         ports:
         - containerPort: 52052
-          name: http
+          name: grpc-api
+          protocol: TCP
+        - containerPort: 8080
+          name: rest
           protocol: TCP
         resources:
           limits:

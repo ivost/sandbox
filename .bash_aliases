@@ -811,7 +811,7 @@ alias vcheck='vault status && vault secrets list && cp ~/.vault-token /root/.vau
 # comment unless using kind
 #export KUBECONFIG="$(kind get kubeconfig-path --name="kind")"
 #export PATH="$PATH:/$HOME/istio/istio-1.4.0/bin"
-a i='istioctl --remote=false'
+a i='istioctl'
 
 a dex='docker exec -it'
 
@@ -819,6 +819,9 @@ a mks='minikube start  --kubernetes-version=1.15.6 --memory='10000mb' --cpus=4'
 
 # when local/port forward
 export VAULT_ADDR='http://127.0.0.1:8200'
+
+a dep='make kdeploy'
+a und='make kundeploy'
 
 # KUBECONFIG=$(kind get kubeconfig-path) kubectl config view | grep server
 #export KUBECONFIG=/Users/ivostoyanov/.wks/weavek8sops/example/kubeconfig

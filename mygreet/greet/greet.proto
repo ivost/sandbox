@@ -1,9 +1,14 @@
 syntax = "proto3";
 
 package greet;
-//option go_package="greet";
 
 import "google/api/annotations.proto";
+import "google/protobuf/empty.proto";
+
+message HealthResponse {
+    string status = 1;
+    string time = 2;
+}
 
 message Greeting {
     string first_name = 1;
@@ -18,49 +23,56 @@ message GreetResponse {
     string result = 1;
 }
 
-//message ServerStreamRequest {
-//    int64 MaxPrime = 1;
-//}
-//
-//message ServerStreamResponse {
-//    int64 Prime = 1;
-//}
-//
-//message ClientStreamRequest {
-//    int64 Index = 1;
-//    int64 Number = 2;
-//}
-//
-//message ClientStreamResponse {
-//    int64 StartIndex = 1;
-//    int64 EndIndex = 2;
-//    int64 Sum = 3;
-//}
-//
-//message BiDirStreamRequest {
-//    int64 Index = 1;
-//    int64 Number = 2;
-//}
-//
-//message BiDirStreamResponse {
-//    int64 StartIndex = 1;
-//    int64 EndIndex = 2;
-//    int64 Sum = 3;
-//}
+message ServerStreamRequest {
+    int64 MaxPrime = 1;
+}
+
+message ServerStreamResponse {
+    int64 Prime = 1;
+}
+
+message ClientStreamRequest {
+    int64 Index = 1;
+    int64 Number = 2;
+}
+
+message ClientStreamResponse {
+    int64 StartIndex = 1;
+    int64 EndIndex = 2;
+    int64 Sum = 3;
+}
+
+message BiDirStreamRequest {
+    int64 Index = 1;
+    int64 Number = 2;
+}
+
+message BiDirStreamResponse {
+    int64 StartIndex = 1;
+    int64 EndIndex = 2;
+    int64 Sum = 3;
+}
 
 service GreetService{
     // unary
+
+    rpc Health(google.protobuf.Empty) returns (HealthResponse) {
+        option (google.api.http) = {
+                get: "/health"
+            };
+    }
+
     rpc Greet(GreetRequest) returns (GreetResponse) {
         option (google.api.http) = {
-            post: "/greet"
+            post: "/hello"
             body: "*"
         };
     }
 
-//    // server streaming
-//    rpc ServerStream(ServerStreamRequest) returns (stream ServerStreamResponse) {}
-//    // client streaming
-//    rpc ClientStream(stream ClientStreamRequest) returns (ClientStreamResponse) {}
-//    // bi-directional streaming
-//    rpc BiDirStream(stream BiDirStreamRequest) returns (stream BiDirStreamResponse) {}
+    // server streaming
+    rpc ServerStream(ServerStreamRequest) returns (stream ServerStreamResponse) {}
+    // client streaming
+    rpc ClientStream(stream ClientStreamRequest) returns (ClientStreamResponse) {}
+    // bi-directional streaming
+    rpc BiDirStream(stream BiDirStreamRequest) returns (stream BiDirStreamResponse) {}
 }

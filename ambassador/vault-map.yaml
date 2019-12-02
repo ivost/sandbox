@@ -1,0 +1,7 @@
+apiVersion: getambassador.io/v1
+kind: Mapping
+metadata:
+  name: vault-map
+spec:
+  prefix: /vault/
+  service: vault:8200

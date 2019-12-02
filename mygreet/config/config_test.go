@@ -11,10 +11,11 @@ const configFile = "./config.yaml"
 
 func TestConfig(t *testing.T) {
 	exp := &config.Config{
-		Endpoint: "0.0.0.0:1234",
+		GrpcAddr: "0.0.0.0:52053",
+		RestAddr: "0.0.0.0:8081",
 		Secure:   0,
-		CertFile: "../ssl/server.crt",
-		KeyFile:  "../ssl/server.pem",
+		CertFile: "../ssl/server1.crt",
+		KeyFile:  "../ssl/server1.pem",
 	}
 	cfg := config.New(configFile)
 	require.NotNil(t, cfg)

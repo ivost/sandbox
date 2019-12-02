@@ -1,9 +1,9 @@
-# grpc config
 
-endpoint: "0.0.0.0:1234"
+grpcAddr: "0.0.0.0:52053"
+restAddr: "0.0.0.0:8081"
 
 # secure 0=no TLS, 1=server, 2=mTLS
 secure: 0
 
-keyFile: "../ssl/server.pem"
-certFile: "../ssl/server.crt"
+keyFile: "../ssl/server1.pem"
+certFile: "../ssl/server1.crt"

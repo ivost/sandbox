@@ -60,12 +60,12 @@ func New(conf *config.Config) *Server {
 func (s *Server) ListenAndServe() error {
 	var err error
 
-	l, err := net.Listen("tcp", s.conf.Endpoint)
+	l, err := net.Listen("tcp", s.conf.GrpcAddr)
 	if err != nil {
 		return err
 	}
 
-	log.Printf("grpc Server ListenAndServe on %v, secure: %v", s.conf.Endpoint, s.conf.Secure)
+	log.Printf("grpc Server ListenAndServe on %v, secure: %v", s.conf.GrpcAddr, s.conf.Secure)
 
 	go func() {
 		err = s.srv.Serve(l)
@@ -84,12 +84,12 @@ func (s *Server) ListenAndServe() error {
 	defer cancel()
 
 	time.Sleep(1 * time.Second)
-	err = v1.RegisterGreetServiceHandlerFromEndpoint(ctx, mux, s.conf.Endpoint, opts)
+	err = v1.RegisterGreetServiceHandlerFromEndpoint(ctx, mux, s.conf.GrpcAddr, opts)
 	if err != nil {
 		log.Printf("Register service error %v", err)
 		return err
 	}
-	log.Printf("REST Server ListenAndServe on %v, secure: %v", 8080, s.conf.Secure)
+	log.Printf("REST Server ListenAndServe on %v/greet, secure: %v", 8080, s.conf.Secure)
 	return http.ListenAndServe(":8080", mux)
 	return err
 }

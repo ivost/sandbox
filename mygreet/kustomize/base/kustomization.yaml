@@ -4,10 +4,13 @@ kind: Kustomization
 resources:
 - deployment.yaml
 - service.yaml
+- map1.yaml
+- map2.yaml
+
 images:
 - name: ivostoy/hello
   newName: ivostoy/hello
   newTag: 0.11.29.0
 - name: ivostoy/mygreet
   newName: ivostoy/mygreet
-  newTag: 0.12.01.1
+  newTag: 0.12.2.1

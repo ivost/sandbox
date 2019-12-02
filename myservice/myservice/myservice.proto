@@ -1,0 +1,26 @@
+syntax = "proto3";
+
+package myservice;
+
+import "google/api/annotations.proto";
+import "google/protobuf/empty.proto";
+
+message HealthResponse {
+    string status = 10;
+    string time = 20;
+    string name = 30;
+    string address = 40;
+    string version = 50;
+    string build = 60;
+}
+
+service MyService{
+    // unary
+
+    rpc Health(google.protobuf.Empty) returns (HealthResponse) {
+        option (google.api.http) = {
+                get: "/health"
+            };
+    }
+
+}

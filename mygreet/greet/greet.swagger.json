@@ -11,9 +11,24 @@
     "application/json"
   ],
   "paths": {
-    "/greet": {
+    "/health": {
+      "get": {
+        "operationId": "Health",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/greetHealthResponse"
+            }
+          }
+        },
+        "tags": [
+          "GreetService"
+        ]
+      }
+    },
+    "/hello": {
       "post": {
-        "summary": "unary",
         "operationId": "Greet",
         "responses": {
           "200": {
@@ -40,6 +55,40 @@
     }
   },
   "definitions": {
+    "greetBiDirStreamResponse": {
+      "type": "object",
+      "properties": {
+        "StartIndex": {
+          "type": "string",
+          "format": "int64"
+        },
+        "EndIndex": {
+          "type": "string",
+          "format": "int64"
+        },
+        "Sum": {
+          "type": "string",
+          "format": "int64"
+        }
+      }
+    },
+    "greetClientStreamResponse": {
+      "type": "object",
+      "properties": {
+        "StartIndex": {
+          "type": "string",
+          "format": "int64"
+        },
+        "EndIndex": {
+          "type": "string",
+          "format": "int64"
+        },
+        "Sum": {
+          "type": "string",
+          "format": "int64"
+        }
+      }
+    },
     "greetGreetRequest": {
       "type": "object",
       "properties": {
@@ -66,6 +115,89 @@
           "type": "string"
         }
       }
+    },
+    "greetHealthResponse": {
+      "type": "object",
+      "properties": {
+        "status": {
+          "type": "string"
+        },
+        "time": {
+          "type": "string"
+        }
+      }
+    },
+    "greetServerStreamResponse": {
+      "type": "object",
+      "properties": {
+        "Prime": {
+          "type": "string",
+          "format": "int64"
+        }
+      }
+    },
+    "protobufAny": {
+      "type": "object",
+      "properties": {
+        "type_url": {
+          "type": "string"
+        },
+        "value": {
+          "type": "string",
+          "format": "byte"
+        }
+      }
+    },
+    "runtimeStreamError": {
+      "type": "object",
+      "properties": {
+        "grpc_code": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "http_code": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "message": {
+          "type": "string"
+        },
+        "http_status": {
+          "type": "string"
+        },
+        "details": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/protobufAny"
+          }
+        }
+      }
+    }
+  },
+  "x-stream-definitions": {
+    "greetBiDirStreamResponse": {
+      "type": "object",
+      "properties": {
+        "result": {
+          "$ref": "#/definitions/greetBiDirStreamResponse"
+        },
+        "error": {
+          "$ref": "#/definitions/runtimeStreamError"
+        }
+      },
+      "title": "Stream result of greetBiDirStreamResponse"
+    },
+    "greetServerStreamResponse": {
+      "type": "object",
+      "properties": {
+        "result": {
+          "$ref": "#/definitions/greetServerStreamResponse"
+        },
+        "error": {
+          "$ref": "#/definitions/runtimeStreamError"
+        }
+      },
+      "title": "Stream result of greetServerStreamResponse"
     }
   }
 }

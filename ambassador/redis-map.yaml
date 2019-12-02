@@ -1,0 +1,7 @@
+apiVersion: getambassador.io/v1
+kind: Mapping
+metadata:
+  name: redis-map
+spec:
+  prefix: /redis/
+  service: redis-master:6379

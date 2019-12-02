@@ -7,7 +7,7 @@ import (
 
 func main() {
 	for {
-		log.Printf("Hello Ivo")
+		log.Printf("Hello Ivo ****")
 		log.Printf(".........")
 		time.Sleep(5*time.Second)
 	}

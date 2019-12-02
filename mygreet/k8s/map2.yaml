@@ -1,0 +1,9 @@
+apiVersion: getambassador.io/v1
+kind: Mapping
+metadata:
+  name: hello-map2
+spec:
+  grpc: true
+  prefix: /greet.GreetService/
+  rewrite: /greet.GreetService/
+  service: hello

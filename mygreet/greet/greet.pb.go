@@ -7,6 +7,7 @@ import (
 	context "context"
 	fmt "fmt"
 	proto "github.com/golang/protobuf/proto"
+	empty "github.com/golang/protobuf/ptypes/empty"
 	_ "google.golang.org/genproto/googleapis/api/annotations"
 	grpc "google.golang.org/grpc"
 	codes "google.golang.org/grpc/codes"
@@ -25,6 +26,53 @@ var _ = math.Inf
 // proto package needs to be updated.
 const _ = proto.ProtoPackageIsVersion3 // please upgrade the proto package
 
+type HealthResponse struct {
+	Status               string   `protobuf:"bytes,1,opt,name=status,proto3" json:"status,omitempty"`
+	Time                 string   `protobuf:"bytes,2,opt,name=time,proto3" json:"time,omitempty"`
+	XXX_NoUnkeyedLiteral struct{} `json:"-"`
+	XXX_unrecognized     []byte   `json:"-"`
+	XXX_sizecache        int32    `json:"-"`
+}
+
+func (m *HealthResponse) Reset()         { *m = HealthResponse{} }
+func (m *HealthResponse) String() string { return proto.CompactTextString(m) }
+func (*HealthResponse) ProtoMessage()    {}
+func (*HealthResponse) Descriptor() ([]byte, []int) {
+	return fileDescriptor_285dce36ca2d93c1, []int{0}
+}
+
+func (m *HealthResponse) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_HealthResponse.Unmarshal(m, b)
+}
+func (m *HealthResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_HealthResponse.Marshal(b, m, deterministic)
+}
+func (m *HealthResponse) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_HealthResponse.Merge(m, src)
+}
+func (m *HealthResponse) XXX_Size() int {
+	return xxx_messageInfo_HealthResponse.Size(m)
+}
+func (m *HealthResponse) XXX_DiscardUnknown() {
+	xxx_messageInfo_HealthResponse.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_HealthResponse proto.InternalMessageInfo
+
+func (m *HealthResponse) GetStatus() string {
+	if m != nil {
+		return m.Status
+	}
+	return ""
+}
+
+func (m *HealthResponse) GetTime() string {
+	if m != nil {
+		return m.Time
+	}
+	return ""
+}
+
 type Greeting struct {
 	FirstName            string   `protobuf:"bytes,1,opt,name=first_name,json=firstName,proto3" json:"first_name,omitempty"`
 	LastName             string   `protobuf:"bytes,2,opt,name=last_name,json=lastName,proto3" json:"last_name,omitempty"`
@@ -37,7 +85,7 @@ func (m *Greeting) Reset()         { *m = Greeting{} }
 func (m *Greeting) String() string { return proto.CompactTextString(m) }
 func (*Greeting) ProtoMessage()    {}
 func (*Greeting) Descriptor() ([]byte, []int) {
-	return fileDescriptor_285dce36ca2d93c1, []int{0}
+	return fileDescriptor_285dce36ca2d93c1, []int{1}
 }
 
 func (m *Greeting) XXX_Unmarshal(b []byte) error {
@@ -83,7 +131,7 @@ func (m *GreetRequest) Reset()         { *m = GreetRequest{} }
 func (m *GreetRequest) String() string { return proto.CompactTextString(m) }
 func (*GreetRequest) ProtoMessage()    {}
 func (*GreetRequest) Descriptor() ([]byte, []int) {
-	return fileDescriptor_285dce36ca2d93c1, []int{1}
+	return fileDescriptor_285dce36ca2d93c1, []int{2}
 }
 
 func (m *GreetRequest) XXX_Unmarshal(b []byte) error {
@@ -122,7 +170,7 @@ func (m *GreetResponse) Reset()         { *m = GreetResponse{} }
 func (m *GreetResponse) String() string { return proto.CompactTextString(m) }
 func (*GreetResponse) ProtoMessage()    {}
 func (*GreetResponse) Descriptor() ([]byte, []int) {
-	return fileDescriptor_285dce36ca2d93c1, []int{2}
+	return fileDescriptor_285dce36ca2d93c1, []int{3}
 }
 
 func (m *GreetResponse) XXX_Unmarshal(b []byte) error {
@@ -150,31 +198,337 @@ func (m *GreetResponse) GetResult() string {
 	return ""
 }
 
+type ServerStreamRequest struct {
+	MaxPrime             int64    `protobuf:"varint,1,opt,name=MaxPrime,proto3" json:"MaxPrime,omitempty"`
+	XXX_NoUnkeyedLiteral struct{} `json:"-"`
+	XXX_unrecognized     []byte   `json:"-"`
+	XXX_sizecache        int32    `json:"-"`
+}
+
+func (m *ServerStreamRequest) Reset()         { *m = ServerStreamRequest{} }
+func (m *ServerStreamRequest) String() string { return proto.CompactTextString(m) }
+func (*ServerStreamRequest) ProtoMessage()    {}
+func (*ServerStreamRequest) Descriptor() ([]byte, []int) {
+	return fileDescriptor_285dce36ca2d93c1, []int{4}
+}
+
+func (m *ServerStreamRequest) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_ServerStreamRequest.Unmarshal(m, b)
+}
+func (m *ServerStreamRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_ServerStreamRequest.Marshal(b, m, deterministic)
+}
+func (m *ServerStreamRequest) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_ServerStreamRequest.Merge(m, src)
+}
+func (m *ServerStreamRequest) XXX_Size() int {
+	return xxx_messageInfo_ServerStreamRequest.Size(m)
+}
+func (m *ServerStreamRequest) XXX_DiscardUnknown() {
+	xxx_messageInfo_ServerStreamRequest.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_ServerStreamRequest proto.InternalMessageInfo
+
+func (m *ServerStreamRequest) GetMaxPrime() int64 {
+	if m != nil {
+		return m.MaxPrime
+	}
+	return 0
+}
+
+type ServerStreamResponse struct {
+	Prime                int64    `protobuf:"varint,1,opt,name=Prime,proto3" json:"Prime,omitempty"`
+	XXX_NoUnkeyedLiteral struct{} `json:"-"`
+	XXX_unrecognized     []byte   `json:"-"`
+	XXX_sizecache        int32    `json:"-"`
+}
+
+func (m *ServerStreamResponse) Reset()         { *m = ServerStreamResponse{} }
+func (m *ServerStreamResponse) String() string { return proto.CompactTextString(m) }
+func (*ServerStreamResponse) ProtoMessage()    {}
+func (*ServerStreamResponse) Descriptor() ([]byte, []int) {
+	return fileDescriptor_285dce36ca2d93c1, []int{5}
+}
+
+func (m *ServerStreamResponse) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_ServerStreamResponse.Unmarshal(m, b)
+}
+func (m *ServerStreamResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_ServerStreamResponse.Marshal(b, m, deterministic)
+}
+func (m *ServerStreamResponse) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_ServerStreamResponse.Merge(m, src)
+}
+func (m *ServerStreamResponse) XXX_Size() int {
+	return xxx_messageInfo_ServerStreamResponse.Size(m)
+}
+func (m *ServerStreamResponse) XXX_DiscardUnknown() {
+	xxx_messageInfo_ServerStreamResponse.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_ServerStreamResponse proto.InternalMessageInfo
+
+func (m *ServerStreamResponse) GetPrime() int64 {
+	if m != nil {
+		return m.Prime
+	}
+	return 0
+}
+
+type ClientStreamRequest struct {
+	Index                int64    `protobuf:"varint,1,opt,name=Index,proto3" json:"Index,omitempty"`
+	Number               int64    `protobuf:"varint,2,opt,name=Number,proto3" json:"Number,omitempty"`
+	XXX_NoUnkeyedLiteral struct{} `json:"-"`
+	XXX_unrecognized     []byte   `json:"-"`
+	XXX_sizecache        int32    `json:"-"`
+}
+
+func (m *ClientStreamRequest) Reset()         { *m = ClientStreamRequest{} }
+func (m *ClientStreamRequest) String() string { return proto.CompactTextString(m) }
+func (*ClientStreamRequest) ProtoMessage()    {}
+func (*ClientStreamRequest) Descriptor() ([]byte, []int) {
+	return fileDescriptor_285dce36ca2d93c1, []int{6}
+}
+
+func (m *ClientStreamRequest) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_ClientStreamRequest.Unmarshal(m, b)
+}
+func (m *ClientStreamRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_ClientStreamRequest.Marshal(b, m, deterministic)
+}
+func (m *ClientStreamRequest) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_ClientStreamRequest.Merge(m, src)
+}
+func (m *ClientStreamRequest) XXX_Size() int {
+	return xxx_messageInfo_ClientStreamRequest.Size(m)
+}
+func (m *ClientStreamRequest) XXX_DiscardUnknown() {
+	xxx_messageInfo_ClientStreamRequest.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_ClientStreamRequest proto.InternalMessageInfo
+
+func (m *ClientStreamRequest) GetIndex() int64 {
+	if m != nil {
+		return m.Index
+	}
+	return 0
+}
+
+func (m *ClientStreamRequest) GetNumber() int64 {
+	if m != nil {
+		return m.Number
+	}
+	return 0
+}
+
+type ClientStreamResponse struct {
+	StartIndex           int64    `protobuf:"varint,1,opt,name=StartIndex,proto3" json:"StartIndex,omitempty"`
+	EndIndex             int64    `protobuf:"varint,2,opt,name=EndIndex,proto3" json:"EndIndex,omitempty"`
+	Sum                  int64    `protobuf:"varint,3,opt,name=Sum,proto3" json:"Sum,omitempty"`
+	XXX_NoUnkeyedLiteral struct{} `json:"-"`
+	XXX_unrecognized     []byte   `json:"-"`
+	XXX_sizecache        int32    `json:"-"`
+}
+
+func (m *ClientStreamResponse) Reset()         { *m = ClientStreamResponse{} }
+func (m *ClientStreamResponse) String() string { return proto.CompactTextString(m) }
+func (*ClientStreamResponse) ProtoMessage()    {}
+func (*ClientStreamResponse) Descriptor() ([]byte, []int) {
+	return fileDescriptor_285dce36ca2d93c1, []int{7}
+}
+
+func (m *ClientStreamResponse) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_ClientStreamResponse.Unmarshal(m, b)
+}
+func (m *ClientStreamResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_ClientStreamResponse.Marshal(b, m, deterministic)
+}
+func (m *ClientStreamResponse) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_ClientStreamResponse.Merge(m, src)
+}
+func (m *ClientStreamResponse) XXX_Size() int {
+	return xxx_messageInfo_ClientStreamResponse.Size(m)
+}
+func (m *ClientStreamResponse) XXX_DiscardUnknown() {
+	xxx_messageInfo_ClientStreamResponse.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_ClientStreamResponse proto.InternalMessageInfo
+
+func (m *ClientStreamResponse) GetStartIndex() int64 {
+	if m != nil {
+		return m.StartIndex
+	}
+	return 0
+}
+
+func (m *ClientStreamResponse) GetEndIndex() int64 {
+	if m != nil {
+		return m.EndIndex
+	}
+	return 0
+}
+
+func (m *ClientStreamResponse) GetSum() int64 {
+	if m != nil {
+		return m.Sum
+	}
+	return 0
+}
+
+type BiDirStreamRequest struct {
+	Index                int64    `protobuf:"varint,1,opt,name=Index,proto3" json:"Index,omitempty"`
+	Number               int64    `protobuf:"varint,2,opt,name=Number,proto3" json:"Number,omitempty"`
+	XXX_NoUnkeyedLiteral struct{} `json:"-"`
+	XXX_unrecognized     []byte   `json:"-"`
+	XXX_sizecache        int32    `json:"-"`
+}
+
+func (m *BiDirStreamRequest) Reset()         { *m = BiDirStreamRequest{} }
+func (m *BiDirStreamRequest) String() string { return proto.CompactTextString(m) }
+func (*BiDirStreamRequest) ProtoMessage()    {}
+func (*BiDirStreamRequest) Descriptor() ([]byte, []int) {
+	return fileDescriptor_285dce36ca2d93c1, []int{8}
+}
+
+func (m *BiDirStreamRequest) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_BiDirStreamRequest.Unmarshal(m, b)
+}
+func (m *BiDirStreamRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_BiDirStreamRequest.Marshal(b, m, deterministic)
+}
+func (m *BiDirStreamRequest) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_BiDirStreamRequest.Merge(m, src)
+}
+func (m *BiDirStreamRequest) XXX_Size() int {
+	return xxx_messageInfo_BiDirStreamRequest.Size(m)
+}
+func (m *BiDirStreamRequest) XXX_DiscardUnknown() {
+	xxx_messageInfo_BiDirStreamRequest.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_BiDirStreamRequest proto.InternalMessageInfo
+
+func (m *BiDirStreamRequest) GetIndex() int64 {
+	if m != nil {
+		return m.Index
+	}
+	return 0
+}
+
+func (m *BiDirStreamRequest) GetNumber() int64 {
+	if m != nil {
+		return m.Number
+	}
+	return 0
+}
+
+type BiDirStreamResponse struct {
+	StartIndex           int64    `protobuf:"varint,1,opt,name=StartIndex,proto3" json:"StartIndex,omitempty"`
+	EndIndex             int64    `protobuf:"varint,2,opt,name=EndIndex,proto3" json:"EndIndex,omitempty"`
+	Sum                  int64    `protobuf:"varint,3,opt,name=Sum,proto3" json:"Sum,omitempty"`
+	XXX_NoUnkeyedLiteral struct{} `json:"-"`
+	XXX_unrecognized     []byte   `json:"-"`
+	XXX_sizecache        int32    `json:"-"`
+}
+
+func (m *BiDirStreamResponse) Reset()         { *m = BiDirStreamResponse{} }
+func (m *BiDirStreamResponse) String() string { return proto.CompactTextString(m) }
+func (*BiDirStreamResponse) ProtoMessage()    {}
+func (*BiDirStreamResponse) Descriptor() ([]byte, []int) {
+	return fileDescriptor_285dce36ca2d93c1, []int{9}
+}
+
+func (m *BiDirStreamResponse) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_BiDirStreamResponse.Unmarshal(m, b)
+}
+func (m *BiDirStreamResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_BiDirStreamResponse.Marshal(b, m, deterministic)
+}
+func (m *BiDirStreamResponse) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_BiDirStreamResponse.Merge(m, src)
+}
+func (m *BiDirStreamResponse) XXX_Size() int {
+	return xxx_messageInfo_BiDirStreamResponse.Size(m)
+}
+func (m *BiDirStreamResponse) XXX_DiscardUnknown() {
+	xxx_messageInfo_BiDirStreamResponse.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_BiDirStreamResponse proto.InternalMessageInfo
+
+func (m *BiDirStreamResponse) GetStartIndex() int64 {
+	if m != nil {
+		return m.StartIndex
+	}
+	return 0
+}
+
+func (m *BiDirStreamResponse) GetEndIndex() int64 {
+	if m != nil {
+		return m.EndIndex
+	}
+	return 0
+}
+
+func (m *BiDirStreamResponse) GetSum() int64 {
+	if m != nil {
+		return m.Sum
+	}
+	return 0
+}
+
 func init() {
+	proto.RegisterType((*HealthResponse)(nil), "greet.HealthResponse")
 	proto.RegisterType((*Greeting)(nil), "greet.Greeting")
 	proto.RegisterType((*GreetRequest)(nil), "greet.GreetRequest")
 	proto.RegisterType((*GreetResponse)(nil), "greet.GreetResponse")
+	proto.RegisterType((*ServerStreamRequest)(nil), "greet.ServerStreamRequest")
+	proto.RegisterType((*ServerStreamResponse)(nil), "greet.ServerStreamResponse")
+	proto.RegisterType((*ClientStreamRequest)(nil), "greet.ClientStreamRequest")
+	proto.RegisterType((*ClientStreamResponse)(nil), "greet.ClientStreamResponse")
+	proto.RegisterType((*BiDirStreamRequest)(nil), "greet.BiDirStreamRequest")
+	proto.RegisterType((*BiDirStreamResponse)(nil), "greet.BiDirStreamResponse")
 }
 
 func init() { proto.RegisterFile("greet/greet.proto", fileDescriptor_285dce36ca2d93c1) }
 
 var fileDescriptor_285dce36ca2d93c1 = []byte{
-	// 233 bytes of a gzipped FileDescriptorProto
-	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0xe2, 0x12, 0x4c, 0x2f, 0x4a, 0x4d,
-	0x2d, 0xd1, 0x07, 0x93, 0x7a, 0x05, 0x45, 0xf9, 0x25, 0xf9, 0x42, 0xac, 0x60, 0x8e, 0x94, 0x4c,
-	0x7a, 0x7e, 0x7e, 0x7a, 0x4e, 0xaa, 0x7e, 0x62, 0x41, 0xa6, 0x7e, 0x62, 0x5e, 0x5e, 0x7e, 0x49,
-	0x62, 0x49, 0x66, 0x7e, 0x5e, 0x31, 0x44, 0x91, 0x92, 0x1b, 0x17, 0x87, 0x3b, 0x48, 0x59, 0x66,
-	0x5e, 0xba, 0x90, 0x2c, 0x17, 0x57, 0x5a, 0x66, 0x51, 0x71, 0x49, 0x7c, 0x5e, 0x62, 0x6e, 0xaa,
-	0x04, 0xa3, 0x02, 0xa3, 0x06, 0x67, 0x10, 0x27, 0x58, 0xc4, 0x2f, 0x31, 0x37, 0x55, 0x48, 0x9a,
-	0x8b, 0x33, 0x27, 0x11, 0x26, 0xcb, 0x04, 0x96, 0xe5, 0x00, 0x09, 0x80, 0x24, 0x95, 0xac, 0xb9,
-	0x78, 0xc0, 0xe6, 0x04, 0xa5, 0x16, 0x96, 0xa6, 0x16, 0x97, 0x08, 0x69, 0x73, 0x71, 0xa4, 0x43,
-	0xcd, 0x05, 0x9b, 0xc4, 0x6d, 0xc4, 0xaf, 0x07, 0x71, 0x1c, 0xcc, 0xba, 0x20, 0xb8, 0x02, 0x25,
-	0x75, 0x2e, 0x5e, 0xa8, 0xe6, 0xe2, 0x82, 0xfc, 0xbc, 0xe2, 0x54, 0x21, 0x31, 0x2e, 0xb6, 0xa2,
-	0xd4, 0xe2, 0xd2, 0x9c, 0x12, 0xa8, 0x2b, 0xa0, 0x3c, 0xa3, 0x50, 0xa8, 0x2d, 0xc1, 0xa9, 0x45,
-	0x65, 0x99, 0xc9, 0xa9, 0x42, 0xae, 0x5c, 0xac, 0x60, 0xbe, 0x90, 0x30, 0xb2, 0xe1, 0x50, 0x37,
-	0x48, 0x89, 0xa0, 0x0a, 0x42, 0xcc, 0x56, 0x12, 0x6c, 0xba, 0xfc, 0x64, 0x32, 0x13, 0xb7, 0x12,
-	0x1b, 0x24, 0xb0, 0xac, 0x18, 0xb5, 0x92, 0xd8, 0xc0, 0x61, 0x61, 0x0c, 0x08, 0x00, 0x00, 0xff,
-	0xff, 0x6b, 0x64, 0xbe, 0xba, 0x45, 0x01, 0x00, 0x00,
+	// 502 bytes of a gzipped FileDescriptorProto
+	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0xb4, 0x92, 0xcf, 0x6e, 0xd3, 0x40,
+	0x10, 0xc6, 0xeb, 0x86, 0x84, 0x64, 0x52, 0x28, 0xdd, 0x98, 0x2a, 0x38, 0x80, 0xd0, 0x5e, 0xa8,
+	0x00, 0xd9, 0xa5, 0xdc, 0x80, 0x53, 0x4b, 0xa0, 0x80, 0xa8, 0x90, 0xf3, 0x00, 0x68, 0xd3, 0x4c,
+	0x9d, 0x95, 0xec, 0x75, 0x58, 0xaf, 0x51, 0xb9, 0x22, 0xf1, 0x04, 0x3c, 0x1a, 0xaf, 0xc0, 0x83,
+	0xa0, 0xfd, 0x63, 0xd7, 0x16, 0xbe, 0xa1, 0x5e, 0x2c, 0x7f, 0x33, 0x3b, 0xbf, 0x99, 0xdd, 0xf9,
+	0x60, 0x2f, 0x91, 0x88, 0x2a, 0x32, 0xdf, 0x70, 0x23, 0x73, 0x95, 0x93, 0xbe, 0x11, 0xc1, 0xfd,
+	0x24, 0xcf, 0x93, 0x14, 0x23, 0xb6, 0xe1, 0x11, 0x13, 0x22, 0x57, 0x4c, 0xf1, 0x5c, 0x14, 0xf6,
+	0x50, 0x30, 0x73, 0x59, 0xa3, 0x96, 0xe5, 0x45, 0x84, 0xd9, 0x46, 0x7d, 0xb7, 0x49, 0xfa, 0x1a,
+	0x6e, 0x9f, 0x22, 0x4b, 0xd5, 0x3a, 0xc6, 0x62, 0x93, 0x8b, 0x02, 0xc9, 0x3e, 0x0c, 0x0a, 0xc5,
+	0x54, 0x59, 0x4c, 0xbd, 0x47, 0xde, 0xc1, 0x28, 0x76, 0x8a, 0x10, 0xb8, 0xa1, 0x78, 0x86, 0xd3,
+	0x6d, 0x13, 0x35, 0xff, 0xf4, 0x2d, 0x0c, 0xdf, 0xe9, 0x09, 0xb8, 0x48, 0xc8, 0x03, 0x80, 0x0b,
+	0x2e, 0x0b, 0xf5, 0x45, 0xb0, 0x0c, 0x5d, 0xed, 0xc8, 0x44, 0xce, 0x58, 0x86, 0x64, 0x06, 0xa3,
+	0x94, 0x55, 0x59, 0xcb, 0x18, 0xea, 0x80, 0x4e, 0xd2, 0x57, 0xb0, 0x63, 0x38, 0x31, 0x7e, 0x2d,
+	0xb1, 0x50, 0xe4, 0x29, 0x0c, 0x13, 0xc7, 0x35, 0xa4, 0xf1, 0xd1, 0x6e, 0x68, 0xef, 0x5d, 0xb5,
+	0x8b, 0xeb, 0x03, 0xf4, 0x31, 0xdc, 0x72, 0xc5, 0x57, 0x37, 0x90, 0x58, 0x94, 0xa9, 0xaa, 0x6e,
+	0x60, 0x15, 0x7d, 0x0e, 0x93, 0x05, 0xca, 0x6f, 0x28, 0x17, 0x4a, 0x22, 0xcb, 0xaa, 0x66, 0x01,
+	0x0c, 0x3f, 0xb1, 0xcb, 0xcf, 0x92, 0xbb, 0xb1, 0x7b, 0x71, 0xad, 0xe9, 0x33, 0xf0, 0xdb, 0x25,
+	0xae, 0x85, 0x0f, 0xfd, 0x66, 0x81, 0x15, 0xf4, 0x04, 0x26, 0x27, 0x29, 0x47, 0xa1, 0xda, 0x0d,
+	0x7c, 0xe8, 0xbf, 0x17, 0x2b, 0xbc, 0xac, 0x0e, 0x1b, 0xa1, 0xa7, 0x3c, 0x2b, 0xb3, 0x25, 0x4a,
+	0xf3, 0x1a, 0xbd, 0xd8, 0x29, 0xba, 0x02, 0xbf, 0x0d, 0x71, 0x2d, 0x1f, 0x02, 0x2c, 0x14, 0x93,
+	0xaa, 0x89, 0x6a, 0x44, 0xf4, 0x35, 0xe6, 0x62, 0x65, 0xb3, 0x96, 0x58, 0x6b, 0x72, 0x07, 0x7a,
+	0x8b, 0x32, 0x9b, 0xf6, 0x4c, 0x58, 0xff, 0xd2, 0x63, 0x20, 0xc7, 0xfc, 0x0d, 0x97, 0xff, 0x33,
+	0xe9, 0x39, 0x4c, 0x5a, 0x8c, 0xeb, 0x18, 0xf4, 0xe8, 0x67, 0xcf, 0x79, 0x43, 0xef, 0x81, 0x9f,
+	0x23, 0x39, 0x85, 0x81, 0x75, 0x2c, 0xd9, 0x0f, 0xad, 0xb3, 0xc3, 0xca, 0xd9, 0xe1, 0x5c, 0x3b,
+	0x3b, 0xb8, 0xeb, 0xbc, 0xd2, 0x36, 0x36, 0xdd, 0xfd, 0xf1, 0xfb, 0xcf, 0xaf, 0xed, 0x11, 0xb9,
+	0x19, 0xad, 0x6d, 0xfd, 0x1c, 0xfa, 0x86, 0x4c, 0x26, 0x4d, 0x73, 0xb9, 0xb7, 0x08, 0xfc, 0x76,
+	0xd0, 0x41, 0xf6, 0x0c, 0x64, 0x4c, 0x07, 0xd1, 0x1a, 0xd3, 0x34, 0x7f, 0xe9, 0x3d, 0x21, 0x1f,
+	0x61, 0xa7, 0xe9, 0x11, 0x12, 0xb8, 0xc2, 0x0e, 0xaf, 0x05, 0xb3, 0xce, 0x9c, 0x63, 0x6f, 0x1d,
+	0x7a, 0x1a, 0xd6, 0xdc, 0x7e, 0x0d, 0xeb, 0xf0, 0x55, 0x0d, 0xeb, 0xb2, 0x0b, 0xdd, 0x3a, 0xf0,
+	0xc8, 0x07, 0x18, 0x37, 0x16, 0x44, 0xee, 0xb9, 0xf3, 0xff, 0x2e, 0x3e, 0x08, 0xba, 0x52, 0x57,
+	0xa4, 0x43, 0x6f, 0x39, 0x30, 0x8f, 0xfc, 0xe2, 0x6f, 0x00, 0x00, 0x00, 0xff, 0xff, 0x1d, 0x12,
+	0xaa, 0xab, 0x86, 0x04, 0x00, 0x00,
 }
 
 // Reference imports to suppress errors if they are not otherwise used.
@@ -189,8 +543,14 @@ const _ = grpc.SupportPackageIsVersion4
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://godoc.org/google.golang.org/grpc#ClientConn.NewStream.
 type GreetServiceClient interface {
-	// unary
+	Health(ctx context.Context, in *empty.Empty, opts ...grpc.CallOption) (*HealthResponse, error)
 	Greet(ctx context.Context, in *GreetRequest, opts ...grpc.CallOption) (*GreetResponse, error)
+	// server streaming
+	ServerStream(ctx context.Context, in *ServerStreamRequest, opts ...grpc.CallOption) (GreetService_ServerStreamClient, error)
+	// client streaming
+	ClientStream(ctx context.Context, opts ...grpc.CallOption) (GreetService_ClientStreamClient, error)
+	// bi-directional streaming
+	BiDirStream(ctx context.Context, opts ...grpc.CallOption) (GreetService_BiDirStreamClient, error)
 }
 
 type greetServiceClient struct {
@@ -199,6 +559,15 @@ type greetServiceClient struct {
 
 func NewGreetServiceClient(cc *grpc.ClientConn) GreetServiceClient {
 	return &greetServiceClient{cc}
+}
+
+func (c *greetServiceClient) Health(ctx context.Context, in *empty.Empty, opts ...grpc.CallOption) (*HealthResponse, error) {
+	out := new(HealthResponse)
+	err := c.cc.Invoke(ctx, "/greet.GreetService/Health", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
 }
 
 func (c *greetServiceClient) Greet(ctx context.Context, in *GreetRequest, opts ...grpc.CallOption) (*GreetResponse, error) {
@@ -210,22 +579,155 @@ func (c *greetServiceClient) Greet(ctx context.Context, in *GreetRequest, opts .
 	return out, nil
 }
 
+func (c *greetServiceClient) ServerStream(ctx context.Context, in *ServerStreamRequest, opts ...grpc.CallOption) (GreetService_ServerStreamClient, error) {
+	stream, err := c.cc.NewStream(ctx, &_GreetService_serviceDesc.Streams[0], "/greet.GreetService/ServerStream", opts...)
+	if err != nil {
+		return nil, err
+	}
+	x := &greetServiceServerStreamClient{stream}
+	if err := x.ClientStream.SendMsg(in); err != nil {
+		return nil, err
+	}
+	if err := x.ClientStream.CloseSend(); err != nil {
+		return nil, err
+	}
+	return x, nil
+}
+
+type GreetService_ServerStreamClient interface {
+	Recv() (*ServerStreamResponse, error)
+	grpc.ClientStream
+}
+
+type greetServiceServerStreamClient struct {
+	grpc.ClientStream
+}
+
+func (x *greetServiceServerStreamClient) Recv() (*ServerStreamResponse, error) {
+	m := new(ServerStreamResponse)
+	if err := x.ClientStream.RecvMsg(m); err != nil {
+		return nil, err
+	}
+	return m, nil
+}
+
+func (c *greetServiceClient) ClientStream(ctx context.Context, opts ...grpc.CallOption) (GreetService_ClientStreamClient, error) {
+	stream, err := c.cc.NewStream(ctx, &_GreetService_serviceDesc.Streams[1], "/greet.GreetService/ClientStream", opts...)
+	if err != nil {
+		return nil, err
+	}
+	x := &greetServiceClientStreamClient{stream}
+	return x, nil
+}
+
+type GreetService_ClientStreamClient interface {
+	Send(*ClientStreamRequest) error
+	CloseAndRecv() (*ClientStreamResponse, error)
+	grpc.ClientStream
+}
+
+type greetServiceClientStreamClient struct {
+	grpc.ClientStream
+}
+
+func (x *greetServiceClientStreamClient) Send(m *ClientStreamRequest) error {
+	return x.ClientStream.SendMsg(m)
+}
+
+func (x *greetServiceClientStreamClient) CloseAndRecv() (*ClientStreamResponse, error) {
+	if err := x.ClientStream.CloseSend(); err != nil {
+		return nil, err
+	}
+	m := new(ClientStreamResponse)
+	if err := x.ClientStream.RecvMsg(m); err != nil {
+		return nil, err
+	}
+	return m, nil
+}
+
+func (c *greetServiceClient) BiDirStream(ctx context.Context, opts ...grpc.CallOption) (GreetService_BiDirStreamClient, error) {
+	stream, err := c.cc.NewStream(ctx, &_GreetService_serviceDesc.Streams[2], "/greet.GreetService/BiDirStream", opts...)
+	if err != nil {
+		return nil, err
+	}
+	x := &greetServiceBiDirStreamClient{stream}
+	return x, nil
+}
+
+type GreetService_BiDirStreamClient interface {
+	Send(*BiDirStreamRequest) error
+	Recv() (*BiDirStreamResponse, error)
+	grpc.ClientStream
+}
+
+type greetServiceBiDirStreamClient struct {
+	grpc.ClientStream
+}
+
+func (x *greetServiceBiDirStreamClient) Send(m *BiDirStreamRequest) error {
+	return x.ClientStream.SendMsg(m)
+}
+
+func (x *greetServiceBiDirStreamClient) Recv() (*BiDirStreamResponse, error) {
+	m := new(BiDirStreamResponse)
+	if err := x.ClientStream.RecvMsg(m); err != nil {
+		return nil, err
+	}
+	return m, nil
+}
+
 // GreetServiceServer is the server API for GreetService service.
 type GreetServiceServer interface {
-	// unary
+	Health(context.Context, *empty.Empty) (*HealthResponse, error)
 	Greet(context.Context, *GreetRequest) (*GreetResponse, error)
+	// server streaming
+	ServerStream(*ServerStreamRequest, GreetService_ServerStreamServer) error
+	// client streaming
+	ClientStream(GreetService_ClientStreamServer) error
+	// bi-directional streaming
+	BiDirStream(GreetService_BiDirStreamServer) error
 }
 
 // UnimplementedGreetServiceServer can be embedded to have forward compatible implementations.
 type UnimplementedGreetServiceServer struct {
 }
 
+func (*UnimplementedGreetServiceServer) Health(ctx context.Context, req *empty.Empty) (*HealthResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method Health not implemented")
+}
 func (*UnimplementedGreetServiceServer) Greet(ctx context.Context, req *GreetRequest) (*GreetResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method Greet not implemented")
+}
+func (*UnimplementedGreetServiceServer) ServerStream(req *ServerStreamRequest, srv GreetService_ServerStreamServer) error {
+	return status.Errorf(codes.Unimplemented, "method ServerStream not implemented")
+}
+func (*UnimplementedGreetServiceServer) ClientStream(srv GreetService_ClientStreamServer) error {
+	return status.Errorf(codes.Unimplemented, "method ClientStream not implemented")
+}
+func (*UnimplementedGreetServiceServer) BiDirStream(srv GreetService_BiDirStreamServer) error {
+	return status.Errorf(codes.Unimplemented, "method BiDirStream not implemented")
 }
 
 func RegisterGreetServiceServer(s *grpc.Server, srv GreetServiceServer) {
 	s.RegisterService(&_GreetService_serviceDesc, srv)
+}
+
+func _GreetService_Health_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(empty.Empty)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(GreetServiceServer).Health(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/greet.GreetService/Health",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(GreetServiceServer).Health(ctx, req.(*empty.Empty))
+	}
+	return interceptor(ctx, in, info, handler)
 }
 
 func _GreetService_Greet_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
@@ -246,15 +748,109 @@ func _GreetService_Greet_Handler(srv interface{}, ctx context.Context, dec func(
 	return interceptor(ctx, in, info, handler)
 }
 
+func _GreetService_ServerStream_Handler(srv interface{}, stream grpc.ServerStream) error {
+	m := new(ServerStreamRequest)
+	if err := stream.RecvMsg(m); err != nil {
+		return err
+	}
+	return srv.(GreetServiceServer).ServerStream(m, &greetServiceServerStreamServer{stream})
+}
+
+type GreetService_ServerStreamServer interface {
+	Send(*ServerStreamResponse) error
+	grpc.ServerStream
+}
+
+type greetServiceServerStreamServer struct {
+	grpc.ServerStream
+}
+
+func (x *greetServiceServerStreamServer) Send(m *ServerStreamResponse) error {
+	return x.ServerStream.SendMsg(m)
+}
+
+func _GreetService_ClientStream_Handler(srv interface{}, stream grpc.ServerStream) error {
+	return srv.(GreetServiceServer).ClientStream(&greetServiceClientStreamServer{stream})
+}
+
+type GreetService_ClientStreamServer interface {
+	SendAndClose(*ClientStreamResponse) error
+	Recv() (*ClientStreamRequest, error)
+	grpc.ServerStream
+}
+
+type greetServiceClientStreamServer struct {
+	grpc.ServerStream
+}
+
+func (x *greetServiceClientStreamServer) SendAndClose(m *ClientStreamResponse) error {
+	return x.ServerStream.SendMsg(m)
+}
+
+func (x *greetServiceClientStreamServer) Recv() (*ClientStreamRequest, error) {
+	m := new(ClientStreamRequest)
+	if err := x.ServerStream.RecvMsg(m); err != nil {
+		return nil, err
+	}
+	return m, nil
+}
+
+func _GreetService_BiDirStream_Handler(srv interface{}, stream grpc.ServerStream) error {
+	return srv.(GreetServiceServer).BiDirStream(&greetServiceBiDirStreamServer{stream})
+}
+
+type GreetService_BiDirStreamServer interface {
+	Send(*BiDirStreamResponse) error
+	Recv() (*BiDirStreamRequest, error)
+	grpc.ServerStream
+}
+
+type greetServiceBiDirStreamServer struct {
+	grpc.ServerStream
+}
+
+func (x *greetServiceBiDirStreamServer) Send(m *BiDirStreamResponse) error {
+	return x.ServerStream.SendMsg(m)
+}
+
+func (x *greetServiceBiDirStreamServer) Recv() (*BiDirStreamRequest, error) {
+	m := new(BiDirStreamRequest)
+	if err := x.ServerStream.RecvMsg(m); err != nil {
+		return nil, err
+	}
+	return m, nil
+}
+
 var _GreetService_serviceDesc = grpc.ServiceDesc{
 	ServiceName: "greet.GreetService",
 	HandlerType: (*GreetServiceServer)(nil),
 	Methods: []grpc.MethodDesc{
 		{
+			MethodName: "Health",
+			Handler:    _GreetService_Health_Handler,
+		},
+		{
 			MethodName: "Greet",
 			Handler:    _GreetService_Greet_Handler,
 		},
 	},
-	Streams:  []grpc.StreamDesc{},
+	Streams: []grpc.StreamDesc{
+		{
+			StreamName:    "ServerStream",
+			Handler:       _GreetService_ServerStream_Handler,
+			ServerStreams: true,
+		},
+		{
+			StreamName:    "ClientStream",
+			Handler:       _GreetService_ClientStream_Handler,
+			ClientStreams: true,
+		},
+		{
+			StreamName:    "BiDirStream",
+			Handler:       _GreetService_BiDirStream_Handler,
+			ServerStreams: true,
+			ClientStreams: true,
+		},
+	},
 	Metadata: "greet/greet.proto",
 }

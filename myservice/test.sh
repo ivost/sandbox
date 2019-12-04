@@ -3,16 +3,16 @@
 
 echo === health
 
-url=192.168.99.100:30506/myservice
+#url=localhost:8080/myservice
 # http $url/health
-
+url=localhost:8080
 http $url/health
 
 # kubectl get mappings -A
 # kubectl describe mapping myservice-map1
 # kubectl describe mapping myservice-map2
 
-# this doesn't work
+# this doesn't work unless local
 #grpc=myservice.MyService
 #grpcurl -plaintext 192.168.99.100:30506  ${grpc}/Health
 

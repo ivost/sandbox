@@ -2,7 +2,7 @@ BUILD_TARGET = build
 #GO := GO111MODULE=on GOOS=linux GOARCH=amd64 go
 GO := go
 GO_NOMOD := GO111MODULE=off go
-NAME := myservice
+NAME := myvault
 
 # dockerhub
 DOCKER_REPO=ivostoy
@@ -19,7 +19,7 @@ GO_DEPENDENCIES := $(call rwildcard,pkg/,*.go) $(call rwildcard,cmd/,*.go)
 
 BRANCH     := $(shell git rev-parse --abbrev-ref HEAD 2> /dev/null  || echo 'unknown')
 BUILD_DATE := $(shell date +%Y%m%d-%H:%M:%S)
-PKG=github.com/ivost/sandbox/myservice/pkg
+PKG=github.com/ivost/sandbox/myvault/pkg
 GIT_COMMIT=$(shell git describe --dirty --always  2> /dev/null  || echo 'unknown')
 BUILDFLAGS=-ldflags "-s -w -X ${PKG}/version.Version=${VERSION} -X ${PKG}/version.Build=${GIT_COMMIT}"
 CGO_ENABLED = 0
@@ -33,7 +33,7 @@ IMG_BLD=${DOCKER_REPO}/${NAME}:${IMG_BLD_TAG}
 
 BASE=./kustomize/base
 OVERLAYS=./kustomize/overlays
-POD:=$(shell kubectl get pod -l app=myservice -o  jsonpath='{.items[*].metadata.name}') > /dev/nul
+POD:=$(shell kubectl get pod -l app=myvault -o  jsonpath='{.items[*].metadata.name}') > /dev/nul
 
 # kubectl get pods -l app=hello -o=jsonpath="{range .items[*]}{.metadata.name}{"\n"}{end}"
 
@@ -54,7 +54,7 @@ endef
 
 #.PHONY: all
 .DEFAULT_GOAL := all
-all: dpush kred ## - docker build / push / deploy to k8s
+all: dpush kred ## - docker build / push / redeploy to k8s
 
 .PHONY: list
 list: ## - List all make targets
@@ -200,7 +200,7 @@ ktest: ## - integration testing after kdep (see ktest.sh)
 
 .PHONY: kpod
 kpod: ## - show $(NAME) pods
-	#kubectl get pod $(shell kubectl get pod -l app=myservice -o jsonpath='{.items[*].metadata.name}')
+	#kubectl get pod $(shell kubectl get pod -l app=myvault -o jsonpath='{.items[*].metadata.name}')
 	kubectl get pod -l app=$(NAME) -o wide
 
 .PHONY: clone

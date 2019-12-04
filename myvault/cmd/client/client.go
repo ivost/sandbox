@@ -3,10 +3,10 @@ package main
 import (
 	"log"
 
-	"github.com/ivost/sandbox/myservice/pkg/version"
+	"github.com/ivost/sandbox/myvault/pkg/version"
 
-	"github.com/ivost/sandbox/myservice/client"
-	"github.com/ivost/sandbox/myservice/config"
+	"github.com/ivost/sandbox/myvault/client"
+	"github.com/ivost/sandbox/myvault/config"
 )
 
 func main() {

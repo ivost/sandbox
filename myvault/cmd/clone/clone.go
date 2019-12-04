@@ -5,13 +5,10 @@ import (
 	"fmt"
 	"io"
 	"io/ioutil"
-	"log"
 	"os"
 	"path"
 	"path/filepath"
 	"strings"
-
-	"github.com/ivost/sandbox/myservice/pkg/version"
 )
 
 var (
@@ -35,8 +32,6 @@ var newDir string
 var newService string
 
 func main() {
-
-	log.Printf("%v cloner %v %v", version.Name, version.Version, version.Build)
 
 	doPrompts()
 
@@ -154,9 +149,9 @@ func doPrompts() {
 		os.Exit(1)
 	}
 
-	oldName = prompt("type old service name or <enter> for myservice.MyService")
+	oldName = prompt("type old service name or <enter> for myvault.VaultService")
 	if oldName == "" {
-		oldName = "myservice.MyService"
+		oldName = "myvault.VaultService"
 	}
 	oldDir, oldService = splitName(oldName)
 	newName = prompt("type the name of the new service - i.e. newservice.NewService")

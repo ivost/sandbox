@@ -3,14 +3,13 @@ package main
 import (
 	"log"
 
-	"github.com/ivost/sandbox/myservice/pkg/version"
-
-	"github.com/ivost/sandbox/myservice/config"
-	"github.com/ivost/sandbox/myservice/server"
+	"github.com/ivost/sandbox/myvault/config"
+	"github.com/ivost/sandbox/myvault/pkg/version"
+	"github.com/ivost/sandbox/myvault/server"
 )
 
 func main() {
-	log.Printf("%v client %v %v", version.Name, version.Version, version.Build)
+	log.Printf("%v server %v %v", version.Name, version.Version, version.Build)
 	cf := config.DefaultConfigFile
 	conf := config.New(cf)
 	server := server.New(conf)

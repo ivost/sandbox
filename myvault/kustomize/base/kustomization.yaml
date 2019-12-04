@@ -8,6 +8,6 @@ resources:
 - map2.yaml
 
 images:
-- name: ivostoy/myservice
-  newName: ivostoy/myservice
-  newTag: 0.12.4.1-324cb17-dirty
+- name: ivostoy/myvault
+  newName: ivostoy/myvault
+  newTag: 0.12.4.1-34fc006-dirty

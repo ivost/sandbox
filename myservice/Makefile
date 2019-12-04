@@ -7,7 +7,7 @@ NAME := myservice
 # dockerhub
 DOCKER_REPO=ivostoy
 DAEMON=
-VERSION=0.12.3.0
+VERSION=0.12.4.1
 
 # Make does not offer a recursive wildcard function, so here's one:
 rwildcard=$(wildcard $1$2) $(foreach d,$(wildcard $1*),$(call rwildcard,$d/,$2))
@@ -24,9 +24,7 @@ GIT_COMMIT=$(shell git describe --dirty --always  2> /dev/null  || echo 'unknown
 BUILDFLAGS=-ldflags "-s -w -X ${PKG}/version.Version=${VERSION} -X ${PKG}/version.Build=${GIT_COMMIT}"
 CGO_ENABLED = 0
 MAIN_SRC_FILE=main.go
-# to check - used by kustomize
-#TAG=${VERSION}_${GIT_COMMIT}
-IMG_TAG=${VERSION}
+IMG_TAG=${VERSION}-${GIT_COMMIT}
 IM=${DOCKER_REPO}/${NAME}
 IMG=${DOCKER_REPO}/${NAME}:${IMG_TAG}
 
@@ -35,7 +33,7 @@ IMG_BLD=${DOCKER_REPO}/${NAME}:${IMG_BLD_TAG}
 
 BASE=./kustomize/base
 OVERLAYS=./kustomize/overlays
-POD:=$(shell kubectl get pod -l app=hello -o  jsonpath='{.items[*].metadata.name}') > /dev/nul
+POD:=$(shell kubectl get pod -l app=myservice -o  jsonpath='{.items[*].metadata.name}') > /dev/nul
 
 # kubectl get pods -l app=hello -o=jsonpath="{range .items[*]}{.metadata.name}{"\n"}{end}"
 
@@ -56,38 +54,34 @@ endef
 
 #.PHONY: all
 .DEFAULT_GOAL := all
-all: dbuild dpush kdeploy		## docker dbuild / dpush / kdeploy
-
-#all: dbuild dpush kundeploy kdeploy		## docker dbuild / dpush / kdeploy
+all: dpush kdep ## - docker build / push / deploy to k8s
 
 .PHONY: list
-list: ## List all make targets
+list: ## - List all make targets
 	@$(MAKE) -pRrn : -f $(MAKEFILE_LIST) 2>/dev/null | awk -v RS= -F: '/^# File/,/^# Finished Make data base/ {if ($$2 !~ "^[#.]") {print $$2}}' | egrep -v -e '^[^[:alnum:]]' -e '^$@$$' | sort
 
 .PHONY: help
 ### .DEFAULT_GOAL := help
-help: ## Show help message
+help: ## - Show help message
 	$(call msgc,"usage: make [target]")
 	@grep -E '^[a-zA-Z_-]+:.*?## .*$$' $(MAKEFILE_LIST) | sort | awk 'BEGIN {FS = ":*?## "}; {printf "\033[36m%-20s\033[0m %s\n", $$1, $$2}'
 
 
 .PHONY: run
-run: build		## Build and run server (local)
+run: build   ## - Build and run server (local)
 	build/server
 
 .PHONY: build
-build:  ## Build binary for the current OS
+build:  ## - local build (server+client)
 	./proto-gen.sh
 	#go env
 	go $(BUILD_TARGET) $(BUILDFLAGS) -o build/server cmd/server/server.go
 	go $(BUILD_TARGET) $(BUILDFLAGS) -o build/client cmd/client/client.go
 
 .PHONY: build.linux
-build-linux:  ## Build binary for linux (2phase build is very slow)
+build-linux:  ## - Build server binary for linux (simple and multi-phase builds are very slow)
 	GOOS=linux go $(BUILD_TARGET) $(BUILDFLAGS) -o lbuild/server cmd/server/server.go
-	#GOOS=linux go $(BUILD_TARGET) $(BUILDFLAGS) -o lbuild/client cmd/client/client.go
-	#chmod +x lbuild/server
-	#chmod +x lbuild/client
+	GOOS=linux go $(BUILD_TARGET) $(BUILDFLAGS) -o lbuild/client cmd/client/client.go
 
 ##########
 # Docker #
@@ -95,8 +89,8 @@ build-linux:  ## Build binary for linux (2phase build is very slow)
 
 .PHONY: dbuild
 dbuild:	build-linux ## - Build local - copy to docker image
-	$(call msgc,"Building docker image $(IMG) ...")
-	docker build --tag $(IMG) .
+	@echo Building docker image $(IMG)
+	docker image build --label $(NAME) --tag $(IMG) .
 	#docker push $(IMG)
 
 .PHONY: dbuild.multi
@@ -128,9 +122,9 @@ dbuild-no-cache: ## - Docker build without cache
 	$(call msgc,"Building docker image without cache...")
 	@export DOCKER_CONTENT_TRUST=1 && docker build --no-cache -f Dockerfile --tag  $(IMG) .
 
-.PHONY: dsize
-dsize: ## - Show docker image size
-	$(call msgc,"Show docker image size")
+.PHONY: dimg
+dimg: ## - Show $(NAME) docker image
+	@echo docker image $(IMG)
 	@docker image ls $(IMG)
 
 .PHONY: drun
@@ -142,37 +136,42 @@ drun: dbuild ## - Run docker container
 	@docker run --rm $(DAEMON) --name $(NAME) -p 8080:8080 -p 52052:52052 $(IMG)
 
 .PHONY: dkill
-dkill: ## - Kill running docker container
-	$(call msgc,"Kill running docker container")
+dkill: ## - Kill running $(NAME) docker container
+	$(call msgc,"Kill running $(NAME) container")
 	@docker kill $(NAME)
 
 .PHONY: dps
-dps: ## - Container status
+dps: ## - Show $(NAME) container status
 	docker ps | grep $(NAME)
 
+# do we need to push when in minikube environment?
 .PHONY: dpush
-dpush: ## - Publish image $(IMG)
+dpush: dbuild ## - Publish image $(IMG)
 	## @`aws ecr get-login --region ${REGION} --no-include-email`
 	docker push $(IMG)
 
 .PHONY: dpull
-dpull: ## - Pull docker container from ECR
+dpull: ## - Pull image $(IMG)
 	## @`aws ecr get-login --region ${REGION} --no-include-email`
 	docker pull $(IMG)
+
+.PHONY: dlogin
+dlogin: ## - docker ECR login
+	@`aws ecr get-login --region ${REGION} --no-include-email`
 
 ##############
 # Kubernetes #
 ##############
 
-.PHONY: kdeploy
-kdeploy: ## Kustomize and Deploy to k8s (test2)
+.PHONY: kdep
+kdep: dbuild dpush ## - Kustomize and Deploy to k8s
 	cd $(BASE) && kustomize edit set image $(IM)=$(IMG) | kustomize build . | kubectl apply -f - && cd ..
 	#kustomize build $(OVERLAYS)/test2
 	#kustomize build $(OVERLAYS)/test2 | kubectl apply -f -
 	sleep 1
 
-.PHONY: kundeploy
-kundeploy: ## Undeploy from k8s
+.PHONY: kund
+kund: ## - Undeploy from k8s
 	# disable delete errors
 	@set +e
 	cd $(BASE) && kubectl delete -f deployment.yaml && cd ..
@@ -180,10 +179,32 @@ kundeploy: ## Undeploy from k8s
 	@set -e
 	sleep 1
 
+.PHONY: kred
+kred: kund kdep ## - k8s redeploy
+
 .PHONY: kpf
-kpf: ## port forwarding
+kpf: ## - port forwarding (grpc port 52052, rest port 8080)
 	kubectl port-forward $(POD) 52052:52052 8080:8080
 
 .PHONY: kcall
-kcall: ## call into k8s via ambassador
+kcall: build ## - grpc client test calls after kdep
 	build/client -config=client-config.yaml
+
+.PHONY: test
+test: build ## - integration testing sript (local, see test.sh)
+	./test.sh
+
+.PHONY: ktest
+ktest: ## - integration testing after kdep (see ktest.sh)
+	./ktest.sh
+
+.PHONY: kpod
+kpod: ## - show $(NAME) pods
+	#kubectl get pod $(shell kubectl get pod -l app=myservice -o jsonpath='{.items[*].metadata.name}')
+	kubectl get pod -l app=$(NAME) -o wide
+
+.PHONY: clone
+clone: ## - clone this directory to new service with renaming
+	go run cmd/clone/clone.go
+
+

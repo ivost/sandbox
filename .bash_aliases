@@ -112,10 +112,12 @@ alias gitrc='git rebase --continue'
 alias gitra='git rebase --abort'
 alias gitre='git rebase --edit-todo'
 # squash last N commits before push e.g. gitsq HEAD~5
-alias gitsq='git reset --soft'
+alias gitsq='echo "to squash last N commits - append HEAD~N" && git reset --soft'
 alias gitresetDEVELOP='git reset --hard origin/develop'
 
-alias wip='git commit -a -m wip && git push'
+alias wip='git commit -a -m wip'
+alias wipp='git commit -a -m wip && git push'
+
 alias gitclean='git clean -fxd'
 
 alias gitckr='git checkout --recurse-submodules --remote'
@@ -289,6 +291,13 @@ function LEN() {
   V=$1
   echo length of "$V": ${#V}
 }
+
+# message=`git log --format=%B origin..HEAD | sort | uniq | grep -v '^$'`
+# git reset --soft origin
+# git commit -m "$message"
+
+# git reset --soft HEAD~3 && 
+# git commit --edit -m"$(git log --format=%B --reverse HEAD..HEAD@{1})"
 
 #export CF=/tmp/roc_compl
 #[[ ! -f $CF ]] && roc completion > $CF
@@ -527,7 +536,6 @@ a vlogin='vault login -method=okta username=ivo.stoyanov@braincorp.com'
 alias ecr-login='$(aws ecr get-login --region ${region} --no-include-email)'
 alias tf=terraform
 
-# eval $(minikube docker-env)
 #cdbs
 
 #export ROC_TOKEN_LOCAL=$(roc env token local)
@@ -746,7 +754,6 @@ alias kcg='kubectl config get-contexts'
 alias kcu='kubectl config use-context'
 alias kcud='kubectl config use-context docker-desktop'
 
-
 alias kgn='kubectl get nodes -o wide'
 alias kdn='kubectl describe  node'
 alias kgns='kubectl get namespaces'
@@ -836,6 +843,9 @@ a und='make kundeploy'
 
 # docker run -d --name=logtest alpine /bin/sh -c "while true; do sleep 5; echo working...; done"
 
+
+# when using minikube
+eval $(minikube docker-env) && echo "USING MINIKUBE"
 #echo 🔥🔥🔥🔥
 
 ##############

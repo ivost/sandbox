@@ -7,6 +7,7 @@ kustomize build ~/someApp/overlays/production
 
 https://github.com/kubernetes-sigs/kustomize/tree/master/examples/helloWorld
 
-pushd $BASE
-kustomize edit set image monopole/hello=monopole/hello:1
-popd
+how to change image tag in deployment
+```
+kustomize edit set image ivostoy/myservice=ivostoy/myservice:0.12.4.0
+```

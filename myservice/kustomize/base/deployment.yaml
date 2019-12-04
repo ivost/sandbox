@@ -5,7 +5,7 @@ metadata:
   name: myservice
 
 spec:
-  replicas: 1
+  replicas: 2
   minReadySeconds: 5
   revisionHistoryLimit: 5
   progressDeadlineSeconds: 60
@@ -26,7 +26,7 @@ spec:
     spec:
       containers:
       - name: myservice
-        image: ivostoy/myservice:0.12.2.0
+        image: ivostoy/myservice:0.0.0.0
         imagePullPolicy: Always
         env:
           - name: GRPC_PORT

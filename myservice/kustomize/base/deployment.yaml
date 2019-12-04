@@ -27,7 +27,10 @@ spec:
       containers:
       - name: myservice
         image: ivostoy/myservice:0.0.0.0
-        imagePullPolicy: Always
+        # see readme for policy in minikube
+        imagePullPolicy: Never
+        #imagePullPolicy: Always
+        #imagePullPolicy: IfNotPresent
         env:
           - name: GRPC_PORT
             value: "52052"

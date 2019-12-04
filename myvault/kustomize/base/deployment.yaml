@@ -27,7 +27,10 @@ spec:
       containers:
       - name: myvault
         image: ivostoy/myvault:0.0.0.0
-        imagePullPolicy: Always
+        # see readme for policy in minikube
+        imagePullPolicy: Never
+        #imagePullPolicy: IfNotPresent
+        #imagePullPolicy: Always
         env:
           - name: GRPC_PORT
             value: "52052"

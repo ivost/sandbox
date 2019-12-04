@@ -7,7 +7,7 @@ NAME := myvault
 # dockerhub
 DOCKER_REPO=ivostoy
 DAEMON=
-VERSION=0.12.4.1
+VERSION=0.12.4.2
 
 # Make does not offer a recursive wildcard function, so here's one:
 rwildcard=$(wildcard $1$2) $(foreach d,$(wildcard $1*),$(call rwildcard,$d/,$2))
@@ -90,8 +90,9 @@ build-linux:  ## - Build server binary for linux (simple and multi-phase builds 
 .PHONY: dbuild
 dbuild:	build-linux ## - Build local - copy to docker image
 	@echo Building docker image $(IMG)
+	# todo: make minikube/local containers conditional
+	eval $(minikube docker-env)
 	docker image build --label $(NAME) --tag $(IMG) .
-	#docker push $(IMG)
 
 .PHONY: dbuild.multi
 dbuild.multi:	## - Build docker image in CI
@@ -147,12 +148,11 @@ dps: ## - Show $(NAME) container status
 # do we need to push when in minikube environment?
 .PHONY: dpush
 dpush: dbuild ## - Publish image $(IMG)
-	## @`aws ecr get-login --region ${REGION} --no-include-email`
-	docker push $(IMG)
+	#docker push $(IMG)
+	@echo not pushing - use local images in minikube environment
 
 .PHONY: dpull
 dpull: ## - Pull image $(IMG)
-	## @`aws ecr get-login --region ${REGION} --no-include-email`
 	docker pull $(IMG)
 
 .PHONY: dlogin
@@ -165,7 +165,9 @@ dlogin: ## - docker ECR login
 
 .PHONY: kdep
 kdep: dbuild dpush ## - Kustomize and Deploy to k8s
-	cd $(BASE) && kustomize edit set image $(IM)=$(IMG) | kustomize build . | kubectl apply -f - && cd ..
+kdep: dbuild dpush ## - Kustomize and Deploy to k8s   kustomize edit set image $(IM)=$(IMG)
+	#cd $(BASE) && kustomize edit set image $(IM)=$(IMG) && kustomize build . && cd ..
+	cd $(BASE) && kustomize edit set image $(IM)=$(IMG) && kustomize build . | kubectl apply -f - && cd ..
 	#kustomize build $(OVERLAYS)/test2
 	#kustomize build $(OVERLAYS)/test2 | kubectl apply -f -
 	sleep 1
@@ -205,9 +207,6 @@ kpod: ## - show $(NAME) pods
 
 .PHONY: clone
 clone: ## - clone this directory to new service with renaming
-	#echo some problems with i/o console - execute command below
-	#go build  -o /tmp/clone  cmd/clone/clone.go
-	#/tmp/clone
 	go run cmd/clone/clone.go
 
 

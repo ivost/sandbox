@@ -24,11 +24,12 @@ func (s *Server) Health(ctx context.Context, none *empty.Empty) (resp *v1.Health
 		Time:    time.Now().Format(time.RFC3339),
 		Address: MyIP(),
 	}
-
+	// to update after changes to myservice
+	// go get github.com/ivost/sandbox/myservice@latest
 	// call myservice Health
 	cfg := mscfg.DefaultConfig()
 	cl := mscl.New(cfg)
-	rsp :=
+	rsp := cl.DoUnary()
 	resp.Status := "myclient: " + rsp.
 	return
 }

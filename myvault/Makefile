@@ -7,7 +7,7 @@ NAME := myvault
 # dockerhub
 DOCKER_REPO=ivostoy
 DAEMON=
-VERSION=0.12.4.2
+VERSION=0.12.4.4
 
 # Make does not offer a recursive wildcard function, so here's one:
 rwildcard=$(wildcard $1$2) $(foreach d,$(wildcard $1*),$(call rwildcard,$d/,$2))
@@ -164,10 +164,14 @@ dlogin: ## - docker ECR login
 ##############
 
 .PHONY: kdep
-kdep: dbuild dpush ## - Kustomize and Deploy to k8s
 kdep: dbuild dpush ## - Kustomize and Deploy to k8s   kustomize edit set image $(IM)=$(IMG)
 	#cd $(BASE) && kustomize edit set image $(IM)=$(IMG) && kustomize build . && cd ..
-	cd $(BASE) && kustomize edit set image $(IM)=$(IMG) && kustomize build . | kubectl apply -f - && cd ..
+	#cd $(BASE) && kustomize edit set image $(IM)=$(IMG) && kustomize build . | kubectl apply -f - && cd ..
+
+	######### testing argo cd
+	cd $(BASE) && kustomize edit set image $(IM)=$(IMG) && cd ..
+	#########
+
 	#kustomize build $(OVERLAYS)/test2
 	#kustomize build $(OVERLAYS)/test2 | kubectl apply -f -
 	sleep 1

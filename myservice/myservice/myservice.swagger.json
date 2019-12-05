@@ -50,7 +50,8 @@
         "build": {
           "type": "string"
         }
-      }
+      },
+      "title": "field numbers 1 through 15 take one byte to encode"
     }
   }
 }

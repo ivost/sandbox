@@ -21,37 +21,29 @@ type Server struct {
 	mux  *http.ServeMux
 }
 
-func New(conf *config.Config) *Server {
-
-	// Register gRPC server endpoint
-	if conf.Secure == 0 {
-		s := &Server{
+func New(conf *config.Config) (s *Server) {
+	switch conf.Secure {
+	case 0:
+		s = &Server{
 			conf: conf,
 			srv:  grpc.NewServer(),
 		}
-
-		// Register reflection service on gRPC server.
-		reflection.Register(s.srv)
-		v1.RegisterMyServiceServer(s.srv, s)
-		return s
+	case 1:
+		// with TLS
+		creds, err := credentials.NewServerTLSFromFile(conf.CertFile, conf.KeyFile)
+		if err != nil {
+			panic(err)
+		}
+		s = &Server{
+			conf: conf,
+			srv:  grpc.NewServer(grpc.Creds(creds)),
+		}
+	case 2:
+		// todo
 	}
-
-	// with TLS
-	creds, err := credentials.NewServerTLSFromFile(conf.CertFile, conf.KeyFile)
-	if err != nil {
-		panic(err)
-	}
-
-	s := &Server{
-		conf: conf,
-		srv:  grpc.NewServer(grpc.Creds(creds)),
-	}
-
 	// Register reflection service on gRPC server.
 	reflection.Register(s.srv)
-
 	v1.RegisterMyServiceServer(s.srv, s)
-
 	return s
 }
 

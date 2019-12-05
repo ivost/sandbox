@@ -26,27 +26,27 @@ const DefaultCertFile = "./ssl/server.crt"
 const DefaultKeyFile = "./ssl/server.pem"
 
 func DefaultConfig() *Config {
-
-}
-
-func New(yamlFile string) *Config {
-	configFile := yamlFile
-	conf := &Config{
+	return &Config{
 		GrpcAddr: DefaultGrpc,
 		RestAddr: DefaultRest,
 		CertFile: DefaultCertFile,
 		KeyFile:  DefaultKeyFile,
-		Secure:   0,
 	}
+}
+
+func New(yamlFile string) *Config {
+	if yamlFile == "" {
+		return DefaultConfig()
+	}
+	conf := DefaultConfig()
+	configFile := yamlFile
 	flag.StringVar(&configFile, "config", DefaultConfigFile, "config file")
 	flag.StringVar(&conf.GrpcAddr, "grpc", DefaultGrpc, "grpc address")
 	flag.StringVar(&conf.RestAddr, "rest", DefaultRest, "rest address")
 	flag.IntVar(&conf.Secure, "secure", 0, "secure: 0=no TLS, 1=server, 2=mTLS")
 	flag.Parse()
 	//https://micro.mu/docs/go-config.html
-	flags := mflag.NewSource(
-	//mflag.IncludeUnset(true),
-	)
+	flags := mflag.NewSource( /* mflag.IncludeUnset(true), */ )
 	flags.Read()
 	err := mconfig.Load(
 		// base config from env
@@ -54,18 +54,12 @@ func New(yamlFile string) *Config {
 		// flag override
 		flags,
 	)
-
-	if err = mconfig.Scan(conf); err != nil {
-		panic(err)
+	_ = mconfig.Scan(conf)
+	if _, err = os.Stat(configFile); err != nil {
+		return conf
 	}
-
-	_, err = os.Stat(configFile)
-	if err == nil {
-		log.Printf("Using config file %v", configFile)
-		mconfig.LoadFile(configFile)
-		if err = mconfig.Scan(conf); err != nil {
-			panic(err)
-		}
-	}
+	log.Printf("Using config file %v", configFile)
+	mconfig.LoadFile(configFile)
+	_ = mconfig.Scan(conf)
 	return conf
 }

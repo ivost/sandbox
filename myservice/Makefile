@@ -164,17 +164,12 @@ dlogin: ## - docker ECR login
 
 .PHONY: kdep
 kdep: dbuild dpush ## - Kustomize and Deploy to k8s   kustomize edit set image $(IM)=$(IMG)
-	#cd $(BASE) && kustomize edit set image $(IM)=$(IMG) && kustomize build . && cd ..
-
-	#cd $(BASE) && kustomize edit set image $(IM)=$(IMG) && kustomize build . | kubectl apply -f - && cd ..
-
+	cd $(BASE) && kustomize edit set image $(IM)=$(IMG) && kustomize build . | kubectl apply -f - && cd ..
 	######### testing argo cd
-	cd $(BASE) && kustomize edit set image $(IM)=$(IMG) && kustomize build . && cd ..
+	#cd $(BASE) && kustomize edit set image $(IM)=$(IMG) && kustomize build . && cd ..
 	#########
-
 	#kustomize build $(OVERLAYS)/test2
 	#kustomize build $(OVERLAYS)/test2 | kubectl apply -f -
-	sleep 1
 
 .PHONY: kund
 kund: ## - Undeploy from k8s
@@ -183,7 +178,6 @@ kund: ## - Undeploy from k8s
 	cd $(BASE) && kubectl delete -f deployment.yaml && cd ..
 	#kustomize build $(OVERLAYS)/test2 | kubectl delete -f -
 	@set -e
-	sleep 1
 
 .PHONY: kred
 kred: kund kdep ## - k8s redeploy

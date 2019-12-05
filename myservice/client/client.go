@@ -5,7 +5,6 @@ import (
 	"log"
 
 	"github.com/golang/protobuf/ptypes/empty"
-
 	"github.com/ivost/sandbox/myservice/config"
 	v1 "github.com/ivost/sandbox/myservice/myservice"
 	"google.golang.org/grpc"

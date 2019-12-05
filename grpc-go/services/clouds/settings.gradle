@@ -1,0 +1,4 @@
+rootProject.name = 'clouds'
+
+includeBuild '../grpc-api'
+includeBuild '../grpc-common'

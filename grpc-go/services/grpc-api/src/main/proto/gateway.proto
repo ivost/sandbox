@@ -1,0 +1,71 @@
+// API definition for API Gateway service.
+
+syntax = "proto3";
+
+option java_multiple_files = true;
+option java_package = "xyz.breakit.game.gateway";
+option java_outer_classname = "GatewayProto";
+
+import "geese.proto";
+import "clouds.proto";
+
+package game;
+
+/*
+ * Unary service to request game fixture.
+ */
+service FixtureService {
+    /*
+     * Return next lines of a game fixture.
+     */
+    rpc GetFixture (GetFixtureRequest) returns (FixtureResponse);
+}
+
+/*
+ * Request to receive next lines.
+ */
+message GetFixtureRequest {
+    /*
+     * Number of requested horizontal lines.
+     */
+    int32 lines_count = 1;
+    /*
+     * Line width: max number of elements in one sceen horizontal line.
+     */
+    int32 line_width = 2;
+    /*
+     * Single goose width in pixels.
+     * This arguments is used to make sure geese in one line don't overlap.
+     */
+    int32 goose_width = 3;
+    /*
+     * Single cloud width in pixels.
+     * This arguments is used to make sure clouds in one line don't overlap.
+     */
+    int32 cloud_width = 4;
+}
+
+/*
+ * Contains list of horizontal fixture lines.
+ */
+message FixtureResponse {
+    /*
+     * Horizontal fixture lines, up to a requested number.
+     */
+    repeated FixtureLine lines = 1;
+}
+
+/*
+ * Contains goose and cloud positions in a horizontal line.
+ */
+message FixtureLine {
+    /*
+     * Array of geese, complete with positions and types.
+     */
+
+    repeated geese.GooseLocator goose_locators = 1;
+    /*
+     * Array of clouds, complete with positions.
+     */
+    repeated clouds.CloudLocator cloud_locators = 2;
+}

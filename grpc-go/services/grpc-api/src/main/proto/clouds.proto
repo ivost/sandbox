@@ -1,0 +1,67 @@
+// API definition for Clouds service.
+
+syntax = "proto3";
+
+option java_multiple_files = true;
+option java_package = "xyz.breakit.clouds";
+option java_outer_classname = "CloudsProto";
+
+package clouds;
+
+/*
+ * Unary service to request cloud positions.
+ */
+service CloudsService {
+    /*
+     * Return next line of cloud positions.
+     */
+    rpc GetClouds (GetCloudsRequest) returns (CloudsResponse);
+}
+
+/*
+ * Request to recieve next lines of clouds.
+ */
+message GetCloudsRequest {
+    /*
+     * Number of requested horizontal lines.
+     */
+    int32 lines_count = 1;
+    /*
+     * Line width: max number of clouds in one sceen horizontal line.
+     */
+    int32 line_width = 2;
+    /*
+     * Single cloud width in pixels.
+     * This arguments is used to make sure clouds in one line don't overlap.
+     */
+    int32 cloud_width = 3;
+}
+
+/*
+ * Contains list of horizontal lines with clouds.
+ */
+message CloudsResponse {
+    /*
+     * Horizontal lines with clouds, up to a requested number.
+     */
+    repeated CloudsLine lines = 1;
+}
+
+/*
+ * Contains cloud positions in a horizontal line.
+ */
+message CloudsLine {
+    /*
+     * Array of clouds in the given line.
+     */
+    repeated CloudLocator cloud_locators = 1;
+}
+
+message CloudLocator {
+    /*
+     * Cloud position in a line. Number represent verticals position
+     * of a cloud. For example, 10 means there is a cloud in the
+     * tenth position of the line.
+     */
+    int32 cloud_position = 1;
+}

@@ -7,7 +7,7 @@ NAME := myservice
 # dockerhub
 DOCKER_REPO=ivostoy
 DAEMON=
-VERSION=0.12.4.4
+VERSION=0.12.4.5
 
 # Make does not offer a recursive wildcard function, so here's one:
 rwildcard=$(wildcard $1$2) $(foreach d,$(wildcard $1*),$(call rwildcard,$d/,$2))

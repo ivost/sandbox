@@ -13,4 +13,6 @@ func TestClient(t *testing.T) {
 	require.NotNil(t, conf)
 	c := client.New(conf)
 	require.NotNil(t, c)
+	rsp, err := c.Health()
+	_, _ = rsp, err
 }

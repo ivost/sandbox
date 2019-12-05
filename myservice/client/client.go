@@ -2,7 +2,6 @@ package client
 
 import (
 	"context"
-	"log"
 
 	"github.com/golang/protobuf/ptypes/empty"
 	"github.com/ivost/sandbox/myservice/config"
@@ -41,15 +40,7 @@ func New(conf *config.Config) *Client {
 	return c
 }
 
-func (c *Client) DoUnary() error {
+func (c *Client) Health() (*v1.HealthResponse, error) {
 	ctx := context.Background()
-	// unary
-	log.Printf("Health check")
-	hr, err := c.client.Health(ctx, &empty.Empty{})
-	if err != nil {
-		log.Printf("*** error: %+v", err)
-	} else {
-		log.Printf("Health response: %+v", hr)
-	}
-	return err
+	return c.client.Health(ctx, &empty.Empty{})
 }

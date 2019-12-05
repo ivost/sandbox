@@ -152,9 +152,8 @@ github.com/iij/doapi v0.0.0-20190504054126-0bbf12d6d7df/go.mod h1:QMZY7/J/KSQEhK
 github.com/ijc/Gotty v0.0.0-20170406111628-a8b993ba6abd/go.mod h1:3LVOLeyx9XVvwPgrt2be44XgSqndprz1G18rSk8KD84=
 github.com/imdario/mergo v0.3.8 h1:CGgOkSJeqMRmt0D9XLWExdT4m4F1vd3FV3VPt+0VxkQ=
 github.com/imdario/mergo v0.3.8/go.mod h1:2EnlNZ0deacrJVfApfmtdGgDfMuh/nq6Ok1EcJh5FfA=
-github.com/ivost/sandbox v0.0.0-20191201230653-dfee59a6d4ed h1:jK4pmE0OjHY2YTJvmsRbJAZH/1et3dHIb1dfFmAuEXs=
-github.com/ivost/sandbox v0.0.0-20191202000204-4fe77bdea835 h1:9CFu4I/xx2F7ZHv6l+ddEuhNHngCzYW/FUhM2gOZp/4=
-github.com/ivost/sandbox v0.0.0-20191205060909-c3ce0a7b41e6 h1:PMvUp1DIeaGEc6GiGaptPtDQtvu641TqxZQGEsPMufY=
+github.com/ivost/sandbox/myservice v0.0.0-20191205060909-c3ce0a7b41e6 h1:XviX7Dxf+GkE+9PaXTJm4lXIlv8U0roKCaWglHoczqo=
+github.com/ivost/sandbox/myservice v0.0.0-20191205060909-c3ce0a7b41e6/go.mod h1:ij5tvr2/qm/feZsfAZD+QIYJc/nBPz/TBz7B5Ema6iU=
 github.com/jbenet/go-context v0.0.0-20150711004518-d14ea06fba99/go.mod h1:1lJo3i6rXxKeerYnT8Nvf0QmHCRC1n8sfWVwXF2Frvo=
 github.com/jessevdk/go-flags v1.4.0/go.mod h1:4FA24M0QyGHXBuZZK/XkWh8h0e1EYbRYJSGM75WSRxI=
 github.com/jmespath/go-jmespath v0.0.0-20180206201540-c2b33e8439af/go.mod h1:Nht3zPeWKUH0NzdCt2Blrr5ys8VGpn0CEB0cQHVjt7k=

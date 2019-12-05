@@ -13,6 +13,7 @@
   "paths": {
     "/health": {
       "get": {
+        "summary": "unary",
         "operationId": "Health",
         "responses": {
           "200": {
@@ -50,7 +51,8 @@
         "build": {
           "type": "string"
         }
-      }
+      },
+      "title": "field numbers 1 through 15 take one byte to encode"
     }
   }
 }

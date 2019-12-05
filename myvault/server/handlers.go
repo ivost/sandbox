@@ -6,10 +6,13 @@ import (
 	"strings"
 	"time"
 
-	"github.com/ivost/sandbox/myvault/pkg/version"
+	// client of myservice
+	mscl "github.com/ivost/sandbox/myservice/client"
+	mscfg "github.com/ivost/sandbox/myservice/config"
 
 	"github.com/golang/protobuf/ptypes/empty"
 	v1 "github.com/ivost/sandbox/myvault/myvault"
+	"github.com/ivost/sandbox/myvault/pkg/version"
 )
 
 func (s *Server) Health(ctx context.Context, none *empty.Empty) (resp *v1.HealthResponse, err error) {
@@ -21,6 +24,12 @@ func (s *Server) Health(ctx context.Context, none *empty.Empty) (resp *v1.Health
 		Time:    time.Now().Format(time.RFC3339),
 		Address: MyIP(),
 	}
+
+	// call myservice Health
+	cfg := mscfg.DefaultConfig()
+	cl := mscl.New(cfg)
+	rsp :=
+	resp.Status := "myclient: " + rsp.
 	return
 }
 

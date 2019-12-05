@@ -15,5 +15,10 @@ func main() {
 	conf := config.New(cf)
 	c := client.New(conf)
 	log.Printf("grpc client endpoint:  %v, secure: %v", conf.GrpcAddr, conf.Secure)
-	c.DoUnary()
+	rsp, err := c.Health()
+	if err != nil {
+		log.Printf("error %v", err)
+		return
+	}
+	log.Printf("response %+v", rsp)
 }

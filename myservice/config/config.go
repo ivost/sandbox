@@ -25,6 +25,10 @@ const DefaultConfigFile = "./config.yaml"
 const DefaultCertFile = "./ssl/server.crt"
 const DefaultKeyFile = "./ssl/server.pem"
 
+func DefaultConfig() *Config {
+
+}
+
 func New(yamlFile string) *Config {
 	configFile := yamlFile
 	conf := &Config{
@@ -59,11 +63,9 @@ func New(yamlFile string) *Config {
 	if err == nil {
 		log.Printf("Using config file %v", configFile)
 		mconfig.LoadFile(configFile)
+		if err = mconfig.Scan(conf); err != nil {
+			panic(err)
+		}
 	}
-
-	if err = mconfig.Scan(conf); err != nil {
-		panic(err)
-	}
-
 	return conf
 }

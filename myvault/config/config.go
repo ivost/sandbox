@@ -59,10 +59,9 @@ func New(yamlFile string) *Config {
 	if err == nil {
 		log.Printf("Using config file %v", configFile)
 		mconfig.LoadFile(configFile)
-	}
-
-	if err = mconfig.Scan(conf); err != nil {
-		panic(err)
+		if err = mconfig.Scan(conf); err != nil {
+			panic(err)
+		}
 	}
 
 	return conf

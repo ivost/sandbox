@@ -1,0 +1,7 @@
+apiVersion: getambassador.io/v1
+kind: Mapping
+metadata:
+  name: myvault-map1
+spec:
+  prefix: /myvault/
+  service: myvault:8080

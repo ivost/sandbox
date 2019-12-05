@@ -1,0 +1,9 @@
+apiVersion: getambassador.io/v1
+kind: Mapping
+metadata:
+  name: myvault-map2
+spec:
+  grpc: true
+  prefix: /myvault.VaultService/
+  rewrite: /myvault.VaultService/
+  service: myvault

@@ -773,7 +773,7 @@ alias kdd='kubectl describe deployment'
 
 alias kaf='kubectl apply -f'
 alias kdf='kubectl delete -f'
-alias kex='kubectl exec -it $1 -- sh'
+alias kex='kubectl exec -it $1'
 
 alias ksd1='kubectl scale --replicas 1 deployment'
 alias ksd2='kubectl scale --replicas 2 deployment'
@@ -846,7 +846,7 @@ a und='make kundeploy'
 
 
 # when using minikube
-eval $(minikube docker-env) && echo "USING MINIKUBE"
+#### eval $(minikube docker-env) && echo "USING MINIKUBE"
 #echo 🔥🔥🔥🔥
 
 ##############

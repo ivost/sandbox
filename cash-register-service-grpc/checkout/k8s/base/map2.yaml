@@ -1,0 +1,9 @@
+apiVersion: getambassador.io/v1
+kind: Mapping
+metadata:
+  name: store-map2
+spec:
+  grpc: true
+  prefix: /store.StoreService/
+  rewrite: /store.StoreService/
+  service: store

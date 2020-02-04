@@ -1,0 +1,7 @@
+apiVersion: getambassador.io/v1
+kind: Mapping
+metadata:
+  name: store-map1
+spec:
+  prefix: /store/
+  service: store:8080

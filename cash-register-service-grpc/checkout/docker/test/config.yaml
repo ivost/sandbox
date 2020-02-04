@@ -1,0 +1,14 @@
+# default store client configuration - using ambassador API gateway
+# use the default config.yaml for local tests
+
+# not a type - this is used for service-to-service call
+grpcAddr: "store.default:52052"
+restAddr: "0.0.0.0:8080"
+
+# secure 0=no TLS, 1=server, 2=mTLS
+secure: 0
+
+# generated cert is for localhost
+
+keyFile: "../ssl/server.pem"
+certFile: "../ssl/server.crt"

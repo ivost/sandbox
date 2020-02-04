@@ -1,0 +1,89 @@
+syntax = "proto3";
+
+// register checkout service
+package checkout;
+
+
+import "google/api/annotations.proto";
+import "google/protobuf/empty.proto";
+
+message Item {
+    string id = 2;
+    string name = 6;
+    float price = 8;
+    bool  valid = 10;
+}
+
+message AddItemRequest {
+    Item item = 4;
+}
+
+message AddItemResponse {
+    Item item = 4;
+}
+
+message LineItem {
+    string id = 2;
+    int32 qty = 4;
+    string name = 6;
+    float price = 8;
+    float extprice = 10;    // qty * price
+}
+
+message Receipt {
+    string register = 2;
+    repeated LineItem items = 6;
+    int64  time = 10;
+    float total = 12;
+}
+
+message ScanItem {
+    string upc = 6;
+    int64  time = 10;
+}
+
+message CheckoutRequest {
+    string register = 2;
+    repeated ScanItem items = 4;
+}
+
+// end checkout  will return the receipt
+message CheckoutResponse {
+    Receipt receipt = 2;
+}
+
+
+// field numbers 1 through 15 take one byte to encode
+message HealthResponse {
+    string status = 2;
+    string time = 4;
+    string name = 6;
+    string Address = 8;
+    string version = 10;
+    string build = 12;
+}
+
+service CheckoutService{
+
+    rpc Health(google.protobuf.Empty) returns (HealthResponse) {
+        option (google.api.http) = {
+                get: "/health"
+            };
+    }
+    // catalog logically belongs to a separate service
+    // moved it here due to limited time
+    rpc AddItem(AddItemRequest) returns (AddItemResponse) {
+        option (google.api.http) = {
+                post: "/v1/checkout/items"
+                body: "*"
+            };
+    }
+
+    rpc Checkout(CheckoutRequest) returns (CheckoutResponse) {
+        option (google.api.http) = {
+                post: "/v1/checkout/receipt"
+                body: "*"
+            };
+    }
+
+}

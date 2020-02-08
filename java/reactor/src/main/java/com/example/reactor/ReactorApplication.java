@@ -10,4 +10,7 @@ public class ReactorApplication {
 		SpringApplication.run(ReactorApplication.class, args);
 	}
 
+	public void foo() {
+		var s = "Hello";
+	}
 }

@@ -319,10 +319,9 @@ function git_br() {
 function iterm2_print_user_vars() {
   iterm2_set_user_var gitBranch "$(git_br)"
 }
-  
-function setup_git() {
-  git config --global user.email ivostoy@gmail.com
-  git config --global user.name ivo
+
+function login() {
+
 }
 
 function bun_check() {

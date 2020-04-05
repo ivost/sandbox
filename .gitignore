@@ -7,6 +7,7 @@
 *.dylib
 build/
 .idea/
+.gradle
 
 # Test binary, build with `go test -c`
 *.test

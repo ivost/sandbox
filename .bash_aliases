@@ -233,7 +233,7 @@ if [[ "$OSTYPE" =~ ^darwin ]]; then
   # Hide/show all desktop icons (useful when presenting)
   alias hidedesktop="defaults write com.apple.finder CreateDesktop -bool false && killall Finder"
   alias showdesktop="defaults write com.apple.finder CreateDesktop -bool true && killall Finder"
-  #alias subl='/Applications/Sublime\ Text.app/Contents/SharedSupport/Bin/subl'
+  alias subl='/Applications/Sublime\ Text.app/Contents/SharedSupport/Bin/subl'
   #alias m=multipass
 
 	#x=$(brew --prefix)/etc/bash_completion
@@ -266,3 +266,21 @@ alias N='date +''%s'''
 umask 0022
 
 alias mm='make menuconfig'
+
+# brew cask install adoptopenjdk13
+
+export JAVA_HOME=`/usr/libexec/java_home -v 13.0`
+
+export PATH=$JAVA_HOME/bin:$PATH
+
+export MAVEN_HOME=$HOME/tools/apache-maven-3.6.3
+export PATH=$MAVEN_HOME/bin:$PATH
+
+#echo $JAVA_HOME
+#java -version
+#mvn -version
+
+a cdj='cd ~/github/sandbox/java'
+
+
+

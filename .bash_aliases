@@ -96,7 +96,7 @@ alias gita='git add -A '
 alias gitb='git branch '
 # delete remote branch
 alias gitdrb='git push origin --delete'
-alias ivo-git='git config --global user.email "ivostoy@gmail.com"; git config --global user.name "ivo"'
+alias ivo-git='git config --global user.email "ivostoy@gmail.com"; git config --global user.name "ivo";  git config --global push.default simple'
 
 alias gitc='git commit -a -m '
 alias gitconf='git config --list --show-origin'
@@ -111,7 +111,7 @@ alias gitsq='echo "to squash last N commits - append HEAD~N" && git reset --soft
 alias gitresetDEVELOP='git reset --hard origin/develop'
 
 
-alias wip='git commit -a -m wip'
+alias wip='git commit -a -m wip; git push'
 alias wipp='git commit -a -m wip && git push'
 
 alias gitlog='git log --graph --decorate --oneline'

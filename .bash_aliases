@@ -4,7 +4,7 @@
 #set -e
 
 #echo 🔥 ✋ 🛑  💣
-### echo v.2.3.19.0
+### echo v.2.4.7.0
 #echo 🔥 ✋ 🛑  💣
 
 
@@ -96,6 +96,7 @@ alias gita='git add -A '
 alias gitb='git branch '
 # delete remote branch
 alias gitdrb='git push origin --delete'
+alias ivo-git='git config --global user.email "ivostoy@gmail.com"; git config --global user.name "ivo"'
 
 alias gitc='git commit -a -m '
 alias gitconf='git config --list --show-origin'
@@ -108,6 +109,7 @@ alias gitml="git merge --strategy-option ours"
 alias gits='git status'
 alias gitsq='echo "to squash last N commits - append HEAD~N" && git reset --soft'
 alias gitresetDEVELOP='git reset --hard origin/develop'
+
 
 alias wip='git commit -a -m wip'
 alias wipp='git commit -a -m wip && git push'
@@ -206,7 +208,7 @@ function gitfp() {
 export EDITOR=subl
 alias inst='sudo apt install'
 alias upd='sudo apt update'
-alias eba='subl ~/.bash_aliases; source ~/.bash_aliases'
+alias eba='nano ~/.bash_aliases; source ~/.bash_aliases'
 
 ## aliases depending on OS
 ### MAC
@@ -269,17 +271,17 @@ alias mm='make menuconfig'
 
 # brew cask install adoptopenjdk13
 
-export JAVA_HOME=`/usr/libexec/java_home -v 13.0`
+if [[ -f /usr/libexec/java ]]; then
+  export JAVA_HOME=`/usr/libexec/java_home -v 13.0`
+  export PATH=$JAVA_HOME/bin:$PATH
 
-export PATH=$JAVA_HOME/bin:$PATH
+  export MAVEN_HOME=$HOME/tools/apache-maven-3.6.3
+  export PATH=$MAVEN_HOME/bin:$PATH
 
-export MAVEN_HOME=$HOME/tools/apache-maven-3.6.3
-export PATH=$MAVEN_HOME/bin:$PATH
-
-#echo $JAVA_HOME
-#java -version
-#mvn -version
-
+  #echo $JAVA_HOME
+  #java -version
+  #mvn -version
+fi
 a cdj='cd ~/github/sandbox/java'
 
 

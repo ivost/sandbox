@@ -205,10 +205,20 @@ function gitfp() {
   git push origin +"$B"
 }
 
-export EDITOR=subl
+export EDITOR=nano
+
+if [[ $(which sublime_text) ]] ; then 
+  export EDITOR=sublime_text
+else
+  if [[ -d $HOME/tools/sublime_text_3 ]]; then
+    export PATH=$PATH:$HOME/tools/sublime_text_3
+    export EDITOR=sublime_text
+  fi
+fi
+
 alias inst='sudo apt install'
 alias upd='sudo apt update'
-alias eba='nano ~/.bash_aliases; source ~/.bash_aliases'
+alias eba='$EDITOR ~/.bash_aliases; source ~/.bash_aliases'
 
 ## aliases depending on OS
 ### MAC

@@ -13,7 +13,6 @@ import javax.transaction.Transactional;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.Assert.assertEquals;
 
 @RunWith(SpringRunner.class)
 @DataJpaTest
@@ -27,11 +26,12 @@ public class CityRepositoryTest {
 
     @Test
     @Transactional
-    public void testFindAll() {
-        var city = new City("New York", 8_500_000);
+    public void findByNameEndingWithAndPopulationLessThan() {
+        var name = "San Diego";
+        var city = new City(name, 1_426_000);
         entityManager.persist(city);
-        var cities = (List<City>) repository.findAll();
-        assertEquals(1, cities.size());
-        assertThat(cities).extracting(City::getName).containsOnly("New York");
+        var cities = (List<City>) repository.findByNameEndingWithAndPopulationLessThan("go", 2_000_000);
+        assertThat(cities).hasSize(1);
+        assertThat(cities).extracting(City::getName).containsOnly(name);
     }
 }

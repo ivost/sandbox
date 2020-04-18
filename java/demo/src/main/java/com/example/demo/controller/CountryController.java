@@ -13,10 +13,12 @@ import java.util.Optional;
 public class CountryController {
 
     final CountryService countryService;
-
-    public CountryController(CountryService countryService) {
-        this.countryService = countryService;
-    }
+//    public CountryController() {
+//        this.countryService = new CountryServiceImpl();
+//    }
+public CountryController(CountryService countryService) {
+    this.countryService = countryService;
+}
 
     @GetMapping("/countries")
     public List<Country> getCountries() {

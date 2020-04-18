@@ -33,6 +33,6 @@ INSERT INTO countries(name, population) VALUES('Sudan', 41176000);
 INSERT INTO countries(name, population) VALUES('Algeria', 40400000);
 INSERT INTO countries(name, population) VALUES('Poland', 38439000);
 
--- INSERT INTO cities(name, population) VALUES('Los Angeles', 3971000);
--- INSERT INTO cities(name, population) VALUES('New York', 8550000);
--- INSERT INTO cities(name, population) VALUES('Berlin', 3671000);
+INSERT INTO cities(name, population) VALUES('Los Angeles', 3971000);
+INSERT INTO cities(name, population) VALUES('New York', 8550000);
+INSERT INTO cities(name, population) VALUES('Berlin', 3671000);

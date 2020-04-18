@@ -7,7 +7,7 @@ import org.springframework.stereotype.Service;
 public class HelloService {
 
     @Value("${app.message}")
-    private String message;
+    private final String message = "Hello";
 
     public String sayHello() {
         return message;

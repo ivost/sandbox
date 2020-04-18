@@ -276,11 +276,22 @@ export PATH=$JAVA_HOME/bin:$PATH
 export MAVEN_HOME=$HOME/tools/apache-maven-3.6.3
 export PATH=$MAVEN_HOME/bin:$PATH
 
+export PATH=$PATH:/Users/ivo/Library/Android/sdk/platform-tools
+
+
 #echo $JAVA_HOME
 #java -version
 #mvn -version
 
 a cdj='cd ~/github/sandbox/java'
+export tom=/usr/local/opt/tomcat@7/libexec
+export PATH="/usr/local/opt/tomcat@7/bin:$PATH"
+alias tomr='catalina restart'
+alias tomstart='catalina start'
+alias tomstop='catalina stop'
 
+a dir=ls
+#a type=cat
 
+export pi=pi@10.0.1.187
 

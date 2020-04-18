@@ -281,31 +281,17 @@ alias mm='make menuconfig'
 
 # brew cask install adoptopenjdk13
 
-if [[ -f /usr/libexec/java ]]; then
-  export JAVA_HOME=`/usr/libexec/java_home -v 13.0`
-  export PATH=$JAVA_HOME/bin:$PATH
-
-<<<<<<< HEAD
-export PATH=$JAVA_HOME/bin:$PATH
-
 export MAVEN_HOME=$HOME/tools/apache-maven-3.6.3
 export PATH=$MAVEN_HOME/bin:$PATH
 
-export PATH=$PATH:/Users/ivo/Library/Android/sdk/platform-tools
-
-
-#echo $JAVA_HOME
-#java -version
-#mvn -version
-=======
-  export MAVEN_HOME=$HOME/tools/apache-maven-3.6.3
-  export PATH=$MAVEN_HOME/bin:$PATH
->>>>>>> 92826abba6e5c3073ff0c08ecf3c169f5a356d38
-
+if [[ -f /usr/libexec/java ]]; then
+  export JAVA_HOME=`/usr/libexec/java_home -v 13.0`
+  export PATH=$JAVA_HOME/bin:$PATH
   #echo $JAVA_HOME
   #java -version
   #mvn -version
 fi
+
 a cdj='cd ~/github/sandbox/java'
 export tom=/usr/local/opt/tomcat@7/libexec
 export PATH="/usr/local/opt/tomcat@7/bin:$PATH"

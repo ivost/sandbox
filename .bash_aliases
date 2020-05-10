@@ -13,7 +13,7 @@ export HISTCONTROL=erasedups
 export HISTSIZE=10000
 export HISTFILESIZE=10000
 # dont save commands starting with space 
-export HISTIGNORE="[ \t]*:pwd:ls:ll:h:a:rm"
+#export HISTIGNORE="[ \t]*:pwd:ls:ll:h:a:rm"
 #export HISTIGNORE="rm *:h:a"
 
 #MYIP=$(ifconfig | grep 'inet addr:'| grep -v '127.0.0.1' | tail -1 | cut -d: -f2 | awk '{ print $1}')
@@ -77,7 +77,7 @@ alias lsall='ls -lAF $colorflag'
 alias lsdir='ls -lF $colorflag | grep --color=never "^d" '
 
 # Always use color output for `ls`
-alias ls='command ls $colorflag'
+#alias ls='command ls $colorflag'
 
 alias ls1='ls -F1'
 alias lst='ls -FLlhtr'
@@ -205,20 +205,22 @@ function gitfp() {
   git push origin +"$B"
 }
 
-export EDITOR=nano
 
+export EDITOR=nano
 if [[ $(which sublime_text) ]] ; then 
   export EDITOR=sublime_text
+  alias eba='sublime_text ~/.bash_aliases; source ~/.bash_aliases'
 else
-  if [[ -d $HOME/tools/sublime_text_3 ]]; then
-    export PATH=$PATH:$HOME/tools/sublime_text_3
-    export EDITOR=sublime_text
-  fi
+	if [[ -d $HOME/tools/sublime_text_3 ]]; then
+		export PATH=$PATH:$HOME/tools/sublime_text_3
+		export EDITOR=sublime_text
+    alias eba='sublime_text ~/.bash_aliases; source ~/.bash_aliases'
+	fi
 fi
 
 alias inst='sudo apt install'
 alias upd='sudo apt update'
-alias eba='$EDITOR ~/.bash_aliases; source ~/.bash_aliases'
+
 
 ## aliases depending on OS
 ### MAC
@@ -246,8 +248,9 @@ if [[ "$OSTYPE" =~ ^darwin ]]; then
   alias hidedesktop="defaults write com.apple.finder CreateDesktop -bool false && killall Finder"
   alias showdesktop="defaults write com.apple.finder CreateDesktop -bool true && killall Finder"
   alias subl='/Applications/Sublime\ Text.app/Contents/SharedSupport/Bin/subl'
+  #export EDITOR='/Applications/Sublime\ Text.app/Contents/SharedSupport/Bin/subl'
   #alias m=multipass
-
+  alias eba='subl ~/.bash_aliases; source ~/.bash_aliases'
 	#x=$(brew --prefix)/etc/bash_completion
 	# shellcheck disable=SC1090
 	#[[ -f "$x" ]] && source "$x"
@@ -302,5 +305,10 @@ alias tomstop='catalina stop'
 a dir=ls
 #a type=cat
 
-export pi=pi@10.0.1.187
+export pi=pi@10.0.1.194
 
+#source /opt/intel/openvino/bin/setupvars.sh
+
+# sudo python3 -m pip install --upgrade --force-reinstall pip
+# docker run -p 127.0.0.1:5665:5665  --name workbench -e PROXY_HOST_ADDRESS=0.0.0.0 -e PORT=5665 -it openvino/workbench:latest
+# http://127.0.0.1:5665/?token=aaa944559052a78878658f31c1b8aece6f081bc31f87078c1a852b138e336495

@@ -13,7 +13,7 @@ export HISTCONTROL=erasedups
 export HISTSIZE=10000
 export HISTFILESIZE=10000
 # dont save commands starting with space 
-export HISTIGNORE="[ \t]*:pwd:ls:ll:h:a:rm"
+#export HISTIGNORE="[ \t]*:pwd:ls:ll:h:a:rm"
 #export HISTIGNORE="rm *:h:a"
 
 #MYIP=$(ifconfig | grep 'inet addr:'| grep -v '127.0.0.1' | tail -1 | cut -d: -f2 | awk '{ print $1}')
@@ -28,7 +28,7 @@ alias s='source'
 alias c=clear
 alias t=tree
 alias gr=egrep
-alias del='rm'
+#alias del='rm'
 
 #alias ep='subl ~/.profile; source ~/.profile'
 #alias ep='subl ~/.bash_profile; source ~/.bash_profile'
@@ -125,7 +125,9 @@ alias k9='kill -9'
 alias pssh='ps aux|grep ssh'
 alias gign='vi .gitignore'
 
-export PATH=/usr/local/bin:$HOME/tools:$PATH
+export PATH=/usr/local/bin:$PATH:$HOME/tools
+# warning -  do not use SES from tools dir - install properly with installer in /usr
+#export PATH=$PATH:$HOME/tools/ses/bin
 
 alias sba='source ~/.bash_aliases'
 alias pu='lsof -i '
@@ -266,3 +268,11 @@ alias N='date +''%s'''
 umask 0022
 
 alias mm='make menuconfig'
+
+#source zephyr/zephyr-env.sh
+alias wb='west build'
+alias wf='west flash'
+alias w='wb && wf'
+
+#source ~/.zephyrrc
+source ~/ncs/zephyr/zephyr-env.sh

@@ -4,7 +4,7 @@
 #set -e
 
 #echo 🔥 ✋ 🛑  💣
-### echo v.2.3.19.0
+### echo v.2.6.2.0
 #echo 🔥 ✋ 🛑  💣
 
 
@@ -77,7 +77,7 @@ alias lsall='ls -lAF $colorflag'
 alias lsdir='ls -lF $colorflag | grep --color=never "^d" '
 
 # Always use color output for `ls`
-alias ls='command ls $colorflag'
+#alias ls='command ls $colorflag'
 
 alias ls1='ls -F1'
 alias lst='ls -FLlhtr'
@@ -96,6 +96,7 @@ alias gita='git add -A '
 alias gitb='git branch '
 # delete remote branch
 alias gitdrb='git push origin --delete'
+alias ivo-git='git config --global user.email "ivostoy@gmail.com"; git config --global user.name "ivo";  git config --global push.default simple'
 
 alias gitc='git commit -a -m '
 alias gitconf='git config --list --show-origin'
@@ -109,7 +110,8 @@ alias gits='git status'
 alias gitsq='echo "to squash last N commits - append HEAD~N" && git reset --soft'
 alias gitresetDEVELOP='git reset --hard origin/develop'
 
-alias wip='git commit -a -m wip'
+
+alias wip='git commit -a -m wip; git push'
 alias wipp='git commit -a -m wip && git push'
 
 alias gitlog='git log --graph --decorate --oneline'
@@ -205,7 +207,19 @@ function gitfp() {
   git push origin +"$B"
 }
 
-export EDITOR=subl
+
+export EDITOR=nano
+if [[ $(which sublime_text) ]] ; then 
+  export EDITOR=sublime_text
+  alias eba='sublime_text ~/.bash_aliases; source ~/.bash_aliases'
+else
+	if [[ -d $HOME/tools/sublime_text_3 ]]; then
+		export PATH=$PATH:$HOME/tools/sublime_text_3
+		export EDITOR=sublime_text
+    alias eba='sublime_text ~/.bash_aliases; source ~/.bash_aliases'
+	fi
+fi
+
 alias inst='sudo apt install'
 alias upd='sudo apt update'
 alias eba='subl ~/.bash_aliases; source ~/.bash_aliases'
@@ -268,11 +282,3 @@ alias N='date +''%s'''
 umask 0022
 
 alias mm='make menuconfig'
-
-#source zephyr/zephyr-env.sh
-alias wb='west build'
-alias wf='west flash'
-alias w='wb && wf'
-
-#source ~/.zephyrrc
-source ~/ncs/zephyr/zephyr-env.sh

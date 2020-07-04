@@ -11,11 +11,19 @@
 #include <sys/printk.h>
 #include <sys/util.h>
 
+#include <device.h>
+#include <drivers/gpio.h>
 #include <bluetooth/bluetooth.h>
 #include <bluetooth/hci.h>
 
 #define DEVICE_NAME CONFIG_BT_DEVICE_NAME
 #define DEVICE_NAME_LEN (sizeof(DEVICE_NAME) - 1)
+
+#define LED_PORT  DT_ALIAS_LED0_GPIOS_CONTROLLER
+#define LED		  DT_ALIAS_LED0_GPIOS_PIN
+#define SLEEP_TIME	1000
+
+struct device *dev;
 
 /*
  * Set Advertisement data. Based on the Eddystone specification:
@@ -30,8 +38,7 @@ static const struct bt_data ad[] = {
 		      0x10, /* Eddystone-URL frame type */
 		      0x00, /* Calibrated Tx power at 0m */
 		      0x00, /* URL Scheme Prefix http://www. */
-		      'z', 'e', 'p', 'h', 'y', 'r',
-		      'p', 'r', 'o', 'j', 'e', 'c', 't',
+		      'I', 'V', 'O', 
 		      0x08) /* .org */
 };
 
@@ -39,6 +46,28 @@ static const struct bt_data ad[] = {
 static const struct bt_data sd[] = {
 	BT_DATA(BT_DATA_NAME_COMPLETE, DEVICE_NAME, DEVICE_NAME_LEN),
 };
+
+void delay() 
+{
+    k_sleep(SLEEP_TIME);
+}
+
+void init() 
+{
+    delay();
+    dev = device_get_binding(LED_PORT);
+    for (int i=0; i<4; i++) 
+    {
+        gpio_pin_configure(dev, LED+i, GPIO_OUTPUT);
+    }
+    printk("Init 0.5.10.1\n");
+}
+
+void led(int idx, int val) 
+{
+    gpio_pin_set(dev, LED+idx, val);
+    delay();
+}
 
 static void bt_ready(int err)
 {
@@ -64,13 +93,20 @@ void main(void)
 {
 	int err;
 
-	printk("Starting Beacon Demo\n");
+    init();
+
+    led(0, 1);
+    led(1, 0);
+    led(2, 1);
+    led(3, 0);
+
+	printk("Starting MY Beacon\n");
 
 	/* Initialize the Bluetooth Subsystem 
+	*/
 	err = bt_enable(bt_ready);
 	if (err) {
 		printk("Bluetooth init failed (err %d)\n", err);
 	}
 
-	*/
 }

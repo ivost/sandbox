@@ -1,33 +1,48 @@
-/*
- * Copyright (c) 2016 Intel Corporation
- *
- * SPDX-License-Identifier: Apache-2.0
- */
-
 #include <zephyr.h>
 #include <device.h>
 #include <drivers/gpio.h>
 
 #define LED_PORT  DT_ALIAS_LED0_GPIOS_CONTROLLER
 #define LED		  DT_ALIAS_LED0_GPIOS_PIN
+#define SLEEP_TIME	1000
 
-/* 1000 msec = 1 sec */
-#define SLEEP_TIME	2000
+struct device *dev;
+
+void delay() 
+{
+    k_sleep(SLEEP_TIME);
+}
+
+void init() 
+{
+    delay();
+    dev = device_get_binding(LED_PORT);
+    for (int i=0; i<4; i++) 
+    {
+        gpio_pin_configure(dev, LED+i, GPIO_OUTPUT);
+    }
+    printk("Init 0.0.5.10\n");
+}
+
+void led(int idx, int val) 
+{
+    gpio_pin_set(dev, LED+idx, val);
+    delay();
+}
 
 void main(void)
 {
-	u32_t cnt = 0;
-	struct device *dev;
+    init();
+    while (1) {
+        printk("loop\n");
+        led(0, 1);
+        led(1, 1);
+        led(3, 1);
+        led(2, 1);
 
-	printk("START\n");
-
-	dev = device_get_binding(LED_PORT);
-	gpio_pin_configure(dev, LED, GPIO_OUTPUT);
-
-	while (1) {
-		printk("LOOP %d\n", cnt);
-		gpio_pin_set(dev, LED, cnt % 2);
-		cnt++;
-		k_sleep(SLEEP_TIME);
-	}
+        led(0, 0);
+        led(1, 0);
+        led(3, 0);
+        led(2, 0);
+    }
 }

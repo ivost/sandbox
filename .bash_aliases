@@ -111,7 +111,7 @@ alias gitsq='echo "to squash last N commits - append HEAD~N" && git reset --soft
 alias gitresetDEVELOP='git reset --hard origin/develop'
 
 
-alias wip='git commit -a -m wip; git push'
+alias wip='git commit -a -m wip'
 alias wipp='git commit -a -m wip && git push'
 
 alias gitlog='git log --graph --decorate --oneline'
@@ -306,6 +306,20 @@ a dir=ls
 #a type=cat
 
 export pi=pi@10.0.1.194
+
+export ZEPHYR_TOOLCHAIN_VARIANT=gnuarmemb
+export GNUARMEMB_TOOLCHAIN_PATH="~/gnuarmemb"
+
+# https://github.com/schollz/find3-cli-scanner
+
+export PATH="$HOME/go/bin:/usr/local/opt/libpcap/bin:$PATH"
+export LDFLAGS="-L/usr/local/opt/libpcap/lib"
+export CPPFLAGS="-I/usr/local/opt/libpcap/include"
+
+export PATH="$PATH:$HOME/tools:$HOME/tools/platform-tools"
+
+alias p=python3
+a sshj='ssh root@192.168.1.1'
 
 #source /opt/intel/openvino/bin/setupvars.sh
 

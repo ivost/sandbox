@@ -4,7 +4,7 @@
 #set -e
 
 #echo 🔥 ✋ 🛑  💣
-### echo v.2.4.7.0
+### echo v.2.6.2.0
 #echo 🔥 ✋ 🛑  💣
 
 
@@ -28,7 +28,7 @@ alias s='source'
 alias c=clear
 alias t=tree
 alias gr=egrep
-alias del='rm'
+#alias del='rm'
 
 #alias ep='subl ~/.profile; source ~/.profile'
 #alias ep='subl ~/.bash_profile; source ~/.bash_profile'
@@ -127,7 +127,9 @@ alias k9='kill -9'
 alias pssh='ps aux|grep ssh'
 alias gign='vi .gitignore'
 
-export PATH=/usr/local/bin:$HOME/tools:$PATH
+export PATH=/usr/local/bin:$PATH:$HOME/tools
+# warning -  do not use SES from tools dir - install properly with installer in /usr
+#export PATH=$PATH:$HOME/tools/ses/bin
 
 alias sba='source ~/.bash_aliases'
 alias pu='lsof -i '
@@ -220,7 +222,7 @@ fi
 
 alias inst='sudo apt install'
 alias upd='sudo apt update'
-
+alias eba='subl ~/.bash_aliases; source ~/.bash_aliases'
 
 ## aliases depending on OS
 ### MAC
@@ -247,10 +249,9 @@ if [[ "$OSTYPE" =~ ^darwin ]]; then
   # Hide/show all desktop icons (useful when presenting)
   alias hidedesktop="defaults write com.apple.finder CreateDesktop -bool false && killall Finder"
   alias showdesktop="defaults write com.apple.finder CreateDesktop -bool true && killall Finder"
-  alias subl='/Applications/Sublime\ Text.app/Contents/SharedSupport/Bin/subl'
-  #export EDITOR='/Applications/Sublime\ Text.app/Contents/SharedSupport/Bin/subl'
+  #alias subl='/Applications/Sublime\ Text.app/Contents/SharedSupport/Bin/subl'
   #alias m=multipass
-  alias eba='subl ~/.bash_aliases; source ~/.bash_aliases'
+
 	#x=$(brew --prefix)/etc/bash_completion
 	# shellcheck disable=SC1090
 	#[[ -f "$x" ]] && source "$x"
@@ -281,6 +282,7 @@ alias N='date +''%s'''
 umask 0022
 
 alias mm='make menuconfig'
+<<<<<<< HEAD
 
 # brew cask install adoptopenjdk13
 
@@ -326,3 +328,5 @@ a sshj='ssh root@192.168.1.1'
 # sudo python3 -m pip install --upgrade --force-reinstall pip
 # docker run -p 127.0.0.1:5665:5665  --name workbench -e PROXY_HOST_ADDRESS=0.0.0.0 -e PORT=5665 -it openvino/workbench:latest
 # http://127.0.0.1:5665/?token=aaa944559052a78878658f31c1b8aece6f081bc31f87078c1a852b138e336495
+=======
+>>>>>>> aa68aaf6349865fe39194a5d77f572401b78597f

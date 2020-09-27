@@ -11,7 +11,7 @@ import java.util.List;
 @Repository
 public interface CityRepository extends CrudRepository<City, Long> {
 
-    @Query("SELECT c FROM City c WHERE c.name LIKE CONCAT('%',:ending, '%') AND c.population < :num")
+    @Query("SELECT c FROM com.example.demo.model.City c WHERE c.name LIKE CONCAT('%',:ending, '%') AND c.population < :num")
     List<City> findByNameEndingWithAndPopulationLessThan(@Param("ending") String ending,
                                                          @Param("num") Integer num);
 }

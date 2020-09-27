@@ -1,4 +1,4 @@
-package com.example.demo;
+package com.example;
 
 import com.example.demo.model.City;
 import com.example.demo.repository.CityRepository;
@@ -14,6 +14,7 @@ public class CityRunner implements CommandLineRunner {
 
     private final CityRepository cityRepository;
     public CityRunner(CityRepository cityRepository) {
+
         this.cityRepository = cityRepository;
     }
 

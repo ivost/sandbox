@@ -11,9 +11,11 @@ import java.util.Optional;
 @Service
 @Slf4j
 public class CountryServiceImpl implements CountryService {
+
     private final CountryRepository repository;
 
     public CountryServiceImpl(CountryRepository repository) {
+
         this.repository = repository;
     }
 

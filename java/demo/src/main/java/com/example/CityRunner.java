@@ -11,10 +11,11 @@ import java.util.List;
 @Component
 @Slf4j
 public class CityRunner implements CommandLineRunner {
-
+    //@Inject
+    //@Autowired
     private final CityRepository cityRepository;
-    public CityRunner(CityRepository cityRepository) {
 
+    public CityRunner(CityRepository cityRepository) {
         this.cityRepository = cityRepository;
     }
 

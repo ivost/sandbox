@@ -339,5 +339,22 @@ a gb='go build  -ldflags "-s -w"; ls -altrh'
 a gba='GOOS=linux GOARCH=arm  CGO_ENABLED=0 go  build -ldflags "-s -w" ; ls -altrh'
 a gba1='GOOS=linux GOARCH=arm  go  build; ls -altrh'
 
+export PATH="$HOME/.jenv/bin:$PATH"
+eval "$(jenv init -)"
+
+export PATH="$HOME/tools/apache-maven-3.6.3/bin:$PATH"
+
+if type brew &>/dev/null; then
+  HOMEBREW_PREFIX="$(brew --prefix)"
+  if [[ -r "${HOMEBREW_PREFIX}/etc/profile.d/bash_completion.sh" ]]; then
+    source "${HOMEBREW_PREFIX}/etc/profile.d/bash_completion.sh"
+  else
+    for COMPLETION in "${HOMEBREW_PREFIX}/etc/bash_completion.d/"*; do
+      [[ -r "$COMPLETION" ]] && source "$COMPLETION"
+    done
+  fi
+fi
+
+a ssh-az='ssh -i ~/.ssh/ivo-ubuntu-1_key.pem   AzureUser@52.250.120.35'
 
 

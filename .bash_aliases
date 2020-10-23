@@ -358,3 +358,4 @@ fi
 a ssh-az='ssh -i ~/.ssh/ivo-ubuntu-1_key.pem   AzureUser@52.250.120.35'
 
 
+a ssh-pi='ssh pi@10.0.1.170'

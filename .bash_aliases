@@ -7,7 +7,6 @@
 ### echo v.2.3.19.0
 #echo 🔥 ✋ 🛑  💣
 
-
 export PS1="\T \W$ "
 export HISTCONTROL=erasedups
 export HISTSIZE=10000
@@ -125,7 +124,12 @@ alias k9='kill -9'
 alias pssh='ps aux|grep ssh'
 alias gign='vi .gitignore'
 
-export PATH=/usr/local/bin:$HOME/tools:$PATH
+#export PATH=$HOME/.local/bin:$PATH
+
+#export PATH=$HOME/tools:$HOME/bin:$PATH:/usr/local/bin
+#export PATH=$HOME/tools/depot_tools:$PATH
+#export PATH=$HOME/DEV/cobalt/src/third_party/llvm-build/Release+Asserts/bin:${PATH}
+
 
 alias sba='source ~/.bash_aliases'
 alias pu='lsof -i '
@@ -245,7 +249,7 @@ fi
 #curl -i -X POST -H "$A" $URL  -d '{"value": "'$L'"}'
 
 # colorizer
-[[ -s "/usr/local/etc/grc.bashrc" ]] && source /usr/local/etc/grc.bashrc
+#[[ -s "/usr/local/etc/grc.bashrc" ]] && source /usr/local/etc/grc.bashrc
 
 # if you have ssh problems
 alias sshv='ssh -vvv -o LogLevel=DEBUG3'
@@ -266,3 +270,19 @@ alias N='date +''%s'''
 umask 0022
 
 alias mm='make menuconfig'
+alias fix='sudo apt --fix-broken install'
+#export CROSS=/opt/gcc-8.2.0/poky/build/tmp-glibc/sysroots/x86_64/usr/bin/arm-oe-linux-gnueabi
+#export PATH=$CROSS:$PATH
+#export PATH=/opt/ptxdist/bin/:$PATH
+
+#CC=/opt/gcc-8.2.0/poky/build/tmp-glibc/sysroots/x86_64/usr/bin/arm-oe-linux-gnueabi/arm-oe-linux-gnueabi-gcc
+#INC=/opt/gcc-8.2.0/poky/build/tmp-glibc/sysroots/x86_64/usr/include
+
+# for python3
+#source ~/environments/bin/activate
+
+# sudo apt install python3.6
+# pipenv --python=python3.6 install gns-server
+# pipenv --python=python3.6 install gns-gui
+
+# 

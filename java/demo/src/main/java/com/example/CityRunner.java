@@ -1,4 +1,4 @@
-package com.example.demo;
+package com.example;
 
 import com.example.demo.model.City;
 import com.example.demo.repository.CityRepository;
@@ -11,8 +11,10 @@ import java.util.List;
 @Component
 @Slf4j
 public class CityRunner implements CommandLineRunner {
-
+    //@Inject
+    //@Autowired
     private final CityRepository cityRepository;
+
     public CityRunner(CityRepository cityRepository) {
         this.cityRepository = cityRepository;
     }

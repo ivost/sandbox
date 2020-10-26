@@ -4,7 +4,7 @@
 #set -e
 
 #echo 🔥 ✋ 🛑  💣
-### echo v.2.3.19.0
+### echo v.7.19.21.0
 #echo 🔥 ✋ 🛑  💣
 
 export PS1="\T \W$ "
@@ -115,7 +115,7 @@ alias gitlog='git log --graph --decorate --oneline'
 alias gitlog='git log --graph --full-history --all --color --pretty=format:"%x1b[31m%h%x09%x1b[32m%d%x1b[0m%x20%s"'
 
 # Enable aliases to be sudo’ed
-alias sudo='sudo '
+#alias sudo='sudo '
 
 # always use unidiff
 alias diff='diff -u'
@@ -169,6 +169,10 @@ function is_osx() {
 
 function is_ubuntu() {
   [[ "$(cat /etc/issue 2> /dev/null)" =~ Ubuntu ]] || return 1
+}
+
+function scp1() {
+  scp $1 root@192.168.1.1:
 }
 
 function is_ubuntu_desktop() {
@@ -237,7 +241,7 @@ if [[ "$OSTYPE" =~ ^darwin ]]; then
   # Hide/show all desktop icons (useful when presenting)
   alias hidedesktop="defaults write com.apple.finder CreateDesktop -bool false && killall Finder"
   alias showdesktop="defaults write com.apple.finder CreateDesktop -bool true && killall Finder"
-  #alias subl='/Applications/Sublime\ Text.app/Contents/SharedSupport/Bin/subl'
+  alias subl='/Applications/Sublime\ Text.app/Contents/SharedSupport/Bin/subl'
   #alias m=multipass
 
 	#x=$(brew --prefix)/etc/bash_completion
@@ -263,11 +267,97 @@ alias mode="stat -f '%A %a %N' "
 # ping bored-kid.local
 # 10.0.1.194
 export CORAL=10.0.1.194
-a sh-coral='mdt shell'
+a sh-coral='mdt shell'en
 alias N='date +''%s'''
 
 # default file creation mask
-umask 0022
+#umask 0022
+
+# AI-CAM
+export AC=192.168.0.20
+# pw is S...1
+a sh-ac='ssh ivo@$AC'
+
+alias mm='make menuconfig'
+
+export NVM_DIR="$HOME/.nvm"
+[ -s "/usr/local/opt/nvm/nvm.sh" ] && . "/usr/local/opt/nvm/nvm.sh"  # This loads nvm
+[ -s "/usr/local/opt/nvm/etc/bash_completion.d/nvm" ] && . "/usr/local/opt/nvm/etc/bash_completion.d/nvm"  # This loads nvm bash_completion
+
+a p=python
+
+#eval "$(pyenv init -)"
+
+#
+export A1=51.143.89.221
+a az1='ssh -i ~/.ssh/ivo-ubuntu-1_key.pem ivo@$A1'
+
+#export R3=10.0.1.20
+export R3=10.0.1.4
+a r3='ssh pi@$R3'
+
+a sa1='ssh -i ~/.ssh/ivostoy-897440107178keypair.pem ubuntu@52.40.243.181'
+
+# export R4=10.0.1.194
+# a r4='ssh pi@$R4'
+
+a vlc='/Applications/VLC.app/Contents/MacOS/VLC'
+
+export OPENSSL_DIR=/usr/local/opt/openssl
+export OPENSSL_ROOT_DIR=/usr/local/opt/openssl
+
+# export OPENSSL_DIR=/usr/local/Cellar/openssl@1.1/1.1.1g
+# export OPENSSL_ROOT_DIR=/usr/local/Cellar/openssl@1.1/1.1.1g
+
+#If you need to have openssl first in your PATH run:
+#  echo 'export PATH="/usr/local/opt/openssl/bin:$PATH"' >> ~/.profile
+
+#export PATH="/usr/local/opt/openssl/bin:$PATH"
+#export PATH="/usr/local/Cellar/mosquitto/1.6.12/bin:$PATH"
+#alias mqstart='mosquitto -c /usr/local/etc/mosquitto/mosquitto.conf'
+alias mqstart='brew services start mosquitto'
+alias mqstop='brew services stop mosquitto'
+alias mqs='mosquitto_sub -t top'
+alias mqp='mosquitto_pub -t top'
+alias mqs1='mosquitto_sub -h 192.168.1.1 -t top'
+
+#For compilers to find openssl you may need to set:
+export LDFLAGS="-L/usr/local/opt/openssl/lib"
+export CPPFLAGS="-I/usr/local/opt/openssl/include"
+
+#For pkg-config to find openssl you may need to set:
+export PKG_CONFIG_PATH="/usr/local/opt/openssl/lib/pkgconfig"
+
+export I=192.168.1.1
+alias sshj='ssh root@$I'
+
+
+a sshu='ssh -i "~/.ssh/ivo-keypair-2020.pem" ubuntu@ec2-18-189-20-67.us-east-2.compute.amazonaws.com'
+complete -C '/usr/local/bin/aws_completer' aws
+
+a gb='go build  -ldflags "-s -w"; ls -altrh'
+
+a gba='GOOS=linux GOARCH=arm  CGO_ENABLED=0 go  build -ldflags "-s -w" ; ls -altrh'
+a gba1='GOOS=linux GOARCH=arm  go  build; ls -altrh'
+
+#export PATH="$HOME/.jenv/bin:$PATH"
+#eval "$(jenv init -)"
+
+#export PATH="$HOME/tools/apache-maven-3.6.3/bin:$PATH"
+
+if type brew &>/dev/null; then
+  HOMEBREW_PREFIX="$(brew --prefix)"
+  if [[ -r "${HOMEBREW_PREFIX}/etc/profile.d/bash_completion.sh" ]]; then
+    source "${HOMEBREW_PREFIX}/etc/profile.d/bash_completion.sh"
+  else
+    for COMPLETION in "${HOMEBREW_PREFIX}/etc/bash_completion.d/"*; do
+      [[ -r "$COMPLETION" ]] && source "$COMPLETION"
+    done
+  fi
+fi
+
+a ssh-az='ssh -i ~/.ssh/ivo-ubuntu-1_key.pem   AzureUser@52.250.120.35'
+
 
 alias mm='make menuconfig'
 alias fix='sudo apt --fix-broken install'
@@ -286,3 +376,4 @@ alias fix='sudo apt --fix-broken install'
 # pipenv --python=python3.6 install gns-gui
 
 # 
+a ssh-pi='ssh pi@10.0.1.170'

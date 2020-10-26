@@ -7,6 +7,14 @@ server:
 spring:
   main:
     banner-mode: "off"
+    ######################################
+    # The bean 'cityRepository', defined in com.example.demo.repository.CityRepository defined in @EnableJpaRepositories
+    # declared on JpaRepositoriesRegistrar.EnableJpaRepositoriesConfiguration, could not be registered.
+    # A bean with that name has already been defined in com.example.demo2.model.CityRepository defined in
+    # @EnableJpaRepositories declared on JpaRepositoriesRegistrar.EnableJpaRepositoriesConfiguration
+    # and overriding is disabled.
+    ######################################
+    #allow-bean-definition-overriding: false
   jpa:
     database: h2
     hibernate:

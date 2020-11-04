@@ -211,7 +211,7 @@ function gitfp() {
   git push origin +"$B"
 }
 
-export EDITOR=subl
+export EDITOR=gedit
 alias inst='sudo apt install'
 alias upd='sudo apt update'
 alias eba='subl ~/.bash_aliases; source ~/.bash_aliases'
@@ -331,7 +331,6 @@ export PKG_CONFIG_PATH="/usr/local/opt/openssl/lib/pkgconfig"
 export I=192.168.1.1
 alias sshj='ssh root@$I'
 
-
 a sshu='ssh -i "~/.ssh/ivo-keypair-2020.pem" ubuntu@ec2-18-189-20-67.us-east-2.compute.amazonaws.com'
 complete -C '/usr/local/bin/aws_completer' aws
 
@@ -377,3 +376,22 @@ alias fix='sudo apt --fix-broken install'
 
 # 
 a ssh-pi='ssh pi@10.0.1.170'
+
+#Build instruction for RDKB Gateway:
+# repo init -u https://code.rdkcentral.com/r/manifests -m rdkb-extsrc.xml -b techsummit2020/meshconfig
+# repo sync -j4 --no-clone-bundle
+# MACHINE=raspberrypi-rdk-broadband-rpi4  source meta-cmf-raspberrypi/setup-environment
+# bitbake rdk-generic-broadband-image
+#
+
+a bb=bitbake
+
+a in-g='cd ~/rdkb-g && MACHINE=raspberrypi-rdk-broadband-rpi4  source meta-cmf-raspberrypi/setup-environment'
+a bb-g='bitbake rdk-generic-broadband-image'
+
+# repo init -u https://code.rdkcentral.com/r/manifests -b techsummit2020/gaming-arvr -m rdkv-asp-nosrc.xml
+a sync='repo sync -j4 --no-clone-bundle'
+a in-a='MACHINE=raspberrypi-rdk-mc source meta-cmf-raspberrypi/setup-environment'
+a bb-c='bitbake rdk-generic-mediaclient-image'
+
+

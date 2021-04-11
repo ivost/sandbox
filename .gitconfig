@@ -1,0 +1,17 @@
+[user]
+	email = ivo.stoyanov@inseego.com
+	name = Ivo Stoyanov
+[color]
+	ui = auto
+[review "https://code.rdkcentral.com"]
+        username = Ivo Stoyanov
+[http]
+        lowSpeedLimit = 1000
+        lowSpeedTime = 20
+        sslverify = false
+[gitreview]
+       username = Ivo Stoyanov
+[credential]
+        helper = cache --timeout=3600000
+[ssh]
+        variant = ssh

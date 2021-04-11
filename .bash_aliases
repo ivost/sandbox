@@ -7,7 +7,6 @@
 ### echo v.7.19.21.0
 #echo 🔥 ✋ 🛑  💣
 
-
 export PS1="\T \W$ "
 export HISTCONTROL=erasedups
 export HISTSIZE=10000
@@ -216,7 +215,7 @@ function gitfp() {
   git push origin +"$B"
 }
 
-export EDITOR=subl
+export EDITOR=gedit
 alias inst='sudo apt install'
 alias upd='sudo apt update'
 alias eba='subl ~/.bash_aliases; source ~/.bash_aliases'
@@ -258,7 +257,7 @@ fi
 #curl -i -X POST -H "$A" $URL  -d '{"value": "'$L'"}'
 
 # colorizer
-[[ -s "/usr/local/etc/grc.bashrc" ]] && source /usr/local/etc/grc.bashrc
+#[[ -s "/usr/local/etc/grc.bashrc" ]] && source /usr/local/etc/grc.bashrc
 
 # if you have ssh problems
 alias sshv='ssh -vvv -o LogLevel=DEBUG3'
@@ -282,8 +281,8 @@ export OPENSSL_ROOT_DIR=/usr/local/opt/openssl
 #If you need to have openssl first in your PATH run:
 #  echo 'export PATH="/usr/local/opt/openssl/bin:$PATH"' >> ~/.profile
 
-export PATH="/usr/local/opt/openssl/bin:$PATH"
-export PATH="/usr/local/Cellar/mosquitto/1.6.12/bin:$PATH"
+#export PATH="/usr/local/opt/openssl/bin:$PATH"
+#export PATH="/usr/local/Cellar/mosquitto/1.6.12/bin:$PATH"
 #alias mqstart='mosquitto -c /usr/local/etc/mosquitto/mosquitto.conf'
 alias mqstart='brew services start mosquitto'
 alias mqstop='brew services stop mosquitto'
@@ -301,7 +300,6 @@ export PKG_CONFIG_PATH="/usr/local/opt/openssl/lib/pkgconfig"
 export I=192.168.1.1
 alias sshj='ssh root@$I'
 
-
 a sshu='ssh -i "~/.ssh/ivo-keypair-2020.pem" ubuntu@ec2-18-189-20-67.us-east-2.compute.amazonaws.com'
 complete -C '/usr/local/bin/aws_completer' aws
 
@@ -313,7 +311,7 @@ a gba1='GOOS=linux GOARCH=arm  go  build; ls -altrh'
 # export PATH="$HOME/.jenv/bin:$PATH"
 # eval "$(jenv init -)"
 
-export PATH="$HOME/tools/apache-maven-3.6.3/bin:$PATH"
+#export PATH="$HOME/tools/apache-maven-3.6.3/bin:$PATH"
 
 if type brew &>/dev/null; then
   HOMEBREW_PREFIX="$(brew --prefix)"

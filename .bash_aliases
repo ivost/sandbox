@@ -13,7 +13,7 @@ export HISTCONTROL=erasedups
 export HISTSIZE=10000
 export HISTFILESIZE=10000
 # dont save commands starting with space 
-export HISTIGNORE="[ \t]*:pwd:ls:ll:h:a:rm"
+#export HISTIGNORE="[ \t]*:pwd:ls:ll:h:a:rm"
 #export HISTIGNORE="rm *:h:a"
 
 #MYIP=$(ifconfig | grep 'inet addr:'| grep -v '127.0.0.1' | tail -1 | cut -d: -f2 | awk '{ print $1}')
@@ -88,7 +88,10 @@ alias lat='ls -FLalhtr'
 ###  🔥 GIT 🔥  ###
 ####################
 
-alias clone='git clone'
+alias clone='git clone --recursive -j8'
+alias clone1='git clone --recurse-submodules -j8 --depth 1'
+alias gitsubu='git submodule update --init --recursive'
+
 alias amend='git commit --amend -m'
 alias orphan='git checkout --orphan'
 
@@ -108,6 +111,7 @@ alias gitml="git merge --strategy-option ours"
 alias gits='git status'
 alias gitsq='echo "to squash last N commits - append HEAD~N" && git reset --soft'
 alias gitresetDEVELOP='git reset --hard origin/develop'
+alias gitli='git lfs install'
 
 alias wip='git commit -a -m wip'
 alias wipp='git commit -a -m wip && git push'
@@ -127,7 +131,9 @@ alias gign='vi .gitignore'
 
 export PATH=/usr/local/bin:$HOME/tools:$PATH
 export PATH=$HOME/tools/platform-tools:$PATH
-export PATH=$HOME/go/bin:$PATH
+# export PATH=/Users/ivo/Library/Python/3.9/bin:$PATH
+#export PATH=$HOME/go/bin:$PATH
+#export GOPATH=$HOME/go
 
 
 alias sba='source ~/.bash_aliases'
@@ -259,46 +265,11 @@ alias sshv='ssh -vvv -o LogLevel=DEBUG3'
 
 #a mb='make extraclean && make api && make generate'
 alias mode="stat -f '%A %a %N' "
-
-###############
-# Coral board #
-###############
-# ping bored-kid.local
-# 10.0.1.194
-export CORAL=10.0.1.194
-a sh-coral='mdt shell'
-alias N='date +''%s'''
-
-# default file creation mask
-#umask 0022
-
-# AI-CAM
-export AC=192.168.0.20
-# pw is S...1
-a sh-ac='ssh ivo@$AC'
-
 alias mm='make menuconfig'
 
-export NVM_DIR="$HOME/.nvm"
-[ -s "/usr/local/opt/nvm/nvm.sh" ] && . "/usr/local/opt/nvm/nvm.sh"  # This loads nvm
-[ -s "/usr/local/opt/nvm/etc/bash_completion.d/nvm" ] && . "/usr/local/opt/nvm/etc/bash_completion.d/nvm"  # This loads nvm bash_completion
-
-a p=python
-
-eval "$(pyenv init -)"
-
-#
-export A1=51.143.89.221
-a az1='ssh -i ~/.ssh/ivo-ubuntu-1_key.pem ivo@$A1'
-
-#export R3=10.0.1.20
-export R3=10.0.1.4
-a r3='ssh pi@$R3'
-
-a sa1='ssh -i ~/.ssh/ivostoy-897440107178keypair.pem ubuntu@52.40.243.181'
-
-# export R4=10.0.1.194
-# a r4='ssh pi@$R4'
+# export NVM_DIR="$HOME/.nvm"
+# [ -s "/usr/local/opt/nvm/nvm.sh" ] && . "/usr/local/opt/nvm/nvm.sh"  # This loads nvm
+# [ -s "/usr/local/opt/nvm/etc/bash_completion.d/nvm" ] && . "/usr/local/opt/nvm/etc/bash_completion.d/nvm"  # This loads nvm bash_completion
 
 a vlc='/Applications/VLC.app/Contents/MacOS/VLC'
 
@@ -339,8 +310,8 @@ a gb='go build  -ldflags "-s -w"; ls -altrh'
 a gba='GOOS=linux GOARCH=arm  CGO_ENABLED=0 go  build -ldflags "-s -w" ; ls -altrh'
 a gba1='GOOS=linux GOARCH=arm  go  build; ls -altrh'
 
-export PATH="$HOME/.jenv/bin:$PATH"
-eval "$(jenv init -)"
+# export PATH="$HOME/.jenv/bin:$PATH"
+# eval "$(jenv init -)"
 
 export PATH="$HOME/tools/apache-maven-3.6.3/bin:$PATH"
 
@@ -355,7 +326,158 @@ if type brew &>/dev/null; then
   fi
 fi
 
-a ssh-az='ssh -i ~/.ssh/ivo-ubuntu-1_key.pem   AzureUser@52.250.120.35'
+###############
+# Coral board #
+###############
+# ping bored-kid.local
+# 10.0.1.194
+export CORAL=192.168.4.144
+a mdt-coral='mdt shell'
+a sh-coral='ssh mendel@$CORAL'
+
+export U_C="mendel@$CORAL"
+
+alias N='date +''%s'''
+
+# default file creation mask
+#umask 0022
+
+# AI-CAM
+export AC=192.168.0.20
+# pw is S...1
+a sh-ac='ssh ivo@$AC'
+
+a p=python3
+
+# eval "$(pyenv init -)"
+# eval "$(pyenv virtualenv-init -)"
+
+export A1=51.143.89.221
+a az1='ssh -i ~/.ssh/ivo-ubuntu-1_key.pem ivo@$A1'
+
+#export R3=10.0.1.20
+export R3=10.0.1.4
+a r3='ssh pi@$R3'
+
+a sa1='ssh -i ~/.ssh/ivostoy-897440107178keypair.pem ubuntu@52.40.243.181'
+
+# export R4=10.0.1.194
+# a r4='ssh pi@$R4'
 
 
-a ssh-pi='ssh pi@10.0.1.170'
+export KE='/Users/ivo/go/src/github.com/kubeedge'
+a cdke='cd $KE'
+
+#a ss-pi='ssh pi@10.0.1.170'
+
+a k='kubectl --insecure-skip-tls-verify'
+
+export LEN=192.168.4.30
+export PI4e=192.168.4.119
+export PI4=192.168.4.55
+export ODY=192.168.4.124
+
+a sh-pi4='ssh ivo@$PI4'
+
+export UB=10.1.2.143
+
+export U1=52.250.11.246
+export U2=52.229.50.232
+
+export AU1=AzureUser@$U1
+export AU2=azureuser@$U2
+
+a ub='ssh ivo.stoyanov@$UB'
+a u1='ssh -i ~/.ssh/ivo-ubuntu-1_key.pem  $AU1'
+a u2='ssh -i ~/.ssh/ivo-ubuntu-1_key.pem  $AU2'
+export UUB="ivo.stoyanov@$UB"
+
+# jetson nano
+export JN=192.168.4.147
+export UJ=ivo@$JN
+a sh-jn='ssh $UJ'
+
+export V3=192.168.4.157
+export UK=khadas@$V3
+a sh-k='ssh $UK'
+a sh-k='ssh $V3'
+
+export NUC=192.168.4.165
+export UN=ivo@$NUC
+a sh-n='ssh $UN'
+
+export TB=192.168.5.173
+export UTB=root@192.168.5.173
+a scp2='scp -p222'
+
+a tb='ssh -p222 $UTB'
+# scp to
+a tb-to='scp $1 $UTB:'
+# scp from
+a tb-from='scp -p222 $UTB:$1 .'
+
+
+a rpi3a='ssh pi@rpi3a.local'
+a m=multipass
+a ody='ssh ivo@odyssey.local'
+
+# scp to
+a ub-ct='scp $1 ivo.stoyanov@$UB:'
+# scp from
+a ub-cg='scp ivo.stoyanov@$UB:$1 .'
+
+#  export IP=$(multipass info faasd --format json| jq '.info.faasd.ipv4[0]' | tr -d '\"')
+
+a pyc='open -na "PyCharm.app"'
+a cd-ov='cd ~/github/openvino-playground'
+
+#export OV="/opt/intel/openvino"
+#source $OV/bin/setupvars.sh
+
+a pipi='pip install -r requirements.txt'
+a pipu='python -m pip install --upgrade pip'
+
+a nb='jupyter notebook'
+
+### /opt/intel/openvino_2021/deployment_tools/inference_engine/lib/intel64/libinference_engine*.so /lib/x86_64-linux-gnu/ -v
+
+# export OV="$HOME/intel/openvino_2021"
+# a ovi='source $OV/bin/setupvars.sh'
+
+# export OV_DT=$OV/deployment_tools
+# export OV_IE=$OV/inference_engine
+
+# export DYLD_LIBRARY_PATH=$OV/opencv/lib:$OV_DT/ngraph/lib:$OV_DT/inference_engine/lib/intel64:$OV_DT/inference_engine/external/tbb/lib
+# export LD_LIBRARY_PATH=$DYLD_LIBRARY_PATH
+
+# echo $DYLD_LIBRARY_PATH
+# echo $LD_LIBRARY_PATH
+
+alias caz='conda activate zipline'
+alias preq='pip freeze > requirements.txt'
+alias dai-env='pyenv local depthai'
+
+#export X=/usr/local/gcc-arm-none-eabi-9-2019-q4-major
+#export PATH=$PATH:$X/bin
+
+# git clone --depth 1 https://github.com/tensorflow/tensorflow
+# pyenv virtualenv 3.7.9 tf2
+
+# export LDFLAGS="-L/usr/local/opt/tcl-tk/lib"
+# export DYLDFLAGS="-L/usr/local/opt/tcl-tk/lib"
+# export CPPFLAGS="-I/usr/local/opt/tcl-tk/include"
+# export PKG_CONFIG_PATH="/usr/local/opt/tcl-tk/lib/pkgconfig"
+
+export MP="$HOME/github/myriad-playground"
+
+# export PYTHON_PATH=$MP/insg:$MP/insg/common:$MP/insg/oak:$PYTHON_PATH
+# echo $PYTHON_PATH
+
+export PATH=$MP/insg/common:$PATH
+a cdm='cd $MP'
+a cdo='cd $MP/insg/oak'
+
+a pips='pipenv shell'
+
+a ys='yarn start'
+a yb='yarn run build'

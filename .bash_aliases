@@ -349,8 +349,8 @@ a sh-ac='ssh ivo@$AC'
 
 a p=python3
 
-eval "$(pyenv init -)"
-eval "$(pyenv virtualenv-init -)"
+# eval "$(pyenv init -)"
+# eval "$(pyenv virtualenv-init -)"
 
 export A1=51.143.89.221
 a az1='ssh -i ~/.ssh/ivo-ubuntu-1_key.pem ivo@$A1'

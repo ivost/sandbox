@@ -65,13 +65,16 @@ func main() {
 		log.Fatal(err)
 	}
 	body, _ := ioutil.ReadAll(res.Body)
-	log.Printf("weather: %s", body)
+	//log.Printf("weather: %s", body)
+
 	// deserialize json result
 	var weather Payload
 	err = json.Unmarshal(body, &weather)
 	if err != nil {
 		log.Fatal(err)
 	}
+	//log.Printf("weather: %#v", weather)
+
 	// format and print some fields
 	var w = weather.Main
 	log.Printf("temperature (F): min: %.1f, max: %.1f, humidity: %v%%", w.TempMin, w.TempMax, w.Humidity)

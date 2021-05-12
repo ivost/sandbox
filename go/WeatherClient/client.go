@@ -74,9 +74,11 @@ func main() {
 	}
 	// format and print some fields
 	var w = weather.Main
-	log.Printf("temperature (F): min: %v, max: %v, humidity: %v%%",
-		w.TempMin, w.TempMax, w.Humidity)
-	var sunrise = time.Unix(int64(weather.Sys.Sunrise), 0)
-	var sunset = time.Unix(int64(weather.Sys.Sunset), 0)
-	log.Printf("sunrise: %v, sunset: %v", sunrise, sunset)
+	log.Printf("temperature (F): min: %.1f, max: %.1f, humidity: %v%%", w.TempMin, w.TempMax, w.Humidity)
+	var s = weather.Sys
+	log.Printf("sunrise: %v, sunset: %v", formatTime(s.Sunrise), formatTime(s.Sunset))
+}
+
+func formatTime(ts int) time.Time {
+	return time.Unix(int64(ts), 0)
 }

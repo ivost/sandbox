@@ -130,6 +130,8 @@ alias gign='vi .gitignore'
 
 export PATH=/usr/local/bin:$HOME/tools:$PATH
 export PATH=$HOME/tools/platform-tools:$PATH
+export PATH=$HOME/.bin:$PATH
+
 # export PATH=/Users/ivo/Library/Python/3.9/bin:$PATH
 #export PATH=$HOME/go/bin:$PATH
 #export GOPATH=$HOME/go
@@ -347,8 +349,8 @@ a sh-ac='ssh ivo@$AC'
 
 a p=python3
 
-# eval "$(pyenv init -)"
-# eval "$(pyenv virtualenv-init -)"
+eval "$(pyenv init -)"
+eval "$(pyenv virtualenv-init -)"
 
 export A1=51.143.89.221
 a az1='ssh -i ~/.ssh/ivo-ubuntu-1_key.pem ivo@$A1'
@@ -370,7 +372,7 @@ a cdke='cd $KE'
 
 a k='kubectl --insecure-skip-tls-verify'
 
-export LEN=192.168.4.30
+export LEN=192.168.4.164
 export PI4e=192.168.4.119
 export PI4=192.168.4.55
 export ODY=192.168.4.124
@@ -402,23 +404,24 @@ a sh-k='ssh $V3'
 
 export NUC=192.168.4.165
 export UN=ivo@$NUC
-a sh-n='ssh $UN'
+a nuc='ssh $UN'
 
 export TB=192.168.5.173
-export UTB=root@192.168.5.173
+export UTB=ivo@$TB
+
 a scp2='scp -p222'
 
 a tb='ssh -p222 $UTB'
+
 # scp to
 a tb-to='scp $1 $UTB:'
 # scp from
 a tb-from='scp -p222 $UTB:$1 .'
 
-
 a rpi3a='ssh pi@rpi3a.local'
 a m=multipass
 a ody='ssh ivo@odyssey.local'
-
+a sh-len='ssh $LEN'
 # scp to
 a ub-ct='scp $1 ivo.stoyanov@$UB:'
 # scp from
@@ -479,3 +482,15 @@ a pips='pipenv shell'
 
 a ys='yarn start'
 a yb='yarn run build'
+a dc='docker compose'
+a dea='source deactivate'
+
+# brew info bison
+
+export PATH="/usr/local/opt/bison/bin:$PATH"
+
+export LDFLAGS="-L/usr/local/opt/bison/lib"
+
+
+# export PATH="$HOME/.jenv/bin:$PATH"
+# eval "$(jenv init -)"

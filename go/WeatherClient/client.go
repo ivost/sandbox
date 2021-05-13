@@ -9,6 +9,7 @@ import (
 	"time"
 )
 
+// Payload created with json2go
 type Payload struct {
 	Coord struct {
 		Lon float64 `json:"lon"`

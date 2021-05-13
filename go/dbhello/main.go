@@ -1,11 +1,17 @@
 package main
 
 import (
+	"context"
 	"database/sql"
+	"encoding/json"
 	"fmt"
 	"log"
-	//	"runtime/debug"
+	"os"
+	"os/signal"
+	"time"
 
+	//	"runtime/debug"
+	"github.com/Azure/azure-event-hubs-go/v3"
 	"github.com/jmoiron/sqlx"
 	_ "github.com/lib/pq"
 )
@@ -21,7 +27,21 @@ CREATE TABLE place (
     country text,
     city text NULL,
     telcode integer
-)`
+)
+
+CREATE TABLE reading (
+	temperature float4 NULL,
+	humidity float4 NULL,
+	unit varchar NULL
+);
+
+`
+
+type Reading struct {
+	Temperature float32 `db,json:"temperature"`
+	Humidity    float32 `db,json:"humidity"`
+	Scale       string  `db,json:"scale"`
+}
 
 type Person struct {
 	FirstName string `db:"first_name"`
@@ -35,14 +55,17 @@ type Place struct {
 	TelCode int
 }
 
-var db * sqlx.DB
+var db *sqlx.DB
 var err error
 var create = false
+
+const dbConn = "user=ivo dbname=events sslmode=disable"
+const connStr = "Endpoint=sb://ihsuprodbyres133dednamespace.servicebus.windows.net/;SharedAccessKeyName=iothubowner;SharedAccessKey=qEuBieu2cX6d0tOg6h14rGNqONqPFFoL49ZPi+2+ano=;EntityPath=iothub-ehub-iothub-ins-3265238-e829c1fd29"
 
 func main() {
 	// this Pings the database trying to connect
 	// use sqlx.Open() for sql.Open() semantics
-	db, err = sqlx.Connect("postgres", "user=ivo dbname=events sslmode=disable")
+	db, err = sqlx.Connect("postgres", dbConn)
 	if err != nil {
 		log.Fatalln(err)
 	}
@@ -50,8 +73,88 @@ func main() {
 	if create {
 		dbInit()
 	}
-
+	// dbRead()
+	eventHub()
 }
+
+func eventHub() {
+	hub, err := eventhub.NewHubFromConnectionString(connStr)
+
+	if err != nil {
+		log.Printf(err.Error())
+		return
+	}
+
+	ctx, cancel := context.WithTimeout(context.Background(), 20*time.Second)
+	defer cancel()
+
+	//// send a single message into a random partition
+	//err = hub.Send(ctx, eventhub.NewEventFromString("hello, world!"))
+	//if err != nil {
+	//	fmt.Println(err)
+	//	return
+	//}
+
+	count := 0
+	handler := func(c context.Context, event *eventhub.Event) error {
+		count++
+		log.Printf("count %d Received: %s", count, string(event.Data))
+		//Received: {"temperature":30.414,"humidity":72.500,"scale":"Celsius"}
+		var r Reading
+		err = json.Unmarshal(event.Data, &r)
+		if err != nil {
+			log.Printf("error %s", err.Error())
+			return nil
+		}
+		addData(r)
+		return nil
+	}
+
+	// listen to each partition of the Event Hub
+	runtimeInfo, err := hub.GetRuntimeInformation(ctx)
+	if err != nil {
+		fmt.Println(err)
+		return
+	}
+
+	for _, partitionID := range runtimeInfo.PartitionIDs {
+		// Start receiving messages
+		//
+		// Receive blocks while attempting to connect to hub, then runs until listenerHandle.Close() is called
+		// <- listenerHandle.Done() signals listener has stopped
+		// listenerHandle.Err() provides the last error the receiver encountered
+
+		fmt.Printf("Receiving from partition %v\n", partitionID)
+		_, err := hub.Receive(ctx, partitionID, handler, eventhub.ReceiveWithLatestOffset())
+		// listenerHandle, err := hub.Receive(ctx, partitionID, handler)
+		if err != nil {
+			fmt.Println(err)
+			return
+		}
+		//_ = listenerHandle
+	}
+
+	// Wait for a signal to quit:
+	signalChan := make(chan os.Signal, 1)
+	signal.Notify(signalChan, os.Interrupt, os.Kill)
+	<-signalChan
+	fmt.Printf("Exit\n")
+	err = hub.Close(context.Background())
+	if err != nil {
+		log.Print(err.Error())
+	}
+}
+
+func addData(r Reading) {
+	_, err = db.Exec(`INSERT INTO reading (temperature, humidity, unit)
+        VALUES ($1, $2, $3)`, r.Temperature, r.Humidity, r.Scale)
+	if err != nil {
+		log.Print(err.Error())
+	}
+}
+
+//_, err = db.NamedExec(`INSERT INTO events (temperature, humidity, scale)
+//        VALUES (:temperature, :humidity, :scale)`, r)
 
 func dbInit() {
 	// exec the schema or fail; multi-statement Exec behavior varies between
@@ -142,7 +245,7 @@ func dbRead() {
 	_, err = db.NamedExec(`INSERT INTO person (first_name,last_name,email) VALUES (:first,:last,:email)`,
 		map[string]interface{}{
 			"first": "Bin",
-			"last": "Smuth",
+			"last":  "Smuth",
 			"email": "bensmith@allblacks.nz",
 		})
 
@@ -154,3 +257,5 @@ func dbRead() {
 	// is taken into consideration.
 	rows, err = db.NamedQuery(`SELECT * FROM person WHERE first_name=:first_name`, jason)
 }
+
+// https://github.com/Azure/azure-event-hubs-go
